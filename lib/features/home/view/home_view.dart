@@ -167,7 +167,7 @@ class _TopCenter extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CircleAvatar(
       radius: 60,
-      backgroundImage: AssetImage('assets/images/common/profile.jpg'),
+      backgroundImage: AssetImage('assets/images/common/profile.webp'),
     );
   }
 }
@@ -251,7 +251,7 @@ class _Center extends StatelessWidget {
                   repeat: ImageRepeat.repeat,
                   autostart: Autostart.loop,
                   controller: shapeController,
-                  image: const AssetImage('assets/images/common/shape.gif'),
+                  image: const AssetImage('assets/images/common/shape.webp'),
                 ),
               ),
             ),
@@ -268,7 +268,7 @@ class _Center extends StatelessWidget {
                   child: Opacity(
                     opacity: 0.8,
                     child: Image.asset(
-                      'assets/images/common/signature.png',
+                      'assets/images/common/signature.webp',
                       fit: BoxFit.fitWidth,
                     ),
                   ),

@@ -10,7 +10,7 @@ class PeasyProjectDetailsView extends StatelessWidget {
       title: 'Peasy — Self-Checkout App',
       description:
           'Peasy is a mobile application developed as part of my graduation project with a team of 4 members. The app solves customer queue waiting problems by enabling self-checkout through NFC technology. Users can simply scan products with their phones and complete their purchases without waiting in line. The system includes a sophisticated backend service that recommends similar products based on the customer\'s purchase history and current selections. This project allowed me to gain experience in collaborative development, NFC integration, and recommendation systems while creating a practical solution for retail environments.',
-      iconPath: 'assets/images/peasy/peasy_logo.png',
+      iconPath: 'assets/images/peasy/peasy_logo.webp',
       technologyTags: [
         'Flutter',
         'Dart',
@@ -21,13 +21,13 @@ class PeasyProjectDetailsView extends StatelessWidget {
         'Team Collaboration',
       ],
       screenshotPaths: [
-        'assets/images/peasy/peasy_screenshots_1.png',
-        'assets/images/peasy/peasy_screenshots_6.png',
-        'assets/images/peasy/peasy_screenshots_7.png',
-        'assets/images/peasy/peasy_screenshots_3.png',
-        'assets/images/peasy/peasy_screenshots_3.png',
-        'assets/images/peasy/peasy_screenshots_4.png',
-        'assets/images/peasy/peasy_screenshots_5.png',
+        'assets/images/peasy/peasy_screenshots_1.webp',
+        'assets/images/peasy/peasy_screenshots_6.webp',
+        'assets/images/peasy/peasy_screenshots_7.webp',
+        'assets/images/peasy/peasy_screenshots_3.webp',
+        'assets/images/peasy/peasy_screenshots_3.webp',
+        'assets/images/peasy/peasy_screenshots_4.webp',
+        'assets/images/peasy/peasy_screenshots_5.webp',
       ],
       states: [
         ProjectState(label: 'Under Development', color: Colors.orange),

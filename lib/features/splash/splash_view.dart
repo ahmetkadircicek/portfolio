@@ -85,7 +85,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                     fps: 30,
                     autostart: Autostart.once,
                     controller: signatureController,
-                    image: const AssetImage('assets/images/common/signature.gif'),
+                    image: const AssetImage('assets/images/common/signature_animated.webp'),
                   ),
                 ),
               ),

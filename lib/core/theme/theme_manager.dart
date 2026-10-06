@@ -14,6 +14,7 @@ class ThemeManager {
         textTheme: GoogleFonts.nunitoTextTheme(),
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple).copyWith(
+          primary: Colors.white,
           surface: Colors.white,
           secondary: const Color(0xFFF3F2F7),
           onPrimary: const Color(0xFF1F2024),
