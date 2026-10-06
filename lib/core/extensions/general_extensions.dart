@@ -14,9 +14,8 @@ extension BuildContextExtension<T> on BuildContext {
   Size get size => MediaQuery.sizeOf(this);
 
   /// Outer margin of the rounded page cards and navigation bars.
-  EdgeInsets get pageMargin => isMobile
-      ? PaddingConstants.allMedium
-      : PaddingConstants.allLarge + PaddingConstants.symmetricHorizontalLarge;
+  EdgeInsets get pageMargin =>
+      isMobile ? PaddingConstants.allMedium : PaddingConstants.allLarge + PaddingConstants.symmetricHorizontalLarge;
 
   // Text Style Extensions
   TextStyle? get displayMedium => Theme.of(this).textTheme.displayMedium;
@@ -29,16 +28,12 @@ extension BuildContextExtension<T> on BuildContext {
   TextStyle? get labelLarge => Theme.of(this).textTheme.labelLarge;
   TextStyle? get bodySmall => Theme.of(this).textTheme.bodySmall;
   TextStyle? get titleTextStyle => Theme.of(this).appBarTheme.titleTextStyle;
-  TextStyle? get bodyExtraSmall =>
-      bodySmall?.copyWith(fontSize: 10, height: 1.6, letterSpacing: .5);
+  TextStyle? get bodyExtraSmall => bodySmall?.copyWith(fontSize: 10, height: 1.6, letterSpacing: .5);
   TextStyle? get bodyLarge => Theme.of(this).textTheme.bodyLarge;
-  TextStyle? get dividerTextSmall => bodySmall?.copyWith(
-      letterSpacing: 0.5, fontWeight: FontWeight.w700, fontSize: 12.0);
-  TextStyle? get dividerTextLarge => bodySmall?.copyWith(
-      letterSpacing: 1.5,
-      fontWeight: FontWeight.w700,
-      fontSize: 13.0,
-      height: 1.23);
+  TextStyle? get dividerTextSmall =>
+      bodySmall?.copyWith(letterSpacing: 0.5, fontWeight: FontWeight.w700, fontSize: 12.0);
+  TextStyle? get dividerTextLarge =>
+      bodySmall?.copyWith(letterSpacing: 1.5, fontWeight: FontWeight.w700, fontSize: 13.0, height: 1.23);
 
   // Color Extensions
   Color get primaryColor => Theme.of(this).primaryColor;
@@ -55,8 +50,7 @@ extension BuildContextExtension<T> on BuildContext {
   Color get surface => Theme.of(this).colorScheme.surface;
   Color get onSurface => Theme.of(this).colorScheme.onSurface;
   Color get surfaceContainer => Theme.of(this).colorScheme.surfaceContainer;
-  Color get onSecondaryContainer =>
-      Theme.of(this).colorScheme.onSecondaryContainer;
+  Color get onSecondaryContainer => Theme.of(this).colorScheme.onSecondaryContainer;
 
   // Spacer
   Widget spacerHeight(double percentage) {
