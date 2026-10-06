@@ -29,7 +29,11 @@ class FirebaseService extends IFirebaseService {
   Future<FirebaseApp>? _app;
 
   @override
-  Future<void> initialize() => _app ??= _initialize();
+  Future<void> initialize() => _app ??= _initialize().catchError((Object error) {
+        // Let the next attempt (e.g. pressing Send again) retry.
+        _app = null;
+        throw error;
+      });
 
   Future<FirebaseApp> _initialize() async {
     final app = await Firebase.initializeApp(
