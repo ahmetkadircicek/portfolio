@@ -23,7 +23,8 @@ class ProjectsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => ProjectsViewModel(initialPage: slugs.indexOf(initialSlug ?? slugs.first).clamp(0, slugs.length - 1)),
+      create: (_) =>
+          ProjectsViewModel(initialPage: slugs.indexOf(initialSlug ?? slugs.first).clamp(0, slugs.length - 1)),
       child: const _ProjectsPage(),
     );
   }

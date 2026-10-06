@@ -422,7 +422,8 @@ class _NameAndTitle extends StatelessWidget {
       children: [
         Text(
           'Ahmet Kadir Çiçek',
-          style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.bold, color: context.onPrimary.withAlpha(204)),
+          style: GoogleFonts.montserrat(
+              fontSize: 16, fontWeight: FontWeight.bold, color: context.onPrimary.withAlpha(204)),
         ),
         Text(
           'Cross and Native Mobile Developer',

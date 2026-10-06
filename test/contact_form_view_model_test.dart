@@ -31,10 +31,22 @@ Future<void> _pumpForm(WidgetTester tester, ContactFormViewModel viewModel, Map<
       child: Form(
         key: viewModel.formKey,
         child: Column(children: [
-          TextFormField(initialValue: values['name'], validator: viewModel.validateName, onSaved: (v) => viewModel.name = v ?? ''),
-          TextFormField(initialValue: values['email'], validator: viewModel.validateEmail, onSaved: (v) => viewModel.email = v ?? ''),
-          TextFormField(initialValue: values['subject'], validator: viewModel.validateSubject, onSaved: (v) => viewModel.subject = v ?? ''),
-          TextFormField(initialValue: values['message'], validator: viewModel.validateMessage, onSaved: (v) => viewModel.message = v ?? ''),
+          TextFormField(
+              initialValue: values['name'],
+              validator: viewModel.validateName,
+              onSaved: (v) => viewModel.name = v ?? ''),
+          TextFormField(
+              initialValue: values['email'],
+              validator: viewModel.validateEmail,
+              onSaved: (v) => viewModel.email = v ?? ''),
+          TextFormField(
+              initialValue: values['subject'],
+              validator: viewModel.validateSubject,
+              onSaved: (v) => viewModel.subject = v ?? ''),
+          TextFormField(
+              initialValue: values['message'],
+              validator: viewModel.validateMessage,
+              onSaved: (v) => viewModel.message = v ?? ''),
         ]),
       ),
     ),

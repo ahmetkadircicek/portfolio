@@ -58,9 +58,7 @@ class _ContactFormState extends State<_ContactForm> {
         children: [
           const ContactsNavigationBarWidget(),
           Expanded(
-            child: viewModel.formSubmitted
-                ? _buildSuccessContent(context, viewModel)
-                : _buildForm(context, viewModel),
+            child: viewModel.formSubmitted ? _buildSuccessContent(context, viewModel) : _buildForm(context, viewModel),
           ),
         ],
       ),
