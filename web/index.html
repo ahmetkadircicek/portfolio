@@ -105,6 +105,27 @@
       setTimeout(function () { loader.remove(); }, 400);
     });
   </script>
-  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Earlier versions of this site installed a caching service worker that
+    // keeps serving the old app from its cache. Remove it (once) before
+    // loading Flutter; new visitors skip straight to loading.
+    (async function () {
+      try {
+        var regs = 'serviceWorker' in navigator ? await navigator.serviceWorker.getRegistrations() : [];
+        if (regs.length && !sessionStorage.getItem('sw-cleaned')) {
+          sessionStorage.setItem('sw-cleaned', '1');
+          await Promise.all(regs.map(function (r) { return r.unregister(); }));
+          var keys = await caches.keys();
+          await Promise.all(keys.filter(function (k) { return k.indexOf('flutter-') === 0; }).map(function (k) { return caches.delete(k); }));
+          location.reload();
+          return;
+        }
+      } catch (e) {}
+      var script = document.createElement('script');
+      script.src = 'flutter_bootstrap.js';
+      script.async = true;
+      document.body.appendChild(script);
+    })();
+  </script>
 </body>
 </html>

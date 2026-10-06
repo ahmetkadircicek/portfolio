@@ -12,9 +12,12 @@ flutter run -d chrome
 ## Build and deploy
 
 ```sh
-flutter build web --release --wasm
 firebase deploy --only hosting,firestore:rules
 ```
+
+The hosting predeploy hook in `firebase.json` runs `flutter build web --release --wasm --pwa-strategy=none` and installs `tool/service-worker-cleanup.js` as `/flutter_service_worker.js`, so a plain deploy always ships the right build.
+
+The site has no service worker. Versions before October 2026 installed Flutter's caching worker, which keeps serving the old app from its cache; `web/index.html` removes it on the next visit and the cleanup worker covers browsers that check for worker updates in the background.
 
 `--wasm` produces both a WebAssembly and a JavaScript build. Browsers with WasmGC (recent Chrome, Edge, Firefox) load the smaller and faster Wasm renderer; others fall back to JavaScript automatically.
 
