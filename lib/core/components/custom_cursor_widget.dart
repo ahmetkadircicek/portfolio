@@ -1,11 +1,18 @@
-import 'dart:async';
+import 'dart:collection';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:portfolio/core/extensions/general_extensions.dart';
+import 'package:portfolio/core/init/notifier/app_notifier.dart';
 import 'package:provider/provider.dart';
-import 'package:universal_html/html.dart' as html;
 
-import '../init/notifier/app_notifier.dart';
-
+/// Replaces the system cursor with a small circle and a fading trail on
+/// desktop widths.
+///
+/// Only the cursor overlay repaints on mouse moves; the page underneath is
+/// never rebuilt. The ticker that shortens the trail runs only while there is
+/// a trail to shorten.
 class CustomCursorWidget extends StatefulWidget {
   final Widget child;
   const CustomCursorWidget({
@@ -17,109 +24,152 @@ class CustomCursorWidget extends StatefulWidget {
   State<CustomCursorWidget> createState() => _CustomCursorWidgetState();
 }
 
-class _CustomCursorWidgetState extends State<CustomCursorWidget> {
-  Offset _pointerPosition = Offset.zero;
-  final List<Offset> _trailPoints = [];
-  late Timer _trailTimer;
-  late int _trailDuration;
+class _CustomCursorWidgetState extends State<CustomCursorWidget> with SingleTickerProviderStateMixin {
+  static const _maxTrailLength = 80;
+  static const _trailPointLifetime = Duration(microseconds: 7000);
 
-  @override
-  void initState() {
-    super.initState();
-    _detectBrowser();
-    _trailTimer = Timer.periodic(Duration(milliseconds: _trailDuration), (timer) {
-      if (_trailPoints.isNotEmpty) {
-        setState(() {
-          _trailPoints.removeAt(0);
-        });
-      }
-    });
+  final _cursor = _CursorState();
+  late final Ticker _ticker = createTicker(_onTick);
+  Duration _lastTick = Duration.zero;
+  Duration _pending = Duration.zero;
+
+  void _onHover(PointerHoverEvent event) {
+    _cursor.move(event.position, _maxTrailLength);
+    if (!_ticker.isActive) {
+      _lastTick = Duration.zero;
+      _pending = Duration.zero;
+      _ticker.start();
+    }
   }
 
-  void _detectBrowser() {
-    final userAgent = html.window.navigator.userAgent;
-    if (userAgent.contains('Chrome')) {
-      _trailDuration = 7;
-    } else if (userAgent.contains('Safari')) {
-      _trailDuration = 14;
-    } else if (userAgent.contains('Firefox')) {
-      _trailDuration = 10;
-    } else {
-      _trailDuration = 10;
-    }
+  void _onTick(Duration elapsed) {
+    _pending += elapsed - _lastTick;
+    _lastTick = elapsed;
+    final expired = _pending.inMicroseconds ~/ _trailPointLifetime.inMicroseconds;
+    if (expired == 0) return;
+    _pending -= _trailPointLifetime * expired;
+    if (!_cursor.shrink(expired)) _ticker.stop();
   }
 
   @override
   void dispose() {
-    _trailTimer.cancel();
+    _ticker.dispose();
+    _cursor.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.none,
-      onHover: (event) {
-        setState(() {
-          _pointerPosition = event.position;
-          _trailPoints.add(_pointerPosition);
-
-          if (_trailPoints.length > 80) {
-            _trailPoints.removeAt(0);
-          }
-        });
-      },
-      child: Stack(
-        children: [
-          widget.child,
-          CustomPaint(
-            painter: CursorTrailPainter(
-              context: context,
-              trailPoints: _trailPoints,
-              pointerPosition: _pointerPosition,
+    final active = context.isDesktop;
+    // The tree shape stays the same on every width so crossing the desktop
+    // breakpoint never rebuilds the navigator underneath.
+    return CustomCursorScope(
+      active: active,
+      child: MouseRegion(
+        cursor: active ? SystemMouseCursors.none : MouseCursor.defer,
+        onHover: active ? _onHover : null,
+        onExit: (_) => _cursor.hide(),
+        child: Stack(
+          children: [
+            widget.child,
+            Positioned.fill(
+              child: IgnorePointer(
+                child: active
+                    ? RepaintBoundary(
+                        child: CustomPaint(
+                          painter: _CursorTrailPainter(
+                            cursor: _cursor,
+                            hover: context.read<AppNotifier>(),
+                          ),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
-class CursorTrailPainter extends CustomPainter {
-  final List<Offset> trailPoints;
-  final Offset pointerPosition;
-  final BuildContext context;
+/// Tells [HoverDetector] whether the custom cursor is drawn, so it can show
+/// the system hand cursor when it is not.
+class CustomCursorScope extends InheritedWidget {
+  final bool active;
+  const CustomCursorScope({super.key, required this.active, required super.child});
 
-  CursorTrailPainter({
-    required this.context,
-    required this.trailPoints,
-    required this.pointerPosition,
-  });
+  static bool isActive(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<CustomCursorScope>()?.active ?? false;
+
+  @override
+  bool updateShouldNotify(CustomCursorScope oldWidget) => active != oldWidget.active;
+}
+
+class _CursorState extends ChangeNotifier {
+  final Queue<Offset> trail = Queue();
+  Offset? pointer;
+
+  void move(Offset position, int maxLength) {
+    pointer = position;
+    trail.add(position);
+    while (trail.length > maxLength) {
+      trail.removeFirst();
+    }
+    notifyListeners();
+  }
+
+  /// Drops the [count] oldest points. Returns false once the trail is gone.
+  bool shrink(int count) {
+    for (var i = 0; i < count && trail.isNotEmpty; i++) {
+      trail.removeFirst();
+    }
+    notifyListeners();
+    return trail.isNotEmpty;
+  }
+
+  void hide() {
+    pointer = null;
+    trail.clear();
+    notifyListeners();
+  }
+}
+
+class _CursorTrailPainter extends CustomPainter {
+  final _CursorState cursor;
+  final AppNotifier hover;
+
+  _CursorTrailPainter({required this.cursor, required this.hover}) : super(repaint: Listenable.merge([cursor, hover]));
+
+  static final Paint _trailPaint = Paint()
+    ..color = Colors.black
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.0
+    ..strokeJoin = StrokeJoin.round;
+
+  static final Paint _pointerPaint = Paint()
+    ..color = Colors.black
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 0.5;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint trailPaint = Paint()
-      ..color = Colors.black
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0;
+    final pointer = cursor.pointer;
+    if (pointer == null) return;
 
-    final Paint pointerPaint = Paint()
-      ..color = Colors.black
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.5;
-
-    for (int i = 0; i < trailPoints.length - 1; i++) {
-      canvas.drawLine(trailPoints[i], trailPoints[i + 1], trailPaint);
+    if (cursor.trail.length > 1) {
+      final path = Path();
+      final points = cursor.trail.iterator..moveNext();
+      path.moveTo(points.current.dx, points.current.dy);
+      while (points.moveNext()) {
+        path.lineTo(points.current.dx, points.current.dy);
+      }
+      canvas.drawPath(path, _trailPaint);
     }
-    canvas.drawCircle(
-      pointerPosition,
-      Provider.of<AppNotifier>(context, listen: false).isHover ? 12 : 4,
-      pointerPaint,
-    );
+    canvas.drawCircle(pointer, hover.isHover ? 12 : 4, _pointerPaint);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
-  }
+  bool shouldRepaint(covariant _CursorTrailPainter oldDelegate) =>
+      oldDelegate.cursor != cursor || oldDelegate.hover != hover;
 }

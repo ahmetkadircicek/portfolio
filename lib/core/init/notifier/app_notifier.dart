@@ -4,8 +4,9 @@ class AppNotifier extends ChangeNotifier {
   bool _isHover = false;
   bool get isHover => _isHover;
 
-  void toggleHover() {
-    _isHover = !_isHover;
+  void setHover(bool value) {
+    if (_isHover == value) return;
+    _isHover = value;
     notifyListeners();
   }
 }

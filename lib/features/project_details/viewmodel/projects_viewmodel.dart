@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ProjectsViewModel extends ChangeNotifier {
-  final PageController _pageController = PageController();
-  int _currentPage = 0;
+  ProjectsViewModel({int initialPage = 0})
+      : _currentPage = initialPage,
+        _pageController = PageController(initialPage: initialPage);
+
+  final PageController _pageController;
+  int _currentPage;
 
   PageController get pageController => _pageController;
   int get currentPage => _currentPage;

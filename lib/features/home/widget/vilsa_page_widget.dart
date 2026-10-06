@@ -62,6 +62,7 @@ class VilsaView extends StatelessWidget {
     ];
 
     return const ProjectBaseView(
+      slug: 'vilsa',
       project: project,
       features: features,
     );

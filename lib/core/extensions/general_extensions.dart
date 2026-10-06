@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/constants/padding_constants.dart';
 
 extension BuildContextExtension<T> on BuildContext {
   // Size Extensions
@@ -8,9 +9,14 @@ extension BuildContextExtension<T> on BuildContext {
   bool get isDesktop => width >= 1024.0;
   bool get isSmall => width < 850.0 && width >= 560.0;
 
-  double get width => MediaQuery.of(this).size.width;
-  double get height => MediaQuery.of(this).size.height;
-  Size get size => MediaQuery.of(this).size;
+  double get width => MediaQuery.sizeOf(this).width;
+  double get height => MediaQuery.sizeOf(this).height;
+  Size get size => MediaQuery.sizeOf(this);
+
+  /// Outer margin of the rounded page cards and navigation bars.
+  EdgeInsets get pageMargin => isMobile
+      ? PaddingConstants.allMedium
+      : PaddingConstants.allLarge + PaddingConstants.symmetricHorizontalLarge;
 
   // Text Style Extensions
   TextStyle? get displayMedium => Theme.of(this).textTheme.displayMedium;
@@ -54,12 +60,12 @@ extension BuildContextExtension<T> on BuildContext {
 
   // Spacer
   Widget spacerHeight(double percentage) {
-    final height = MediaQuery.of(this).size.height * (percentage / 100);
+    final height = MediaQuery.sizeOf(this).height * (percentage / 100);
     return SizedBox(height: height);
   }
 
   Widget spacerWidth(double percentage) {
-    final width = MediaQuery.of(this).size.width * (percentage / 100);
+    final width = MediaQuery.sizeOf(this).width * (percentage / 100);
     return SizedBox(width: width);
   }
 

@@ -62,6 +62,7 @@ class SevkiyatvarView extends StatelessWidget {
     ];
 
     return const ProjectBaseView(
+      slug: 'sevkiyatvar',
       project: project,
       features: features,
     );

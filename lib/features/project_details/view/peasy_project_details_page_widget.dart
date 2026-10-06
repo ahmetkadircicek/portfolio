@@ -24,7 +24,7 @@ class PeasyProjectDetailsView extends StatelessWidget {
         'assets/images/peasy/peasy_screenshots_1.webp',
         'assets/images/peasy/peasy_screenshots_6.webp',
         'assets/images/peasy/peasy_screenshots_7.webp',
-        'assets/images/peasy/peasy_screenshots_3.webp',
+        'assets/images/peasy/peasy_screenshots_2.webp',
         'assets/images/peasy/peasy_screenshots_3.webp',
         'assets/images/peasy/peasy_screenshots_4.webp',
         'assets/images/peasy/peasy_screenshots_5.webp',

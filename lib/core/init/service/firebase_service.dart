@@ -1,16 +1,20 @@
 import 'dart:async';
 
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:portfolio/core/utils/performance_logger.dart';
-import 'package:universal_html/html.dart' as html;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 abstract class IFirebaseService {
-  Future<void> downloadFromUrl();
+  Future<void> initialize();
+  Future<void> sendContactMessage({
+    required String name,
+    required String email,
+    required String subject,
+    required String message,
+  });
 }
 
 class FirebaseService extends IFirebaseService {
   static FirebaseService? _instance;
-  final _logger = PerformanceLogger.instance;
 
   FirebaseService._internal();
   factory FirebaseService() {
@@ -18,35 +22,37 @@ class FirebaseService extends IFirebaseService {
     return _instance!;
   }
 
+  Future<FirebaseApp>? _app;
+
   @override
-  Future<void> downloadFromUrl() async {
-    _logger.startOperation('DownloadCVFromFirebase');
-    try {
-      _logger.logMessage('Accessing Firebase Storage');
-      final storageRef = FirebaseStorage.instance.ref();
+  Future<void> initialize() => _app ??= Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: "AIzaSyA7NHbZIK-NHEed6SA0NP6dIboMUlx8L_c",
+          authDomain: "portfolio-9e0f3.firebaseapp.com",
+          projectId: "portfolio-9e0f3",
+          storageBucket: "portfolio-9e0f3.appspot.com",
+          messagingSenderId: "558468121651",
+          appId: "1:558468121651:web:7a0f5d555b3f661864cf46",
+          measurementId: "G-FN8X2ENSK2",
+        ),
+      );
 
-      _logger.startOperation('GetPDFReference');
-      final pdfRef = storageRef.child('gs://portfolio-9e0f3.appspot.com/CV25.pdf');
-      _logger.endOperation('GetPDFReference');
-
-      void downloadFile(String url) {
-        _logger.logMessage('Creating download link for CV');
-        html.AnchorElement anchorElement = html.AnchorElement(href: url);
-        anchorElement.download = url;
-        anchorElement.click();
-      }
-
-      _logger.startOperation('GetDownloadURL');
-      String downloadURL = await pdfRef.getDownloadURL();
-      _logger.endOperation('GetDownloadURL');
-
-      _logger.logMessage('Download URL obtained: ${downloadURL.substring(0, 50)}...');
-      downloadFile(downloadURL);
-      _logger.logMessage('CV download initiated');
-    } catch (e) {
-      _logger.logError('Error downloading CV: $e');
-    } finally {
-      _logger.endOperation('DownloadCVFromFirebase');
-    }
+  /// Writes to the `messages` collection. firestore.rules only allows
+  /// creating documents with exactly these fields, so nothing can be read back.
+  @override
+  Future<void> sendContactMessage({
+    required String name,
+    required String email,
+    required String subject,
+    required String message,
+  }) async {
+    await initialize();
+    await FirebaseFirestore.instance.collection('messages').add({
+      'name': name,
+      'email': email,
+      'subject': subject,
+      'message': message,
+      'createdAt': FieldValue.serverTimestamp(),
+    }).timeout(const Duration(seconds: 15));
   }
 }

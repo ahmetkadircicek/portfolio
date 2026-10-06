@@ -1,23 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/constants/padding_constants.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
+import 'package:portfolio/core/init/service/firebase_service.dart';
 import 'package:portfolio/features/contact_me/view/contacts_navigation_bar_widget.dart';
 import 'package:provider/provider.dart';
 import '../viewmodel/contact_form_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ContactFormView extends StatefulWidget {
+class ContactFormView extends StatelessWidget {
   const ContactFormView({super.key});
 
   @override
-  State<ContactFormView> createState() => _ContactFormViewState();
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => ContactFormViewModel(),
+      child: const _ContactForm(),
+    );
+  }
 }
 
-class _ContactFormViewState extends State<ContactFormView> {
+class _ContactForm extends StatefulWidget {
+  const _ContactForm();
+
+  @override
+  State<_ContactForm> createState() => _ContactFormState();
+}
+
+class _ContactFormState extends State<_ContactForm> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _subjectController = TextEditingController();
   final _messageController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Firebase (about 1 MB of JavaScript) is only needed here, so it loads
+    // when the form opens rather than on every visit.
+    FirebaseService().initialize().ignore();
+  }
 
   @override
   void dispose() {
@@ -38,7 +59,7 @@ class _ContactFormViewState extends State<ContactFormView> {
           : Column(
               children: [
                 const ContactsNavigationBarWidget(),
-                _buildForm(context, viewModel),
+                Expanded(child: _buildForm(context, viewModel)),
               ],
             ),
     );
@@ -107,109 +128,121 @@ class _ContactFormViewState extends State<ContactFormView> {
 
   Widget _buildForm(BuildContext context, ContactFormViewModel viewModel) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: PaddingConstants.allLarge,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
-          child: Form(
-            key: viewModel.formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 16),
-                Text(
-                  'I\'d love to hear from you',
-                  style: GoogleFonts.montserrat(textStyle: Theme.of(context).textTheme.headlineSmall),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Fill out the form below and I\'ll get back to you as soon as possible.',
-                  style: GoogleFonts.montserrat(textStyle: Theme.of(context).textTheme.bodyLarge),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 32),
-
-                // Name field
-                _buildInputField(
-                  label: 'Name',
-                  hintText: 'Your full name',
-                  controller: _nameController,
-                  validator: viewModel.validateName,
-                  onSaved: (value) => viewModel.name = value ?? '',
-                  keyboardType: TextInputType.name,
-                  prefixIcon: Icons.person_outline,
-                ),
-                const SizedBox(height: 20),
-
-                // Email field
-                _buildInputField(
-                  label: 'Email',
-                  hintText: 'your.email@example.com',
-                  controller: _emailController,
-                  validator: viewModel.validateEmail,
-                  onSaved: (value) => viewModel.email = value ?? '',
-                  keyboardType: TextInputType.emailAddress,
-                  prefixIcon: Icons.email_outlined,
-                ),
-                const SizedBox(height: 20),
-
-                // Subject field
-                _buildInputField(
-                  label: 'Subject',
-                  hintText: 'What is this regarding?',
-                  controller: _subjectController,
-                  validator: viewModel.validateSubject,
-                  onSaved: (value) => viewModel.subject = value ?? '',
-                  prefixIcon: Icons.subject,
-                ),
-                const SizedBox(height: 20),
-
-                // Message field
-                _buildInputField(
-                  label: 'Message',
-                  hintText: 'Write your message here...',
-                  controller: _messageController,
-                  validator: viewModel.validateMessage,
-                  onSaved: (value) => viewModel.message = value ?? '',
-                  maxLines: 1,
-                  expandable: true,
-                  prefixIcon: Icons.message_outlined,
-                ),
-                const SizedBox(height: 64),
-                // Submit button
-                SizedBox(
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: viewModel.isSending
-                        ? null
-                        : () async {
-                            FocusScope.of(context).unfocus();
-                            await viewModel.submitForm();
-                          },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: context.onPrimary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    child: viewModel.isSending
-                        ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(color: Colors.white),
-                          )
-                        : Text(
-                            'Send Message',
-                            style: GoogleFonts.montserrat(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: context.primary,
-                            ),
-                          ),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Padding(
+          padding: PaddingConstants.allLarge,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: Form(
+              key: viewModel.formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 16),
+                  Text(
+                    'I\'d love to hear from you',
+                    style: GoogleFonts.montserrat(textStyle: Theme.of(context).textTheme.headlineSmall),
+                    textAlign: TextAlign.center,
                   ),
-                ),
-              ],
+                  const SizedBox(height: 8),
+                  Text(
+                    'Fill out the form below and I\'ll get back to you as soon as possible.',
+                    style: GoogleFonts.montserrat(textStyle: Theme.of(context).textTheme.bodyLarge),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Name field
+                  _buildInputField(
+                    label: 'Name',
+                    hintText: 'Your full name',
+                    controller: _nameController,
+                    validator: viewModel.validateName,
+                    onSaved: (value) => viewModel.name = value ?? '',
+                    keyboardType: TextInputType.name,
+                    prefixIcon: Icons.person_outline,
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Email field
+                  _buildInputField(
+                    label: 'Email',
+                    hintText: 'your.email@example.com',
+                    controller: _emailController,
+                    validator: viewModel.validateEmail,
+                    onSaved: (value) => viewModel.email = value ?? '',
+                    keyboardType: TextInputType.emailAddress,
+                    prefixIcon: Icons.email_outlined,
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Subject field
+                  _buildInputField(
+                    label: 'Subject',
+                    hintText: 'What is this regarding?',
+                    controller: _subjectController,
+                    validator: viewModel.validateSubject,
+                    onSaved: (value) => viewModel.subject = value ?? '',
+                    prefixIcon: Icons.subject,
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Message field
+                  _buildInputField(
+                    label: 'Message',
+                    hintText: 'Write your message here...',
+                    controller: _messageController,
+                    validator: viewModel.validateMessage,
+                    onSaved: (value) => viewModel.message = value ?? '',
+                    maxLines: 1,
+                    expandable: true,
+                    prefixIcon: Icons.message_outlined,
+                  ),
+                  const SizedBox(height: 48),
+                  if (viewModel.errorMessage != null) ...[
+                    Text(
+                      viewModel.errorMessage!,
+                      style: GoogleFonts.montserrat(fontSize: 14, color: context.error),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 16),
+                  ] else
+                    const SizedBox(height: 16),
+                  // Submit button
+                  SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: viewModel.isSending
+                          ? null
+                          : () async {
+                              FocusScope.of(context).unfocus();
+                              await viewModel.submitForm();
+                            },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.onPrimary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      child: viewModel.isSending
+                          ? const SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
+                            )
+                          : Text(
+                              'Send Message',
+                              style: GoogleFonts.montserrat(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: context.primary,
+                              ),
+                            ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

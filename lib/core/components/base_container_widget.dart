@@ -27,57 +27,63 @@ class _BaseContainerState extends State<BaseContainer> {
 
   @override
   Widget build(BuildContext context) {
+    // Tilt and hover zoom are mouse effects. On touch screens the tilt would
+    // also follow the gyroscope and fight with scrolling.
+    final interactive = context.isDesktop;
+    final card = Stack(
+      children: [
+        MouseRegion(
+          onEnter: interactive ? (_) => setState(() => _hovering = true) : null,
+          onExit: interactive ? (_) => setState(() => _hovering = false) : null,
+          child: Container(
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [widget.firstColor, widget.secondColor],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: AnimatedScale(
+              scale: interactive && _hovering ? 3.0 : 1.0,
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut,
+              child: widget.child,
+            ),
+          ),
+        ),
+        Padding(
+          padding: PaddingConstants.allMedium,
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              decoration: BoxDecoration(
+                color: context.surface,
+                borderRadius: BorderRadius.circular(32),
+              ),
+              padding: PaddingConstants.allSmall + PaddingConstants.symmetricHorizontalSmall,
+              child: Text(
+                widget.topRightText,
+                style: GoogleFonts.montserrat(
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+
+    if (!interactive) return card;
     return Tilt(
       shadowConfig: ShadowConfig(
         color: context.secondary,
       ),
-      tiltConfig: const TiltConfig(angle: 3),
-      child: Stack(
-        children: [
-          MouseRegion(
-            onEnter: (_) => setState(() => _hovering = true),
-            onExit: (_) => setState(() => _hovering = false),
-            child: Container(
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [widget.firstColor, widget.secondColor],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: AnimatedScale(
-                scale: _hovering ? 3.0 : 1.0,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeOut,
-                child: widget.child,
-              ),
-            ),
-          ),
-          Padding(
-            padding: PaddingConstants.allMedium,
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: context.surface,
-                  borderRadius: BorderRadius.circular(32),
-                ),
-                padding: PaddingConstants.allSmall + PaddingConstants.symmetricHorizontalSmall,
-                child: Text(
-                  widget.topRightText,
-                  style: GoogleFonts.montserrat(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      tiltConfig: const TiltConfig(angle: 3, enableGestureSensors: false),
+      child: card,
     );
   }
 }

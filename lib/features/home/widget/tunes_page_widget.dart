@@ -62,6 +62,7 @@ class TunesView extends StatelessWidget {
     ];
 
     return const ProjectBaseView(
+      slug: 'tunes',
       project: project,
       features: features,
     );

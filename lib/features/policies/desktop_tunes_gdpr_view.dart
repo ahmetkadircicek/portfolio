@@ -13,7 +13,7 @@ class TunesGDPRView extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            width: context.width * 0.6,
+            width: context.isDesktop ? context.width * 0.6 : context.width * (context.isTablet ? 0.85 : 1),
             decoration: BoxDecoration(
               color: context.primary,
               borderRadius: BorderRadius.circular(16),
