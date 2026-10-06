@@ -22,20 +22,30 @@ class FirebaseService extends IFirebaseService {
     return _instance!;
   }
 
+  /// `flutter build web --dart-define=USE_FIRESTORE_EMULATOR=true` sends
+  /// contact messages to a local emulator instead of production.
+  static const _useEmulator = bool.fromEnvironment('USE_FIRESTORE_EMULATOR');
+
   Future<FirebaseApp>? _app;
 
   @override
-  Future<void> initialize() => _app ??= Firebase.initializeApp(
-        options: const FirebaseOptions(
-          apiKey: "AIzaSyA7NHbZIK-NHEed6SA0NP6dIboMUlx8L_c",
-          authDomain: "portfolio-9e0f3.firebaseapp.com",
-          projectId: "portfolio-9e0f3",
-          storageBucket: "portfolio-9e0f3.appspot.com",
-          messagingSenderId: "558468121651",
-          appId: "1:558468121651:web:7a0f5d555b3f661864cf46",
-          measurementId: "G-FN8X2ENSK2",
-        ),
-      );
+  Future<void> initialize() => _app ??= _initialize();
+
+  Future<FirebaseApp> _initialize() async {
+    final app = await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyA7NHbZIK-NHEed6SA0NP6dIboMUlx8L_c",
+        authDomain: "portfolio-9e0f3.firebaseapp.com",
+        projectId: "portfolio-9e0f3",
+        storageBucket: "portfolio-9e0f3.appspot.com",
+        messagingSenderId: "558468121651",
+        appId: "1:558468121651:web:7a0f5d555b3f661864cf46",
+        measurementId: "G-FN8X2ENSK2",
+      ),
+    );
+    if (_useEmulator) FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8085);
+    return app;
+  }
 
   /// Writes to the `messages` collection. firestore.rules only allows
   /// creating documents with exactly these fields, so nothing can be read back.

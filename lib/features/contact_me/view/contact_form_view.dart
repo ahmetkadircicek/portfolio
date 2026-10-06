@@ -54,14 +54,16 @@ class _ContactFormState extends State<_ContactForm> {
     final viewModel = Provider.of<ContactFormViewModel>(context);
 
     return Scaffold(
-      body: viewModel.formSubmitted
-          ? _buildSuccessContent(context, viewModel)
-          : Column(
-              children: [
-                const ContactsNavigationBarWidget(),
-                Expanded(child: _buildForm(context, viewModel)),
-              ],
-            ),
+      body: Column(
+        children: [
+          const ContactsNavigationBarWidget(),
+          Expanded(
+            child: viewModel.formSubmitted
+                ? _buildSuccessContent(context, viewModel)
+                : _buildForm(context, viewModel),
+          ),
+        ],
+      ),
     );
   }
 

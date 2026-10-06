@@ -1,38 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
+  <!-- Replaced by the `--base-href` argument of `flutter build`. -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ahmet Kadir Çiçek — Mobile Developer</title>
+  <meta name="description" content="Portfolio of Ahmet Kadir Çiçek, a cross-platform and native mobile developer building user-friendly apps with Flutter, Swift and Firebase.">
+  <meta name="author" content="Ahmet Kadir Çiçek">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://ahmetkadircicek.com.tr/">
+
+  <!-- Link previews (WhatsApp, LinkedIn, X, Slack...) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ahmet Kadir Çiçek">
+  <meta property="og:title" content="Ahmet Kadir Çiçek — Mobile Developer">
+  <meta property="og:description" content="Make it simple. I develop user-friendly mobile apps that improve user experience and help businesses grow.">
+  <meta property="og:url" content="https://ahmetkadircicek.com.tr/">
+  <meta property="og:image" content="https://ahmetkadircicek.com.tr/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ahmet Kadir Çiçek — Make it simple">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="portfolio">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="A. K. Çiçek">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>portfolio</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
   <link rel="manifest" href="manifest.json">
+
+  <!-- Start these downloads while the HTML is still parsing. -->
+  <link rel="preload" href="main.dart.js" as="script">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ahmet Kadir Çiçek",
+    "jobTitle": "Cross and Native Mobile Developer",
+    "url": "https://ahmetkadircicek.com.tr/",
+    "image": "https://ahmetkadircicek.com.tr/og-image.jpg",
+    "sameAs": ["https://github.com/ahmetkadircicek"]
+  }
+  </script>
+
+  <style>
+    html, body { margin: 0; height: 100%; background: #ffffff; }
+    /* Shown until Flutter paints its first frame. */
+    #loader {
+      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: #ffffff; transition: opacity .3s ease; z-index: 1;
+    }
+    #loader.done { opacity: 0; pointer-events: none; }
+    #loader span {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1.5px solid rgba(31, 32, 36, .12); border-top-color: rgba(31, 32, 36, .7);
+      animation: spin .9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { #loader span { animation-duration: 2.5s; } }
+    /* Text version of the site for search engines and screen readers;
+       Flutter draws to a canvas, which neither can read. */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+  </style>
 </head>
 <body>
+  <div id="loader" aria-hidden="true"><span></span></div>
+
+  <main class="sr-only">
+    <h1>Ahmet Kadir Çiçek — Cross and Native Mobile Developer</h1>
+    <p>Make it simple. I develop user-friendly mobile apps that improve user experience and help businesses grow.</p>
+    <nav>
+      <a href="/projects">Projects</a>
+      <a href="/contact">Request a project</a>
+      <a href="/ahmet-kadir-cicek-cv.pdf">Download CV</a>
+      <a href="https://github.com/ahmetkadircicek">GitHub</a>
+    </nav>
+    <section>
+      <h2>Projects</h2>
+      <article><h3><a href="/projects/tunes">Tunes.AI — AI-Driven Music Platform</a></h3><p>A music platform powered by AI that I developed from scratch using Flutter and Firebase.</p></article>
+      <article><h3><a href="/projects/vilsa">Vilsa — Stock Market Portfolio Tracker</a></h3><p>A stock market portfolio tracking application developed with Flutter, with customizable market selection and dividend tracking.</p></article>
+      <article><h3><a href="/projects/sevkiyatvar">Sevkiyatvar — Logistics Management Platform</a></h3><p>An existing logistics platform that I helped enhance and optimize for better shipping and logistics management.</p></article>
+      <article><h3><a href="/projects/travelai">TravelAI — Smart Travel Companion</a></h3></article>
+      <article><h3><a href="/projects/visiostellar">Visiostellar — iOS Astronomy App</a></h3></article>
+      <article><h3><a href="/projects/peasy">Peasy — Self-Checkout App</a></h3><p>A self-checkout app using NFC, built as a graduation project with a team of four.</p></article>
+    </section>
+  </main>
+
+  <noscript>This portfolio needs JavaScript. You can still <a href="/ahmet-kadir-cicek-cv.pdf">download my CV</a>.</noscript>
+
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var loader = document.getElementById('loader');
+      loader.classList.add('done');
+      setTimeout(function () { loader.remove(); }, 400);
+    });
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
