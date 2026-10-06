@@ -50,7 +50,7 @@ class TunesGDPRView extends StatelessWidget {
                     style: GoogleFonts.montserrat(
                       fontSize: 14,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   context.spacerHeight(2),
                   Text(
@@ -65,7 +65,7 @@ class TunesGDPRView extends StatelessWidget {
                     style: GoogleFonts.montserrat(
                       fontSize: 14,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   context.spacerHeight(2),
                   Text(
@@ -80,7 +80,7 @@ class TunesGDPRView extends StatelessWidget {
                     style: GoogleFonts.montserrat(
                       fontSize: 14,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   context.spacerHeight(2),
                   Text(
@@ -89,14 +89,14 @@ class TunesGDPRView extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   Text(
                     'You agree not to use our app for any unlawful activities, to cause harm to others, or to engage in spamming. You are also prohibited from attempting to interfere with or disrupt the app’s services.',
                     style: GoogleFonts.montserrat(
                       fontSize: 14,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   context.spacerHeight(2),
                   Text(
@@ -111,7 +111,7 @@ class TunesGDPRView extends StatelessWidget {
                     style: GoogleFonts.montserrat(
                       fontSize: 14,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   context.spacerHeight(2),
                   Text(
@@ -120,14 +120,14 @@ class TunesGDPRView extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   Text(
                     'You are responsible for maintaining the confidentiality of your account details and for any activities that occur under your account. Please notify us immediately of any unauthorized use of your account.',
                     style: GoogleFonts.montserrat(
                       fontSize: 14,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   context.spacerHeight(2),
                   Text(
@@ -136,14 +136,14 @@ class TunesGDPRView extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   Text(
                     'When you access our servers via our app, we may automatically log the standard data provided by your device. It may include your device\'s Internet Protocol (IP) address, your device type and version, your activity within the app, time and date, and other details about your usage.',
                     style: GoogleFonts.montserrat(
                       fontSize: 14,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   context.spacerHeight(2),
                   Text(
@@ -158,7 +158,7 @@ class TunesGDPRView extends StatelessWidget {
                     style: GoogleFonts.montserrat(
                       fontSize: 14,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   context.spacerHeight(2),
                   Text(
@@ -173,7 +173,7 @@ class TunesGDPRView extends StatelessWidget {
                     style: GoogleFonts.montserrat(
                       fontSize: 14,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   context.spacerHeight(2),
                   Text(
@@ -188,7 +188,7 @@ class TunesGDPRView extends StatelessWidget {
                     style: GoogleFonts.montserrat(
                       fontSize: 14,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: context.isMobile ? TextAlign.start : TextAlign.justify,
                   ),
                   context.spacerHeight(2),
                   Row(
