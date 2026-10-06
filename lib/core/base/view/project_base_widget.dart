@@ -195,6 +195,8 @@ class _FeatureCard extends StatelessWidget {
         width: double.infinity,
         fit: BoxFit.contain,
         semanticLabel: '${feature.title} — ${feature.subtitle}',
+        // Desktop keeps full resolution for the 3x hover zoom.
+        decodeAtLayoutWidth: !desktop,
       ),
     );
 

@@ -9,6 +9,11 @@ class AssetImageWidget extends StatelessWidget {
   final BoxFit? fit;
   final String? semanticLabel;
 
+  /// Decodes the image at the width it is laid out at instead of its full
+  /// resolution. A 1400 px mockup shown 360 px wide on a phone would
+  /// otherwise hold about 8 MB of GPU memory.
+  final bool decodeAtLayoutWidth;
+
   const AssetImageWidget(
     this.path, {
     super.key,
@@ -16,12 +21,27 @@ class AssetImageWidget extends StatelessWidget {
     this.height,
     this.fit,
     this.semanticLabel,
+    this.decodeAtLayoutWidth = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (!decodeAtLayoutWidth) return _buildImage(null);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (!constraints.hasBoundedWidth) return _buildImage(null);
+        final pixels = constraints.maxWidth * MediaQuery.devicePixelRatioOf(context);
+        // Rounded up to 64 px steps so resizing the window does not decode
+        // the image again for every pixel.
+        return _buildImage((pixels / 64).ceil() * 64);
+      },
+    );
+  }
+
+  Widget _buildImage(int? cacheWidth) {
     return Image.asset(
       path,
+      cacheWidth: cacheWidth,
       width: width,
       height: height,
       fit: fit,

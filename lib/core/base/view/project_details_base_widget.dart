@@ -204,7 +204,7 @@ class _ScreenshotRow extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget screenshot(String path) => ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: AssetImageWidget(path, fit: BoxFit.cover, semanticLabel: 'App screenshot'),
+          child: AssetImageWidget(path, fit: BoxFit.cover, semanticLabel: 'App screenshot', decodeAtLayoutWidth: true),
         );
 
     if (context.isDesktop) {
