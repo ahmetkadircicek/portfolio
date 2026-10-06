@@ -54,7 +54,9 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
 
   Future<void> _navigateToNextScreen() async {
     await _fadeController.reverse();
-    if (mounted) context.go('/home');
+    // Replaces the splash in the browser history; otherwise Back would land
+    // on the splash and bounce to /home again.
+    if (mounted) Router.neglect(context, () => context.go('/home'));
   }
 
   @override

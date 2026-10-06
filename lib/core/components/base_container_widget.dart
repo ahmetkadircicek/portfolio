@@ -82,7 +82,8 @@ class _BaseContainerState extends State<BaseContainer> {
       shadowConfig: ShadowConfig(
         color: context.secondary,
       ),
-      tiltConfig: const TiltConfig(angle: 3, enableGestureSensors: false),
+      // Mouse only: touch tilting on wide tablets would swallow scroll drags.
+      tiltConfig: const TiltConfig(angle: 3, enableGestureSensors: false, enableGestureTouch: false),
       child: card,
     );
   }
