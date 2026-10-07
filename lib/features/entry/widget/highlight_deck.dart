@@ -181,7 +181,10 @@ class _FrontContent extends StatelessWidget {
           height: artHeight,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: slide.colors.isEmpty ? [context.colors.surface, context.colors.surfaceHover] : slide.colors, begin: Alignment.topLeft, end: Alignment.bottomRight),
+              gradient: LinearGradient(
+                  colors: slide.colors.isEmpty ? [context.colors.surface, context.colors.surfaceHover] : slide.colors,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight),
             ),
             child: _ZoomArt(slide: slide, counter: counter),
           ),
@@ -216,7 +219,8 @@ class _FrontContent extends StatelessWidget {
                     color: hovering ? context.colors.ink : context.colors.surface,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.arrow_forward, size: 18, color: hovering ? context.colors.onInk : context.colors.ink),
+                  child:
+                      Icon(Icons.arrow_forward, size: 18, color: hovering ? context.colors.onInk : context.colors.ink),
                 ),
               ],
             ),

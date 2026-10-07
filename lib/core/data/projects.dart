@@ -19,6 +19,15 @@ const projects = Collection(
       logo: 'assets/images/tunes/tunes_logo.webp',
       tags: ['Flutter', 'Dart', 'Firebase', 'Provider', 'MVVM', 'Figma', 'Replicate', 'REST API', 'Google AdMob'],
       statuses: [EntryStatus.readyToRelease],
+      screenshots: [
+        'assets/images/tunes/tunes_screenshots_1.webp',
+        'assets/images/tunes/tunes_screenshots_8.webp',
+        'assets/images/tunes/tunes_screenshots_2.webp',
+        'assets/images/tunes/tunes_screenshots_3.webp',
+        'assets/images/tunes/tunes_screenshots_4.webp',
+        'assets/images/tunes/tunes_screenshots_5.webp',
+        'assets/images/tunes/tunes_screenshots_6.webp',
+      ],
       highlights: [
         Highlight(
           title: 'Personalized',
@@ -67,6 +76,15 @@ const projects = Collection(
       tags: ['Flutter', 'Dart', 'Firebase', 'Provider', 'MVVM', 'Figma', 'Charts'],
       statuses: [EntryStatus.readyToRelease],
       link: EntryLink.github('https://github.com/ahmetkadircicek/vilsa'),
+      screenshots: [
+        'assets/images/vilsa/vilsa_screenshots_1.webp',
+        'assets/images/vilsa/vilsa_screenshots_2.webp',
+        'assets/images/vilsa/vilsa_screenshots_3.webp',
+        'assets/images/vilsa/vilsa_screenshots_4.webp',
+        'assets/images/vilsa/vilsa_screenshots_5.webp',
+        'assets/images/vilsa/vilsa_screenshots_6.webp',
+        'assets/images/vilsa/vilsa_screenshots_7.webp',
+      ],
       highlights: [
         Highlight(
           title: 'Customizable Markets',
@@ -111,6 +129,15 @@ const projects = Collection(
       logo: 'assets/images/sevkiyatvar/sevkiyatvar_logo.webp',
       tags: ['Flutter', 'Dart', 'MVVM', 'REST API', 'Connectivity', 'Provider'],
       statuses: [EntryStatus.readyToRelease],
+      screenshots: [
+        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_1.webp',
+        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_2.webp',
+        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_3.webp',
+        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_4.webp',
+        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_5.webp',
+        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_6.webp',
+        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_7.webp',
+      ],
       highlights: [
         Highlight(
           title: 'User-Friendly Interface',
@@ -154,6 +181,15 @@ const projects = Collection(
       label: 'Travel',
       logo: 'assets/images/travelai/travelai_logo.webp',
       tags: ['Swift', 'UIKit', 'Lottie', 'Alamofire', 'Google Gemini AI', 'Firebase', 'Social Sharing', 'OAuth'],
+      screenshots: [
+        'assets/images/travelai/travelai_screenshots_5.webp',
+        'assets/images/travelai/travelai_screenshots_7.webp',
+        'assets/images/travelai/travelai_screenshots_2.webp',
+        'assets/images/travelai/travelai_screenshots_4.webp',
+        'assets/images/travelai/travelai_screenshots_1.webp',
+        'assets/images/travelai/travelai_screenshots_3.webp',
+        'assets/images/travelai/travelai_screenshots_6.webp',
+      ],
       highlights: [
         Highlight(
           title: 'One-Tap Login',
@@ -194,6 +230,15 @@ const projects = Collection(
       label: 'Education',
       logo: 'assets/images/visiostellar/visiostellar_logo.webp',
       tags: ['Swift', 'UIKit', 'Storyboard', 'Auto Layout', 'iOS', 'Xcode', 'MVC'],
+      screenshots: [
+        'assets/images/visiostellar/visiostellar_screenshots_1.webp',
+        'assets/images/visiostellar/visiostellar_screenshots_4.webp',
+        'assets/images/visiostellar/visiostellar_screenshots_3.webp',
+        'assets/images/visiostellar/visiostellar_screenshots_5.webp',
+        'assets/images/visiostellar/visiostellar_screenshots_7.webp',
+        'assets/images/visiostellar/visiostellar_screenshots_6.webp',
+        'assets/images/visiostellar/visiostellar_screenshots_2.webp',
+      ],
       highlights: [
         Highlight(
           title: 'NASA Feed',
@@ -233,6 +278,15 @@ const projects = Collection(
       label: 'Retail',
       logo: 'assets/images/peasy/peasy_logo.webp',
       tags: ['Flutter', 'Dart', 'NFC', 'Firebase', 'REST API', 'Recommendation Systems', 'Team Collaboration'],
+      screenshots: [
+        'assets/images/peasy/peasy_screenshots_1.webp',
+        'assets/images/peasy/peasy_screenshots_6.webp',
+        'assets/images/peasy/peasy_screenshots_7.webp',
+        'assets/images/peasy/peasy_screenshots_2.webp',
+        'assets/images/peasy/peasy_screenshots_3.webp',
+        'assets/images/peasy/peasy_screenshots_4.webp',
+        'assets/images/peasy/peasy_screenshots_5.webp',
+      ],
       highlights: [
         Highlight(
           title: 'Tap to Scan',
