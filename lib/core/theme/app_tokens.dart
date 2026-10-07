@@ -22,8 +22,6 @@ class AppPalette extends ThemeExtension<AppPalette> {
   final Color onBlock;
   final Color onBlockMuted;
 
-
-
   // Project status
   final Color statusReady;
   final Color statusProgress;
@@ -71,7 +69,6 @@ class AppPalette extends ThemeExtension<AppPalette> {
     statusArchive: Color(0xFF6A1B9A),
     error: Color(0xFFC62828),
   );
-
 
   @override
   AppPalette copyWith() => this;

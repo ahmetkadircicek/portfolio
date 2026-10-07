@@ -27,15 +27,6 @@ const projects = Collection(
       logo: 'assets/images/tunes/tunes_logo.webp',
       tags: ['Flutter', 'Dart', 'Firebase', 'Provider', 'MVVM', 'Figma', 'Replicate', 'REST API', 'Google AdMob'],
       statuses: [EntryStatus.readyToRelease],
-      screenshots: [
-        'assets/images/tunes/tunes_screenshots_1.webp',
-        'assets/images/tunes/tunes_screenshots_8.webp',
-        'assets/images/tunes/tunes_screenshots_2.webp',
-        'assets/images/tunes/tunes_screenshots_3.webp',
-        'assets/images/tunes/tunes_screenshots_4.webp',
-        'assets/images/tunes/tunes_screenshots_5.webp',
-        'assets/images/tunes/tunes_screenshots_6.webp',
-      ],
       highlights: [
         Highlight(
           title: L('Personal', tr: 'Kişisel', de: 'Persönlich'),
@@ -78,6 +69,86 @@ const projects = Collection(
           label: L('Interface', tr: 'Arayüz', de: 'Oberfläche'),
           image: 'assets/images/tunes/image_mockup_tunes_04.webp',
         ),
+        Highlight(
+          title: L('Launch screen', tr: 'Açılış ekranı', de: 'Startbildschirm'),
+          description: L(
+            'The Tunes wordmark while the app gets ready.',
+            tr: 'Uygulama hazırlanırken Tunes logosu.',
+            de: 'Das Tunes-Logo, während die App lädt.',
+          ),
+          label: L('Start', tr: 'Başlangıç', de: 'Start'),
+          image: 'assets/images/tunes/tunes_screenshots_1.webp',
+        ),
+        Highlight(
+          title: L('Create your music', tr: 'Müziğini oluştur', de: 'Eigene Musik erstellen'),
+          description: L(
+            'Choose a length, name your melody and start a new track.',
+            tr: 'Süreyi seç, melodine bir isim ver ve yeni parçaya başla.',
+            de: 'Länge wählen, Melodie benennen und einen neuen Track starten.',
+          ),
+          label: L('Create', tr: 'Oluştur', de: 'Erstellen'),
+          image: 'assets/images/tunes/tunes_screenshots_8.webp',
+        ),
+        Highlight(
+          title: L('Pick a key', tr: 'Ton seç', de: 'Tonart wählen'),
+          description: L(
+            'The key sets the overall feel of the track, from C minor to G major.',
+            tr: 'Ton, parçanın genel havasını belirliyor; Do minörden Sol majöre kadar.',
+            de: 'Die Tonart bestimmt die Stimmung des Tracks, von c-Moll bis G-Dur.',
+          ),
+          label: L('Key setting', tr: 'Ton ayarı', de: 'Tonart'),
+          image: 'assets/images/tunes/tunes_screenshots_4.webp',
+        ),
+        Highlight(
+          title: L('Generating', tr: 'Hazırlanıyor', de: 'Wird erstellt'),
+          description: L(
+            'The AI works on the track while you browse your other songs.',
+            tr: 'Yapay zekâ parçayı hazırlarken diğer şarkılarına göz atabilirsin.',
+            de: 'Die KI erstellt den Track, währenddessen lassen sich andere Songs anhören.',
+          ),
+          label: L('AI at work', tr: 'Yapay zekâ çalışıyor', de: 'KI arbeitet'),
+          image: 'assets/images/tunes/tunes_screenshots_6.webp',
+        ),
+        Highlight(
+          title: L('Player', tr: 'Oynatıcı', de: 'Player'),
+          description: L(
+            'Cover, genre, key and simple playback controls.',
+            tr: 'Kapak, tür, ton ve sade oynatma kontrolleri.',
+            de: 'Cover, Genre, Tonart und einfache Wiedergabesteuerung.',
+          ),
+          label: L('Playback', tr: 'Oynatma', de: 'Wiedergabe'),
+          image: 'assets/images/tunes/tunes_screenshots_3.webp',
+        ),
+        Highlight(
+          title: L('History', tr: 'Geçmiş', de: 'Verlauf'),
+          description: L(
+            'Every track you created, with its genre and key.',
+            tr: 'Oluşturduğun tüm parçalar, türü ve tonuyla birlikte.',
+            de: 'Alle erstellten Tracks mit Genre und Tonart.',
+          ),
+          label: L('Library', tr: 'Kitaplık', de: 'Bibliothek'),
+          image: 'assets/images/tunes/tunes_screenshots_2.webp',
+        ),
+        Highlight(
+          title: L('Three languages', tr: 'Üç dil', de: 'Drei Sprachen'),
+          description: L(
+            'Settings with appearance options and English, Turkish and German.',
+            tr: 'Görünüm seçenekleri ve İngilizce, Türkçe, Almanca dil desteğiyle ayarlar.',
+            de: 'Einstellungen mit Darstellungsoptionen und Englisch, Türkisch und Deutsch.',
+          ),
+          label: L('Settings', tr: 'Ayarlar', de: 'Einstellungen'),
+          image: 'assets/images/tunes/tunes_screenshots_7.webp',
+        ),
+        Highlight(
+          title: L('AdMob', tr: 'AdMob', de: 'AdMob'),
+          description: L(
+            'Interstitial ads through Google AdMob, shown here in test mode.',
+            tr: 'Google AdMob ile geçiş reklamları; burada test modunda.',
+            de: 'Interstitial-Anzeigen über Google AdMob, hier im Testmodus.',
+          ),
+          label: L('Monetisation', tr: 'Gelir modeli', de: 'Monetarisierung'),
+          image: 'assets/images/tunes/tunes_screenshots_5.webp',
+        ),
       ],
     ),
     Entry(
@@ -99,15 +170,6 @@ const projects = Collection(
       tags: ['Flutter', 'Dart', 'Firebase', 'Provider', 'MVVM', 'Figma', 'Charts'],
       statuses: [EntryStatus.readyToRelease],
       link: EntryLink.github('https://github.com/ahmetkadircicek/vilsa'),
-      screenshots: [
-        'assets/images/vilsa/vilsa_screenshots_1.webp',
-        'assets/images/vilsa/vilsa_screenshots_2.webp',
-        'assets/images/vilsa/vilsa_screenshots_3.webp',
-        'assets/images/vilsa/vilsa_screenshots_4.webp',
-        'assets/images/vilsa/vilsa_screenshots_5.webp',
-        'assets/images/vilsa/vilsa_screenshots_6.webp',
-        'assets/images/vilsa/vilsa_screenshots_7.webp',
-      ],
       highlights: [
         Highlight(
           title: L('Your markets', tr: 'Senin borsaların', de: 'Eigene Märkte'),
@@ -150,6 +212,76 @@ const projects = Collection(
           label: L('Customisation', tr: 'Kişiselleştirme', de: 'Anpassung'),
           image: 'assets/images/vilsa/image_mockup_vilsa_04.webp',
         ),
+        Highlight(
+          title: L('Launch screen', tr: 'Açılış ekranı', de: 'Startbildschirm'),
+          description: L(
+            'Vilsa, financial management.',
+            tr: 'Vilsa, finansal yönetim.',
+            de: 'Vilsa, Finanzverwaltung.',
+          ),
+          label: L('Start', tr: 'Başlangıç', de: 'Start'),
+          image: 'assets/images/vilsa/vilsa_screenshots_1.webp',
+        ),
+        Highlight(
+          title: L('Portfolio at a glance', tr: 'Bir bakışta portföy', de: 'Depot auf einen Blick'),
+          description: L(
+            'Total balance, dividends and a line chart of the chosen period.',
+            tr: 'Toplam bakiye, temettüler ve seçilen döneme ait çizgi grafik.',
+            de: 'Gesamtsaldo, Dividenden und ein Liniendiagramm für den gewählten Zeitraum.',
+          ),
+          label: L('Home', tr: 'Ana sayfa', de: 'Startseite'),
+          image: 'assets/images/vilsa/vilsa_screenshots_6.webp',
+        ),
+        Highlight(
+          title: L('Bar chart', tr: 'Sütun grafik', de: 'Balkendiagramm'),
+          description: L(
+            'The same period as bars, one tap away.',
+            tr: 'Aynı dönem, tek dokunuşla sütun grafikte.',
+            de: 'Derselbe Zeitraum als Balken, mit einem Tipp.',
+          ),
+          label: L('Charts', tr: 'Grafikler', de: 'Diagramme'),
+          image: 'assets/images/vilsa/vilsa_screenshots_7.webp',
+        ),
+        Highlight(
+          title: L('Sort and filter', tr: 'Sırala ve filtrele', de: 'Sortieren und filtern'),
+          description: L(
+            'Sort holdings by name, quantity, total value or average price.',
+            tr: 'Hisseleri ada, adede, toplam değere ya da ortalama fiyata göre sırala.',
+            de: 'Positionen nach Name, Stückzahl, Gesamtwert oder Durchschnittspreis sortieren.',
+          ),
+          label: L('Holdings', tr: 'Hisseler', de: 'Positionen'),
+          image: 'assets/images/vilsa/vilsa_screenshots_5.webp',
+        ),
+        Highlight(
+          title: L('Stock details', tr: 'Hisse detayı', de: 'Aktiendetails'),
+          description: L(
+            'Cost, average price, dividend yield and every transaction for one stock.',
+            tr: 'Bir hissenin maliyeti, ortalama fiyatı, temettü verimi ve tüm işlemleri.',
+            de: 'Kosten, Durchschnittspreis, Dividendenrendite und alle Transaktionen einer Aktie.',
+          ),
+          label: L('Detail', tr: 'Detay', de: 'Detail'),
+          image: 'assets/images/vilsa/vilsa_screenshots_4.webp',
+        ),
+        Highlight(
+          title: L('Add a transaction', tr: 'İşlem ekle', de: 'Transaktion hinzufügen'),
+          description: L(
+            'Date, buy price, quantity, dividend and a note.',
+            tr: 'Tarih, alış fiyatı, adet, temettü ve not.',
+            de: 'Datum, Kaufpreis, Stückzahl, Dividende und Notiz.',
+          ),
+          label: L('Transactions', tr: 'İşlemler', de: 'Transaktionen'),
+          image: 'assets/images/vilsa/vilsa_screenshots_3.webp',
+        ),
+        Highlight(
+          title: L('Date range', tr: 'Tarih aralığı', de: 'Zeitraum'),
+          description: L(
+            'Pick any range and every figure follows it.',
+            tr: 'Bir aralık seç, tüm rakamlar ona göre güncellensin.',
+            de: 'Beliebigen Zeitraum wählen, alle Zahlen passen sich an.',
+          ),
+          label: L('Period', tr: 'Dönem', de: 'Zeitraum'),
+          image: 'assets/images/vilsa/vilsa_screenshots_2.webp',
+        ),
       ],
     ),
     Entry(
@@ -170,15 +302,6 @@ const projects = Collection(
       logo: 'assets/images/sevkiyatvar/sevkiyatvar_logo.webp',
       tags: ['Flutter', 'Dart', 'MVVM', 'REST API', 'Connectivity', 'Provider'],
       statuses: [EntryStatus.readyToRelease],
-      screenshots: [
-        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_1.webp',
-        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_2.webp',
-        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_3.webp',
-        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_4.webp',
-        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_5.webp',
-        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_6.webp',
-        'assets/images/sevkiyatvar/sevkiyatvar_screenshots_7.webp',
-      ],
       highlights: [
         Highlight(
           title: L('Clearer interface', tr: 'Daha anlaşılır arayüz', de: 'Klarere Oberfläche'),
@@ -221,6 +344,76 @@ const projects = Collection(
           label: L('Platforms', tr: 'Platformlar', de: 'Plattformen'),
           image: 'assets/images/sevkiyatvar/image_mockup_sevkiyatvar_04.webp',
         ),
+        Highlight(
+          title: L('Launch screen', tr: 'Açılış ekranı', de: 'Startbildschirm'),
+          description: L(
+            'Sevkiyatvar, stronger together.',
+            tr: 'Sevkiyatvar, hep birlikte çok daha güçlü.',
+            de: 'Sevkiyatvar, gemeinsam stärker.',
+          ),
+          label: L('Start', tr: 'Başlangıç', de: 'Start'),
+          image: 'assets/images/sevkiyatvar/sevkiyatvar_screenshots_1.webp',
+        ),
+        Highlight(
+          title: L('Sign up', tr: 'Kayıt ol', de: 'Registrierung'),
+          description: L(
+            'Companies register once to post loads and see open listings for free.',
+            tr: 'Firmalar bir kez kayıt olup ücretsiz yük ilanı veriyor ve açık ilanları görüyor.',
+            de: 'Firmen registrieren sich einmal und können kostenlos Ladungen inserieren und Angebote sehen.',
+          ),
+          label: L('Account', tr: 'Hesap', de: 'Konto'),
+          image: 'assets/images/sevkiyatvar/sevkiyatvar_screenshots_7.webp',
+        ),
+        Highlight(
+          title: L('Load listings', tr: 'Yük ilanları', de: 'Ladungsangebote'),
+          description: L(
+            'Routes, vehicle types and dates, filtered by origin and destination.',
+            tr: 'Nereden-nereye filtrelenebilen güzergâhlar, araç tipleri ve tarihler.',
+            de: 'Strecken, Fahrzeugtypen und Termine, filterbar nach Start und Ziel.',
+          ),
+          label: L('Listings', tr: 'İlanlar', de: 'Angebote'),
+          image: 'assets/images/sevkiyatvar/sevkiyatvar_screenshots_6.webp',
+        ),
+        Highlight(
+          title: L('Listing details', tr: 'İlan detayı', de: 'Angebotsdetails'),
+          description: L(
+            'Everything about a load, with call and WhatsApp buttons.',
+            tr: 'Yükle ilgili her şey, arama ve WhatsApp butonlarıyla.',
+            de: 'Alle Infos zur Ladung, mit Anruf- und WhatsApp-Button.',
+          ),
+          label: L('Detail', tr: 'Detay', de: 'Detail'),
+          image: 'assets/images/sevkiyatvar/sevkiyatvar_screenshots_4.webp',
+        ),
+        Highlight(
+          title: L('Post a load', tr: 'İlan ver', de: 'Ladung inserieren'),
+          description: L(
+            'Origin, destination, vehicle, body and load type in one form.',
+            tr: 'Çıkış, varış, araç, kasa ve yük tipi tek formda.',
+            de: 'Start, Ziel, Fahrzeug, Aufbau und Ladungsart in einem Formular.',
+          ),
+          label: L('New listing', tr: 'Yeni ilan', de: 'Neues Inserat'),
+          image: 'assets/images/sevkiyatvar/sevkiyatvar_screenshots_2.webp',
+        ),
+        Highlight(
+          title: L('Job tracking', tr: 'İş takibi', de: 'Auftragsverfolgung'),
+          description: L(
+            'Accepted jobs, offers and your own listings in separate tabs.',
+            tr: 'Alınan işler, teklifler ve kendi ilanların ayrı sekmelerde.',
+            de: 'Angenommene Aufträge, Angebote und eigene Inserate in getrennten Tabs.',
+          ),
+          label: L('Tracking', tr: 'Takip', de: 'Verfolgung'),
+          image: 'assets/images/sevkiyatvar/sevkiyatvar_screenshots_3.webp',
+        ),
+        Highlight(
+          title: L('Packages', tr: 'Paketler', de: 'Pakete'),
+          description: L(
+            'Three, six or twelve month plans with in-app card payment.',
+            tr: 'Üç, altı ya da on iki aylık paketler, uygulama içi kartla ödeme.',
+            de: 'Pakete für drei, sechs oder zwölf Monate mit Kartenzahlung in der App.',
+          ),
+          label: L('Subscription', tr: 'Abonelik', de: 'Abo'),
+          image: 'assets/images/sevkiyatvar/sevkiyatvar_screenshots_5.webp',
+        ),
       ],
     ),
     Entry(
@@ -240,15 +433,6 @@ const projects = Collection(
       label: L('Travel', tr: 'Seyahat', de: 'Reisen'),
       logo: 'assets/images/travelai/travelai_logo.webp',
       tags: ['Swift', 'UIKit', 'Lottie', 'Alamofire', 'Google Gemini AI', 'Firebase', 'OAuth'],
-      screenshots: [
-        'assets/images/travelai/travelai_screenshots_5.webp',
-        'assets/images/travelai/travelai_screenshots_7.webp',
-        'assets/images/travelai/travelai_screenshots_2.webp',
-        'assets/images/travelai/travelai_screenshots_4.webp',
-        'assets/images/travelai/travelai_screenshots_1.webp',
-        'assets/images/travelai/travelai_screenshots_3.webp',
-        'assets/images/travelai/travelai_screenshots_6.webp',
-      ],
       highlights: [
         Highlight(
           title: L('One-tap sign-in', tr: 'Tek dokunuşla giriş', de: 'Anmeldung mit einem Tipp'),
@@ -291,6 +475,36 @@ const projects = Collection(
           label: L('Discover', tr: 'Keşfet', de: 'Entdecken'),
           image: 'assets/images/travelai/travelai_screenshots_4.webp',
         ),
+        Highlight(
+          title: L('Launch screen', tr: 'Açılış ekranı', de: 'Startbildschirm'),
+          description: L(
+            'TravelAI, your personal AI travel adviser.',
+            tr: 'TravelAI, kişisel yapay zekâ seyahat danışmanın.',
+            de: 'TravelAI, Ihr persönlicher KI-Reiseberater.',
+          ),
+          label: L('Start', tr: 'Başlangıç', de: 'Start'),
+          image: 'assets/images/travelai/travelai_screenshots_5.webp',
+        ),
+        Highlight(
+          title: L('Welcome', tr: 'Hoş geldin', de: 'Willkommen'),
+          description: L(
+            'Join with an account or continue as a guest.',
+            tr: 'Hesapla katıl ya da misafir olarak devam et.',
+            de: 'Mit Konto beitreten oder als Gast fortfahren.',
+          ),
+          label: L('Onboarding', tr: 'Karşılama', de: 'Onboarding'),
+          image: 'assets/images/travelai/travelai_screenshots_7.webp',
+        ),
+        Highlight(
+          title: L('Profile menu', tr: 'Profil menüsü', de: 'Profilmenü'),
+          description: L(
+            'Help, contact, privacy and account settings in one drawer.',
+            tr: 'Yardım, iletişim, gizlilik ve hesap ayarları tek menüde.',
+            de: 'Hilfe, Kontakt, Datenschutz und Kontoeinstellungen in einem Menü.',
+          ),
+          label: L('Account', tr: 'Hesap', de: 'Konto'),
+          image: 'assets/images/travelai/travelai_screenshots_1.webp',
+        ),
       ],
       statuses: [EntryStatus.earlyDevelopment],
     ),
@@ -311,15 +525,6 @@ const projects = Collection(
       label: L('Education', tr: 'Eğitim', de: 'Bildung'),
       logo: 'assets/images/visiostellar/visiostellar_logo.webp',
       tags: ['Swift', 'UIKit', 'Storyboard', 'Auto Layout', 'iOS', 'Xcode', 'MVC'],
-      screenshots: [
-        'assets/images/visiostellar/visiostellar_screenshots_1.webp',
-        'assets/images/visiostellar/visiostellar_screenshots_4.webp',
-        'assets/images/visiostellar/visiostellar_screenshots_3.webp',
-        'assets/images/visiostellar/visiostellar_screenshots_5.webp',
-        'assets/images/visiostellar/visiostellar_screenshots_7.webp',
-        'assets/images/visiostellar/visiostellar_screenshots_6.webp',
-        'assets/images/visiostellar/visiostellar_screenshots_2.webp',
-      ],
       highlights: [
         Highlight(
           title: L('NASA feed', tr: 'NASA akışı', de: 'NASA-Feed'),
@@ -362,6 +567,36 @@ const projects = Collection(
           label: L('Live search', tr: 'Canlı arama', de: 'Live-Suche'),
           image: 'assets/images/visiostellar/visiostellar_screenshots_4.webp',
         ),
+        Highlight(
+          title: L('Launch screen', tr: 'Açılış ekranı', de: 'Startbildschirm'),
+          description: L(
+            'Visiostellar, astronomy on the iPhone.',
+            tr: 'Visiostellar, iPhone\'da astronomi.',
+            de: 'Visiostellar, Astronomie auf dem iPhone.',
+          ),
+          label: L('Start', tr: 'Başlangıç', de: 'Start'),
+          image: 'assets/images/visiostellar/visiostellar_screenshots_1.webp',
+        ),
+        Highlight(
+          title: L('Home feed', tr: 'Ana akış', de: 'Start-Feed'),
+          description: L(
+            'Image-first cards for each story, from Mars rocks to aircraft tests.',
+            tr: 'Mars kayalarından uçak testlerine, her haber için görsel ağırlıklı kartlar.',
+            de: 'Bildstarke Karten für jede Meldung, von Mars-Gestein bis zu Flugtests.',
+          ),
+          label: L('Feed', tr: 'Akış', de: 'Feed'),
+          image: 'assets/images/visiostellar/visiostellar_screenshots_7.webp',
+        ),
+        Highlight(
+          title: L('On nasa.gov', tr: 'nasa.gov\'da', de: 'Auf nasa.gov'),
+          description: L(
+            'The full article opens on nasa.gov without leaving the app.',
+            tr: 'Haberin tamamı uygulamadan çıkmadan nasa.gov\'da açılıyor.',
+            de: 'Der ganze Artikel öffnet sich auf nasa.gov, ohne die App zu verlassen.',
+          ),
+          label: L('Source', tr: 'Kaynak', de: 'Quelle'),
+          image: 'assets/images/visiostellar/visiostellar_screenshots_2.webp',
+        ),
       ],
       statuses: [EntryStatus.earlyProject],
     ),
@@ -382,15 +617,6 @@ const projects = Collection(
       label: L('Retail', tr: 'Perakende', de: 'Einzelhandel'),
       logo: 'assets/images/peasy/peasy_logo.webp',
       tags: ['Flutter', 'Dart', 'NFC', 'Firebase', 'REST API', 'Recommendation systems'],
-      screenshots: [
-        'assets/images/peasy/peasy_screenshots_1.webp',
-        'assets/images/peasy/peasy_screenshots_6.webp',
-        'assets/images/peasy/peasy_screenshots_7.webp',
-        'assets/images/peasy/peasy_screenshots_2.webp',
-        'assets/images/peasy/peasy_screenshots_3.webp',
-        'assets/images/peasy/peasy_screenshots_4.webp',
-        'assets/images/peasy/peasy_screenshots_5.webp',
-      ],
       highlights: [
         Highlight(
           title: L('Tap to scan', tr: 'Dokun ve okut', de: 'Antippen und scannen'),
@@ -432,6 +658,36 @@ const projects = Collection(
           ),
           label: L('Store map', tr: 'Mağaza haritası', de: 'Filialplan'),
           image: 'assets/images/peasy/peasy_screenshots_6.webp',
+        ),
+        Highlight(
+          title: L('Launch screen', tr: 'Açılış ekranı', de: 'Startbildschirm'),
+          description: L(
+            'Peasy, checkout without the queue.',
+            tr: 'Peasy, kuyruksuz ödeme.',
+            de: 'Peasy, bezahlen ohne Schlange.',
+          ),
+          label: L('Start', tr: 'Başlangıç', de: 'Start'),
+          image: 'assets/images/peasy/peasy_screenshots_1.webp',
+        ),
+        Highlight(
+          title: L('Verify with a code', tr: 'Kodla doğrula', de: 'Per Code bestätigen'),
+          description: L(
+            'A one-time code sent by email or SMS keeps the account safe.',
+            tr: 'E-posta veya SMS ile gelen tek kullanımlık kod hesabı güvende tutuyor.',
+            de: 'Ein Einmalcode per E-Mail oder SMS schützt das Konto.',
+          ),
+          label: L('Security', tr: 'Güvenlik', de: 'Sicherheit'),
+          image: 'assets/images/peasy/peasy_screenshots_7.webp',
+        ),
+        Highlight(
+          title: L('Order summary', tr: 'Sipariş özeti', de: 'Bestellübersicht'),
+          description: L(
+            'Subtotal, taxes and promotion codes before confirming the payment.',
+            tr: 'Ödemeyi onaylamadan önce ara toplam, vergiler ve indirim kodu.',
+            de: 'Zwischensumme, Steuern und Gutscheincode vor der Zahlung.',
+          ),
+          label: L('Checkout', tr: 'Ödeme', de: 'Kasse'),
+          image: 'assets/images/peasy/peasy_screenshots_4.webp',
         ),
       ],
       statuses: [EntryStatus.underDevelopment],

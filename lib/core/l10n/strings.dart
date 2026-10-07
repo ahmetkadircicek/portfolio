@@ -74,8 +74,6 @@ class S {
   static L show(String what) => L('Show $what', tr: '$what göster', de: '$what anzeigen');
   static L all(L collection) => L('All ${collection.en.toLowerCase()}', tr: collection.tr, de: collection.de);
   static const highlights = L('Highlights', tr: 'Öne çıkanlar', de: 'Highlights');
-  static const screenshots = L('Screenshots', tr: 'Ekran görüntüleri', de: 'Screenshots');
-  static const appScreenshot = L('App screenshot', tr: 'Uygulama ekran görüntüsü', de: 'App-Screenshot');
   static const nextImage = L('Show next image', tr: 'Sonraki görsel', de: 'Nächstes Bild');
 
   // Closing block

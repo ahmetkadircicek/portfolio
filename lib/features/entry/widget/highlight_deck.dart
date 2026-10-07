@@ -100,38 +100,42 @@ class _HighlightDeckState extends State<HighlightDeck> {
           ),
         ),
         if (_count > 1)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (var i = 0; i < _count; i++)
-                Semantics(
-                  button: true,
-                  selected: i == _index,
-                  label: context.t(S.show(context.t(widget.slides[i].title))),
-                  child: HoverDetector(
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => _show(i),
-                      child: SizedBox(
-                        width: 32,
-                        height: 44,
-                        child: Center(
-                          child: AnimatedContainer(
-                            duration: duration,
-                            curve: AppMotion.emphasized,
-                            width: i == _index ? 24 : 8,
-                            height: 8,
-                            decoration: BoxDecoration(
-                              color: i == _index ? context.colors.ink : context.colors.ink.withValues(alpha: 0.2),
-                              borderRadius: AppRadius.pillAll,
+          // Many slides: the dots shrink to fit instead of overflowing.
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (var i = 0; i < _count; i++)
+                  Semantics(
+                    button: true,
+                    selected: i == _index,
+                    label: context.t(S.show(context.t(widget.slides[i].title))),
+                    child: HoverDetector(
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => _show(i),
+                        child: SizedBox(
+                          width: 32,
+                          height: 44,
+                          child: Center(
+                            child: AnimatedContainer(
+                              duration: duration,
+                              curve: AppMotion.emphasized,
+                              width: i == _index ? 24 : 8,
+                              height: 8,
+                              decoration: BoxDecoration(
+                                color: i == _index ? context.colors.ink : context.colors.ink.withValues(alpha: 0.2),
+                                borderRadius: AppRadius.pillAll,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
       ],
     );

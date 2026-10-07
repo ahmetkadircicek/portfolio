@@ -108,8 +108,8 @@ class _HomeViewState extends State<HomeView> {
     if (delta.abs() < 6) return;
     _lastOffset = offset;
 
-    final heroHeight = (_heroKey.currentContext?.findRenderObject() as RenderBox?)?.size.height ??
-        MediaQuery.sizeOf(context).height;
+    final heroHeight =
+        (_heroKey.currentContext?.findRenderObject() as RenderBox?)?.size.height ?? MediaQuery.sizeOf(context).height;
     final line = heroHeight - 80;
     if (offset < line) {
       _barVisible.value = false;
