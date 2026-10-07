@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:portfolio/core/init/navigation/app_router.dart';
 
@@ -18,8 +19,49 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: AppRouter.router,
       debugShowCheckedModeBanner: false,
-      title: 'Ahmet Kadir Çiçek — Mobile Developer',
+      title: AppRouter.homeTitle,
       theme: ThemeManager.theme,
+      builder: (context, child) => _TabTitle(child: child!),
     );
+  }
+}
+
+/// The one place the tab title is set: from the current address, after every
+/// route change. Pages carry no title of their own, so a page fading out can
+/// never leave its name on the tab.
+class _TabTitle extends StatefulWidget {
+  final Widget child;
+
+  const _TabTitle({required this.child});
+
+  @override
+  State<_TabTitle> createState() => _TabTitleState();
+}
+
+class _TabTitleState extends State<_TabTitle> {
+  final _delegate = AppRouter.router.routerDelegate;
+
+  @override
+  void initState() {
+    super.initState();
+    _delegate.addListener(_update);
+    _update();
+  }
+
+  @override
+  void dispose() {
+    _delegate.removeListener(_update);
+    super.dispose();
+  }
+
+  void _update() => SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+      label: AppRouter.titleFor(_delegate.currentConfiguration.uri), primaryColor: 0xFF1F2024));
+
+  // Also on build: the app's own default title is written just above this
+  // whenever the app rebuilds, and this must win.
+  @override
+  Widget build(BuildContext context) {
+    _update();
+    return widget.child;
   }
 }
