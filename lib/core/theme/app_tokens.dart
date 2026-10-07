@@ -18,6 +18,12 @@ class AppPalette extends ThemeExtension<AppPalette> {
   final Color onInk;
   final Color onInkMuted;
 
+  // The closing block on the home page: dark on light, a raised surface on
+  // dark, so it never turns into a white slab.
+  final Color block;
+  final Color onBlock;
+  final Color onBlockMuted;
+
   // Project status
   final Color statusReady;
   final Color statusProgress;
@@ -36,6 +42,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
     required this.surfaceHover,
     required this.onInk,
     required this.onInkMuted,
+    required this.block,
+    required this.onBlock,
+    required this.onBlockMuted,
     required this.statusReady,
     required this.statusProgress,
     required this.statusEarly,
@@ -53,6 +62,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
     surfaceHover: Color(0xFFEAE9F0),
     onInk: Color(0xFFFFFFFF),
     onInkMuted: Color(0xB3FFFFFF),
+    block: Color(0xFF1F2024),
+    onBlock: Color(0xFFFFFFFF),
+    onBlockMuted: Color(0xB3FFFFFF),
     statusReady: Color(0xFF2E7D32),
     statusProgress: Color(0xFFC24100),
     statusEarly: Color(0xFF1565C0),
@@ -60,16 +72,21 @@ class AppPalette extends ThemeExtension<AppPalette> {
     error: Color(0xFFC62828),
   );
 
+  // Neutral greys taken from the profile photo: its backdrop (#191919)
+  // and its white shirt, with no blue cast.
   static const dark = AppPalette(
-    ink: Color(0xFFECECEF),
-    inkMuted: Color(0xB8ECECEF),
-    inkSubtle: Color(0x9EECECEF),
-    line: Color(0x1FECECEF),
-    canvas: Color(0xFF121316),
-    surface: Color(0xFF1C1D21),
-    surfaceHover: Color(0xFF26272C),
-    onInk: Color(0xFF121316),
-    onInkMuted: Color(0xB3121316),
+    ink: Color(0xFFE6E6E6),
+    inkMuted: Color(0xB8E6E6E6),
+    inkSubtle: Color(0x9EE6E6E6),
+    line: Color(0x1FE6E6E6),
+    canvas: Color(0xFF191919),
+    surface: Color(0xFF222222),
+    surfaceHover: Color(0xFF2C2C2C),
+    onInk: Color(0xFF191919),
+    onInkMuted: Color(0xB3191919),
+    block: Color(0xFF222222),
+    onBlock: Color(0xFFE6E6E6),
+    onBlockMuted: Color(0xB8E6E6E6),
     statusReady: Color(0xFF81C784),
     statusProgress: Color(0xFFFFB74D),
     statusEarly: Color(0xFF64B5F6),
@@ -94,6 +111,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
       surfaceHover: l(surfaceHover, other.surfaceHover),
       onInk: l(onInk, other.onInk),
       onInkMuted: l(onInkMuted, other.onInkMuted),
+      block: l(block, other.block),
+      onBlock: l(onBlock, other.onBlock),
+      onBlockMuted: l(onBlockMuted, other.onBlockMuted),
       statusReady: l(statusReady, other.statusReady),
       statusProgress: l(statusProgress, other.statusProgress),
       statusEarly: l(statusEarly, other.statusEarly),

@@ -132,7 +132,8 @@ class _Center extends StatelessWidget {
             child: Image.asset(
               'assets/images/common/shape.webp',
               fit: BoxFit.contain,
-              opacity: const AlwaysStoppedAnimation(0.3),
+              // Fainter on dark, where the light shape would glare.
+              opacity: AlwaysStoppedAnimation(Theme.of(context).brightness == Brightness.dark ? 0.12 : 0.3),
               gaplessPlayback: true,
               excludeFromSemantics: true,
             ),
