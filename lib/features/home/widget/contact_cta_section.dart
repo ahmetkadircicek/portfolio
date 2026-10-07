@@ -45,7 +45,7 @@ class ContactCtaSection extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     mobile ? 'LET\'S MAKE\nIT SIMPLE' : 'LET\'S MAKE IT SIMPLE',
-                    style: text.display.copyWith(color: AppColors.onInk),
+                    style: text.h1.copyWith(color: AppColors.onInk),
                   ),
                 ),
                 const SizedBox(height: AppSpace.x6),
@@ -76,14 +76,12 @@ class ContactCtaSection extends StatelessWidget {
                           label: 'GitHub',
                           icon: LinkIcon.external,
                           color: AppColors.onInk,
-                          style: text.bodySmall,
                           onTap: () => launchUrl(Uri.parse(AppLinks.github), webOnlyWindowName: '_blank'),
                         ),
                         HoverLink(
                           label: 'Back to top',
                           icon: LinkIcon.up,
                           color: AppColors.onInk,
-                          style: text.bodySmall,
                           onTap: onBackToTop,
                         ),
                       ],

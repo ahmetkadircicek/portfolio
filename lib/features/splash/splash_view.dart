@@ -17,7 +17,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
   /// What the landing page shows first; fetched while the signature plays so
   /// the home page appears complete instead of filling in.
   static const _landingImages = [
-    'assets/images/common/profile.webp',
+    'assets/images/common/profile.jpg',
     'assets/images/common/signature.webp',
     'assets/images/common/shape.webp',
   ];
@@ -40,8 +40,8 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
     );
 
     // Starts downloading the landing page's fonts.
-    GoogleFonts.cardo(fontWeight: FontWeight.w900);
     GoogleFonts.cardo(fontWeight: FontWeight.w700);
+    GoogleFonts.montserrat(fontWeight: FontWeight.w400);
     GoogleFonts.montserrat(fontWeight: FontWeight.w600);
 
     _timer = Timer(const Duration(seconds: 3), _navigateToNextScreen);
@@ -100,7 +100,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                 Text(
                   'Cross and Native Mobile Application Developer',
                   textAlign: TextAlign.center,
-                  style: context.text.body.copyWith(fontWeight: FontWeight.w300, color: AppColors.inkMuted),
+                  style: context.text.body.copyWith(color: AppColors.inkMuted),
                 ),
               ],
             ),
