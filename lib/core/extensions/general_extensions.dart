@@ -17,7 +17,7 @@ extension BuildContextExtension on BuildContext {
   double get gutter => isDesktop ? AppSpace.x12 : (isTablet ? AppSpace.x8 : AppSpace.x4);
 
   /// Space between two page sections.
-  double get sectionGap => isDesktop ? AppSpace.x32 : (isTablet ? AppSpace.x24 : AppSpace.x16);
+  double get sectionGap => isDesktop ? AppSpace.x24 : (isTablet ? AppSpace.x16 : AppSpace.x12);
 
   /// True when the visitor asked the system for less motion.
   bool get reduceMotion => MediaQuery.disableAnimationsOf(this);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 
-/// Small upper-case label above content, e.g. `SELECTED WORK`.
+/// Small upper-case label above content, e.g. `PROJECTS`.
 class Eyebrow extends StatelessWidget {
   final String text;
   final Color color;
@@ -24,7 +24,10 @@ class SectionHeader extends StatelessWidget {
   final String? count;
   final String? description;
 
-  const SectionHeader({super.key, required this.title, this.count, this.description});
+  /// Shown at the end of the title line, e.g. an open/close control.
+  final Widget? trailing;
+
+  const SectionHeader({super.key, required this.title, this.count, this.description, this.trailing});
 
   @override
   Widget build(BuildContext context) {
@@ -32,22 +35,17 @@ class SectionHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text.rich(
+        _withTrailing(Text.rich(
           TextSpan(
             text: title.toUpperCase(),
             children: [
               if (count != null)
-                WidgetSpan(
-                  alignment: PlaceholderAlignment.top,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: AppSpace.x2),
-                    child: Text('($count)', style: text.label.copyWith(color: AppColors.inkSubtle)),
-                  ),
-                ),
+                // Small and on the title's baseline, right after it.
+                TextSpan(text: '  ($count)', style: text.label.copyWith(color: AppColors.inkSubtle)),
             ],
           ),
           style: text.h1,
-        ),
+        )),
         if (description != null) ...[
           const SizedBox(height: AppSpace.x4),
           ConstrainedBox(
@@ -55,9 +53,14 @@ class SectionHeader extends StatelessWidget {
             child: Text(description!, style: text.bodyLarge.copyWith(color: AppColors.inkMuted)),
           ),
         ],
-        SizedBox(height: context.isMobile ? AppSpace.x6 : AppSpace.x8),
+        SizedBox(height: context.isMobile ? AppSpace.x4 : AppSpace.x6),
         const Divider(height: 1, thickness: 1, color: AppColors.line),
       ],
     );
+  }
+
+  Widget _withTrailing(Widget title) {
+    if (trailing == null) return title;
+    return Row(children: [Expanded(child: title), trailing!]);
   }
 }

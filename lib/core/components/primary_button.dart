@@ -40,7 +40,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
             mainAxisSize: MainAxisSize.min,
             spacing: AppSpace.x3,
             children: [
-              Text(widget.label, style: context.text.link.copyWith(color: foreground, fontWeight: FontWeight.w600)),
+              Text(widget.label, style: context.text.link.copyWith(color: foreground)),
               AnimatedSlide(
                 offset: Offset(_hovering ? 0.25 : 0, 0),
                 duration: AppMotion.base,

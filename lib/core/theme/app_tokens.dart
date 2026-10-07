@@ -18,9 +18,6 @@ class AppColors {
   static const onInk = Color(0xFFFFFFFF);
   static const onInkMuted = Color(0xB3FFFFFF);
 
-  /// Highlight of the shimmering links.
-  static const accent = Color(0xFFFBC02D);
-
   // Project status
   static const statusReady = Color(0xFF2E7D32);
   static const statusProgress = Color(0xFFC24100);
@@ -28,9 +25,6 @@ class AppColors {
   static const statusArchive = Color(0xFF6A1B9A);
 
   static const error = Color(0xFFC62828);
-
-  /// Background of feature cards that do not use a project's brand colors.
-  static const cardLight = [Color(0xFFFFFFFF), Color(0xFFFAFAFA)];
 }
 
 /// 4 pt spacing scale.
@@ -61,6 +55,20 @@ class AppRadius {
   static const mdAll = BorderRadius.all(Radius.circular(md));
   static const lgAll = BorderRadius.all(Radius.circular(lg));
   static const pillAll = BorderRadius.all(Radius.circular(pill));
+}
+
+/// The site's one shadow: a wide, faint ambient layer and a thin contact
+/// layer. Anything that lifts off the page uses it; there is no second level.
+class AppShadow {
+  AppShadow._();
+
+  static const soft = [
+    BoxShadow(color: Color(0x0F1F2024), blurRadius: 40, offset: Offset(0, 16), spreadRadius: -12), // ink 6 %
+    BoxShadow(color: Color(0x0A1F2024), blurRadius: 3, offset: Offset(0, 1)), // ink 4 %
+  ];
+
+  /// Same layers fully transparent, so [soft] can animate in and out.
+  static final none = [for (final s in soft) s.copyWith(color: s.color.withValues(alpha: 0))];
 }
 
 class AppMotion {
