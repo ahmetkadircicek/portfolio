@@ -93,6 +93,7 @@ class EntryView extends StatelessWidget {
               : SiteHeader(trailing: Align(alignment: Alignment.centerRight, child: back)),
           Expanded(
             child: SingleChildScrollView(
+              primary: true,
               child: PageFrame(
                 child: Padding(
                   padding: EdgeInsets.only(top: mobile ? AppSpace.x6 : AppSpace.x12, bottom: context.sectionGap),
