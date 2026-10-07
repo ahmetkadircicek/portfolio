@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 
@@ -94,13 +96,13 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                 ),
                 const SizedBox(height: AppSpace.x6),
                 Text(
-                  'Hello, I am Ahmet Kadir ÇİÇEK.',
+                  context.t(S.hello),
                   textAlign: TextAlign.center,
                   style: context.text.title,
                 ),
                 const SizedBox(height: AppSpace.x1),
                 Text(
-                  'Cross and Native Mobile Application Developer',
+                  context.t(S.role),
                   textAlign: TextAlign.center,
                   style: context.text.body.copyWith(color: context.colors.inkMuted),
                 ),

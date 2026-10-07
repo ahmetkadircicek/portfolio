@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/asset_image_widget.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
@@ -16,8 +18,8 @@ class ScreenshotRow extends StatelessWidget {
           borderRadius: AppRadius.smAll,
           child: ColoredBox(
             color: context.colors.surface,
-            child:
-                AssetImageWidget(path, fit: BoxFit.cover, semanticLabel: 'App screenshot', decodeAtLayoutWidth: true),
+            child: AssetImageWidget(path,
+                fit: BoxFit.cover, semanticLabel: context.t(S.appScreenshot), decodeAtLayoutWidth: true),
           ),
         );
 

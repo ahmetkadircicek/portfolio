@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/simple_icons.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/app_logo.dart';
 import 'package:portfolio/core/components/hover_detector_widget.dart';
 import 'package:portfolio/core/components/hover_link.dart';
@@ -33,7 +35,7 @@ class EntryView extends StatelessWidget {
     final mobile = context.isMobile;
     final desktop = context.isDesktop;
     final back = HoverLink(
-      label: 'All ${collection.title.toLowerCase()}',
+      label: context.t(S.all(collection.title)),
       icon: LinkIcon.back,
       onTap: () => context.go(collection.path),
     );
@@ -57,7 +59,7 @@ class EntryView extends StatelessWidget {
         spacing: AppSpace.x4,
         children: [
           // Stacked, the deck opens the page and needs no label.
-          if (desktop) const Eyebrow('Highlights'),
+          if (desktop) Eyebrow(context.t(S.highlights)),
           HighlightDeck(key: ValueKey(entry.slug), slides: entry.highlights),
         ],
       ),
@@ -108,7 +110,7 @@ class EntryView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 spacing: AppSpace.x4,
                                 children: [
-                                  const Eyebrow('Screenshots'),
+                                  Eyebrow(context.t(S.screenshots)),
                                   ScreenshotRow(paths: entry.screenshots),
                                 ],
                               ),
@@ -140,12 +142,15 @@ class _Title extends StatelessWidget {
     final heading = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Eyebrow('$number / ${two(collection.entries.length)}  —  ${entry.label}'),
+        Eyebrow('$number / ${two(collection.entries.length)}  —  ${context.t(entry.label)}'),
         const SizedBox(height: AppSpace.x3),
         // Every entry page's title has the same size, set by the longest one.
-        Semantics(header: true, child: UniformLine(entry.title.toUpperCase(), all: allEntryTitles, style: text.h1)),
+        Semantics(
+            header: true,
+            child: UniformLine(context.t(entry.title).toUpperCase(),
+                all: allEntryTitles(context.language), style: text.h1)),
         const SizedBox(height: AppSpace.x2),
-        Text(entry.subtitle, style: text.bodyLarge.copyWith(color: context.colors.inkMuted)),
+        Text(context.t(entry.subtitle), style: text.bodyLarge.copyWith(color: context.colors.inkMuted)),
       ],
     );
 
@@ -168,7 +173,7 @@ class _Title extends StatelessWidget {
             runSpacing: AppSpace.x2,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              for (final s in entry.statuses) Pill.status(s.label, color: s.colorIn(context.colors)),
+              for (final s in entry.statuses) Pill.status(context.t(s.label), color: s.colorIn(context.colors)),
               for (final t in entry.tags) Pill(t),
             ],
           ),
@@ -194,7 +199,7 @@ class _Body extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: AppSpace.x4,
         children: [
-          Text(entry.overview, style: paragraph),
+          Text(context.t(entry.overview), style: paragraph),
           if (entry.points.isNotEmpty) const SizedBox(height: AppSpace.x2),
           for (final p in entry.points)
             Row(
@@ -206,7 +211,7 @@ class _Body extends StatelessWidget {
                   padding: EdgeInsets.only(top: (point.fontSize ?? 16) * 0.75),
                   child: SizedBox.square(dimension: 6, child: ColoredBox(color: context.colors.inkSubtle)),
                 ),
-                Expanded(child: Text(p, style: point)),
+                Expanded(child: Text(context.t(p), style: point)),
               ],
             ),
         ],
@@ -236,7 +241,7 @@ class _LinkCardState extends State<_LinkCard> {
     final address = Uri.parse(link.url);
     return Semantics(
       link: true,
-      label: link.label,
+      label: context.t(link.label),
       excludeSemantics: true,
       child: HoverDetector(
         child: MouseRegion(
@@ -271,7 +276,7 @@ class _LinkCardState extends State<_LinkCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         spacing: 2,
                         children: [
-                          Text(link.label, style: text.title),
+                          Text(context.t(link.label), style: text.title),
                           Text(
                             '${address.host}${address.path}',
                             style: text.bodySmall.copyWith(color: context.colors.inkMuted),

@@ -1,4 +1,5 @@
 import 'package:flutter/painting.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 
 /// One item of a [Collection]: a project, a job, or anything else the site
@@ -10,23 +11,23 @@ class Entry {
   final String slug;
 
   /// Name shown in upper-case serif, e.g. `Tunes.AI` or a job title.
-  final String title;
+  final L title;
 
   /// Line under the title, e.g. what the app is or the employer.
-  final String subtitle;
+  final L subtitle;
 
   /// Category or period, e.g. `Music` or `Dec 2025 — Present`. Shown above
   /// the title on the page; in the home row when the entry has no status.
-  final String label;
+  final L label;
 
   /// One or two sentences for the home page row.
-  final String summary;
+  final L summary;
 
   /// Opening text of the entry's page.
-  final String overview;
+  final L overview;
 
   /// What was done, as a bullet list under the overview.
-  final List<String> points;
+  final List<L> points;
 
   /// App-icon style logo; null draws the code mark.
   final String? logo;
@@ -63,7 +64,7 @@ class Entry {
 /// `/<id>` opens the home page at the section, `/<id>/<slug>` an entry.
 class Collection {
   final String id;
-  final String title;
+  final L title;
   final List<Entry> entries;
 
   /// Phones start with the section closed, to keep the home page short.
@@ -85,9 +86,9 @@ class Collection {
 
 /// One image card on an entry's page.
 class Highlight {
-  final String title;
-  final String description;
-  final String label;
+  final L title;
+  final L description;
+  final L label;
   final String image;
 
   /// Card background gradient; empty uses the theme's surface colors.
@@ -103,12 +104,12 @@ class Highlight {
 }
 
 enum EntryStatus {
-  readyToRelease('Ready to Release'),
-  underDevelopment('Under Development'),
-  earlyDevelopment('Under Early Development'),
-  earlyProject('Early Project');
+  readyToRelease(L('Ready for release', tr: 'Yayına hazır', de: 'Bereit für den Release')),
+  underDevelopment(L('In development', tr: 'Geliştiriliyor', de: 'In Entwicklung')),
+  earlyDevelopment(L('Early development', tr: 'Erken geliştirme', de: 'Frühe Entwicklung')),
+  earlyProject(L('Early project', tr: 'İlk proje', de: 'Frühes Projekt'));
 
-  final String label;
+  final L label;
   const EntryStatus(this.label);
 
   Color colorIn(AppPalette palette) => switch (this) {
@@ -121,12 +122,12 @@ enum EntryStatus {
 
 /// An outside link shown as a card on the entry's page.
 class EntryLink {
-  final String label;
+  final L label;
   final String url;
 
   const EntryLink({required this.label, required this.url});
 
-  const EntryLink.github(this.url) : label = 'Source code';
+  const EntryLink.github(this.url) : label = const L('Source code', tr: 'Kaynak kod', de: 'Quellcode');
 
   bool get isGithub => Uri.parse(url).host == 'github.com';
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/page_frame.dart';
 import 'package:portfolio/core/components/primary_button.dart';
 import 'package:portfolio/core/components/reveal.dart';
@@ -105,8 +107,8 @@ class _ContactFormState extends State<_ContactForm> {
           spacing: AppSpace.x6,
           children: [
             _Field(
-              label: 'Name',
-              hintText: 'Your full name',
+              label: context.t(S.name),
+              hintText: context.t(S.nameHint),
               controller: _nameController,
               validator: viewModel.validateName,
               onSaved: (value) => viewModel.name = value ?? '',
@@ -114,7 +116,7 @@ class _ContactFormState extends State<_ContactForm> {
               autofillHints: const [AutofillHints.name],
             ),
             _Field(
-              label: 'Email',
+              label: context.t(S.email),
               hintText: 'your.email@example.com',
               controller: _emailController,
               validator: viewModel.validateEmail,
@@ -123,15 +125,15 @@ class _ContactFormState extends State<_ContactForm> {
               autofillHints: const [AutofillHints.email],
             ),
             _Field(
-              label: 'Subject',
-              hintText: 'What is this regarding?',
+              label: context.t(S.subject),
+              hintText: context.t(S.subjectHint),
               controller: _subjectController,
               validator: viewModel.validateSubject,
               onSaved: (value) => viewModel.subject = value ?? '',
             ),
             _Field(
-              label: 'Message',
-              hintText: 'Write your message here...',
+              label: context.t(S.message),
+              hintText: context.t(S.messageHint),
               controller: _messageController,
               validator: viewModel.validateMessage,
               onSaved: (value) => viewModel.message = value ?? '',
@@ -143,7 +145,7 @@ class _ContactFormState extends State<_ContactForm> {
             Align(
               alignment: Alignment.centerLeft,
               child: PrimaryButton(
-                label: 'Send message',
+                label: context.t(S.send),
                 loading: viewModel.isSending,
                 expand: context.isMobile,
                 onPressed: () async {
@@ -170,16 +172,14 @@ class _Intro extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Eyebrow('Contact'),
+          Eyebrow(context.t(S.contact)),
           const SizedBox(height: AppSpace.x4),
-          Semantics(header: true, child: Text(sent ? 'THANK YOU!' : 'REQUEST A PROJECT', style: text.h1)),
+          Semantics(header: true, child: Text(context.t(sent ? S.thanksTitle : S.contactTitle), style: text.h1)),
           const SizedBox(height: AppSpace.x6),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 440),
             child: Text(
-              sent
-                  ? 'Your message has been sent successfully. I will get back to you soon.'
-                  : 'I\'d love to hear from you. Fill out the form and I\'ll get back to you as soon as possible.',
+              context.t(sent ? S.thanksBody : S.contactBody),
               style: text.bodyLarge.copyWith(color: context.colors.inkMuted),
             ),
           ),
@@ -211,8 +211,8 @@ class _Success extends StatelessWidget {
             ),
             child: Icon(Icons.check, color: context.colors.statusReady, size: 28),
           ),
-          Text('Message sent', style: context.text.h3),
-          PrimaryButton(label: 'Send another message', onPressed: onSendAnother),
+          Text(context.t(S.sent), style: context.text.h3),
+          PrimaryButton(label: context.t(S.sendAnother), onPressed: onSendAnother),
         ],
       ),
     );

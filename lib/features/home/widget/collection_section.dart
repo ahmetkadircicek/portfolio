@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/app_logo.dart';
 import 'package:portfolio/core/components/hover_detector_widget.dart';
 import 'package:portfolio/core/components/page_frame.dart';
@@ -63,7 +65,7 @@ class _CollectionSectionState extends State<CollectionSection> {
               behavior: HitTestBehavior.opaque,
               onTap: () => widget.open.value = !_open,
               child: SectionHeader(
-                title: collection.title,
+                title: context.t(collection.title),
                 count: count,
                 trailing: AnimatedRotation(
                   turns: _open ? 0.5 : 0,
@@ -73,13 +75,13 @@ class _CollectionSectionState extends State<CollectionSection> {
                     width: 44,
                     height: 44,
                     child: Icon(Icons.expand_more,
-                        color: context.colors.ink, semanticLabel: 'Show ${collection.title.toLowerCase()}'),
+                        color: context.colors.ink, semanticLabel: context.t(S.show(context.t(collection.title)))),
                   ),
                 ),
               ),
             ),
           )
-        : SectionHeader(title: collection.title, count: count);
+        : SectionHeader(title: context.t(collection.title), count: count);
 
     final rows = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -136,18 +138,21 @@ class _EntryRowState extends State<_EntryRow> {
       spacing: AppSpace.x1,
       children: [
         // Same size for every title on the site, set by the longest one.
-        UniformLine(entry.title.toUpperCase(), all: allEntryTitles, style: text.h2),
-        Text(entry.subtitle, style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
+        UniformLine(context.t(entry.title).toUpperCase(), all: allEntryTitles(context.language), style: text.h2),
+        Text(context.t(entry.subtitle), style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
       ],
     );
     // Statuses when the entry has them; otherwise its label, e.g. a job's
     // period.
     final meta = entry.statuses.isEmpty
-        ? Text(entry.label, style: text.bodySmall.copyWith(color: context.colors.inkSubtle))
+        ? Text(context.t(entry.label), style: text.bodySmall.copyWith(color: context.colors.inkSubtle))
         : Wrap(
             spacing: AppSpace.x2,
             runSpacing: AppSpace.x2,
-            children: [for (final status in entry.statuses) Pill.status(status.label, color: status.colorIn(context.colors))],
+            children: [
+              for (final status in entry.statuses)
+                Pill.status(context.t(status.label), color: status.colorIn(context.colors))
+            ],
           );
     final arrow = AnimatedSlide(
       offset: Offset(_hovering ? 0.2 : 0, 0),
@@ -160,7 +165,7 @@ class _EntryRowState extends State<_EntryRow> {
 
     return Semantics(
       link: true,
-      label: '${entry.title} — ${entry.subtitle}',
+      label: '${context.t(entry.title)} — ${context.t(entry.subtitle)}',
       child: HoverDetector(
         child: MouseRegion(
           onEnter: (_) => setState(() => _hovering = true),
@@ -205,7 +210,8 @@ class _EntryRowState extends State<_EntryRow> {
                       if (desktop)
                         Expanded(
                           flex: 5,
-                          child: Text(entry.summary, style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
+                          child: Text(context.t(entry.summary),
+                              style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
                         ),
                       if (!mobile) SizedBox(width: desktop ? 220 : 180, child: meta),
                       arrow,

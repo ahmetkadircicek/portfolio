@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/asset_image_widget.dart';
 import 'package:portfolio/core/components/hover_detector_widget.dart';
 import 'package:portfolio/core/components/pill.dart';
@@ -53,7 +55,7 @@ class _HighlightDeckState extends State<HighlightDeck> {
     final slide = _at(0);
     final front = Semantics(
       button: true,
-      label: 'Show next image',
+      label: context.t(S.nextImage),
       child: HoverDetector(
         child: MouseRegion(
           onEnter: (_) => setState(() => _hovering = true),
@@ -105,7 +107,7 @@ class _HighlightDeckState extends State<HighlightDeck> {
                 Semantics(
                   button: true,
                   selected: i == _index,
-                  label: 'Show ${widget.slides[i].title}',
+                  label: context.t(S.show(context.t(widget.slides[i].title))),
                   child: HoverDetector(
                     child: GestureDetector(
                       behavior: HitTestBehavior.opaque,
@@ -201,9 +203,9 @@ class _FrontContent extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: AppSpace.x1,
                     children: [
-                      Text(slide.title, style: text.title, maxLines: 1, overflow: TextOverflow.ellipsis),
+                      Text(context.t(slide.title), style: text.title, maxLines: 1, overflow: TextOverflow.ellipsis),
                       Text(
-                        slide.description,
+                        context.t(slide.description),
                         style: text.bodySmall.copyWith(color: context.colors.inkMuted),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -285,10 +287,11 @@ class _ZoomArtState extends State<_ZoomArt> {
                 alignment: _focus,
                 duration: AppMotion.slow,
                 curve: AppMotion.emphasized,
-                child: AssetImageWidget(widget.slide.image, fit: BoxFit.contain, semanticLabel: widget.slide.title),
+                child: AssetImageWidget(widget.slide.image,
+                    fit: BoxFit.contain, semanticLabel: context.t(widget.slide.title)),
               ),
             ),
-            Positioned(top: AppSpace.x4, left: AppSpace.x4, child: pill(widget.slide.label)),
+            Positioned(top: AppSpace.x4, left: AppSpace.x4, child: pill(context.t(widget.slide.label))),
             Positioned(top: AppSpace.x4, right: AppSpace.x4, child: pill(widget.counter)),
           ],
         ),

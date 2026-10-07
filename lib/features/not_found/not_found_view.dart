@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/hover_link.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
@@ -21,9 +23,9 @@ class NotFoundView extends StatelessWidget {
           children: [
             FittedBox(child: Text('404', style: text.display)),
             const SizedBox(height: AppSpace.x4),
-            Text('This page does not exist.', style: text.bodyLarge.copyWith(color: context.colors.inkMuted)),
+            Text(context.t(S.notFoundBody), style: text.bodyLarge.copyWith(color: context.colors.inkMuted)),
             const SizedBox(height: AppSpace.x8),
-            HoverLink(label: 'Back to home', icon: LinkIcon.back, onTap: () => context.go('/home')),
+            HoverLink(label: context.t(S.backHome), icon: LinkIcon.back, onTap: () => context.go('/home')),
           ],
         ),
       ),
