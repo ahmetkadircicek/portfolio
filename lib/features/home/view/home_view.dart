@@ -17,6 +17,13 @@ class HomeView extends StatefulWidget {
 
   const HomeView({super.key, this.startAt});
 
+  /// Forgets the remembered scroll position and open sections.
+  @visibleForTesting
+  static void forgetPosition() {
+    _HomeViewState._savedOffset = null;
+    _HomeViewState._savedOpen.clear();
+  }
+
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -24,19 +31,60 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final _scrollController = ScrollController();
 
-  /// The compact top bar: hidden over the hero, then shown while scrolling
-  /// up and tucked away while scrolling down, as on Apple's sites.
+  /// Where the visitor was and which sections were open, kept for the
+  /// session so coming back from an entry lands in the same place.
+  static double? _savedOffset;
+  static final _savedOpen = <String, bool>{};
+
+  /// The compact top bar. It slides in as the hero leaves the screen, stays
+  /// for about a screen of further scrolling down, then tucks away until the
+  /// visitor scrolls up again.
   final _barVisible = ValueNotifier(false);
   double _lastOffset = 0;
+  double _shownAt = 0;
+  final _heroKey = GlobalKey();
   final _keys = {for (final c in collections) c.id: GlobalKey()};
-  late final _open = {for (final c in collections) c.id: ValueNotifier(c.id == widget.startAt)};
+  late final _open = {
+    for (final c in collections) c.id: ValueNotifier(_savedOpen[c.id] ?? c.id == widget.startAt),
+  };
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
+    for (final MapEntry(:key, :value) in _open.entries) {
+      value.addListener(() => _savedOpen[key] = value.value);
+    }
+    final saved = _savedOffset;
     final start = widget.startAt;
-    if (start != null) WidgetsBinding.instance.addPostFrameCallback((_) => _jumpTo(start));
+    if (saved != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _restore(saved));
+    } else if (start != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _jumpTo(start));
+    }
+  }
+
+  /// Returns to [offset] once the page is tall enough to hold it.
+  void _restore(double offset, [int attempt = 0]) {
+    if (!mounted || !_scrollController.hasClients) return;
+    final position = _scrollController.position;
+    if (!position.hasContentDimensions) {
+      if (attempt < 30) {
+        WidgetsBinding.instance
+          ..addPostFrameCallback((_) => _restore(offset, attempt + 1))
+          ..scheduleFrame();
+      }
+      return;
+    }
+    if (position.maxScrollExtent >= offset || attempt >= 30) {
+      _lastOffset = offset.clamp(0, position.maxScrollExtent);
+      _shownAt = _lastOffset;
+      _scrollController.jumpTo(_lastOffset);
+    } else {
+      WidgetsBinding.instance
+        ..addPostFrameCallback((_) => _restore(offset, attempt + 1))
+        ..scheduleFrame();
+    }
   }
 
   /// Starts the page at a section. During a page transition the section may
@@ -55,15 +103,28 @@ class _HomeViewState extends State<HomeView> {
 
   void _onScroll() {
     final offset = _scrollController.offset;
+    _savedOffset = offset;
     final delta = offset - _lastOffset;
-    if (offset < MediaQuery.sizeOf(context).height * 0.6) {
-      _barVisible.value = false;
-    } else if (delta.abs() > 6) {
-      _barVisible.value = delta < 0;
-    } else {
-      return;
-    }
+    if (delta.abs() < 6) return;
     _lastOffset = offset;
+
+    final heroHeight = (_heroKey.currentContext?.findRenderObject() as RenderBox?)?.size.height ??
+        MediaQuery.sizeOf(context).height;
+    final line = heroHeight - 80;
+    if (offset < line) {
+      _barVisible.value = false;
+    } else if (delta < 0) {
+      // Scrolling back up: always offer the bar.
+      _barVisible.value = true;
+      _shownAt = offset;
+    } else if (!_barVisible.value && offset - delta < line) {
+      // Just passed the hero: bring the bar in.
+      _barVisible.value = true;
+      _shownAt = offset;
+    } else if (_barVisible.value && offset - _shownAt > MediaQuery.sizeOf(context).height) {
+      // Still going down a screen later: get out of the way.
+      _barVisible.value = false;
+    }
   }
 
   @override
@@ -93,7 +154,7 @@ class _HomeViewState extends State<HomeView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          HeroSection(onShowWork: () => _show(collections.first.id)),
+          HeroSection(key: _heroKey, onShowWork: () => _show(collections.first.id)),
           for (final c in collections)
             Padding(
               key: _keys[c.id],
