@@ -65,12 +65,15 @@ class _RevealState extends State<Reveal> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _progress,
-      child: widget.child,
-      builder: (context, child) => Opacity(
-        opacity: _progress.value,
-        child: Transform.translate(offset: Offset(0, _distance * (1 - _progress.value)), child: child),
+    // FadeTransition sets the layer's opacity without rebuilding; only the
+    // small translate is rebuilt per frame.
+    return FadeTransition(
+      opacity: _progress,
+      child: AnimatedBuilder(
+        animation: _progress,
+        child: widget.child,
+        builder: (context, child) =>
+            Transform.translate(offset: Offset(0, _distance * (1 - _progress.value)), child: child),
       ),
     );
   }
