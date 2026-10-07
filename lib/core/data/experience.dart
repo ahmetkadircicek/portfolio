@@ -60,9 +60,9 @@ const experience = Collection(
       slug: 'freelance',
       title: L('Freelance Mobile Developer', tr: 'Freelance Mobil Geliştirici', de: 'Freiberuflicher Mobile Developer'),
       subtitle: L(
-        'Logistics and transportation clients',
-        tr: 'Lojistik ve taşımacılık müşterileri',
-        de: 'Kunden aus Logistik und Transport',
+        'Independent client projects',
+        tr: 'Bağımsız müşteri projeleri',
+        de: 'Selbstständige Kundenprojekte',
       ),
       label: L.same('2024 — 2025'),
       summary: L(
@@ -96,7 +96,7 @@ const experience = Collection(
     ),
     Entry(
       slug: 'ibb',
-      title: L('Mobile Software Intern', tr: 'Mobil Yazılım Stajyeri', de: 'Praktikant Mobile Softwareentwicklung'),
+      title: L('Mobile Developer Intern', tr: 'Mobil Geliştirici Stajyer', de: 'Praktikant Mobile Development'),
       subtitle: L(
         'Istanbul Metropolitan Municipality',
         tr: 'İstanbul Büyükşehir Belediyesi',
