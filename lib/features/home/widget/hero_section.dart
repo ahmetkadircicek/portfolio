@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/simple_icons.dart';
-import 'package:portfolio/core/components/theme_toggle.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/data/projects.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
+import 'package:portfolio/core/components/language_switch.dart';
 import 'package:portfolio/core/components/hover_link.dart';
 import 'package:portfolio/core/components/section_header.dart';
 import 'package:portfolio/core/components/site_header.dart';
@@ -48,13 +51,13 @@ class _Top extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
+        const Expanded(
           child: Align(alignment: Alignment.centerLeft, child: HomeMark(linksHome: false, showAvatar: false)),
         ),
-        _Avatar(radius: 48),
+        const _Avatar(radius: 48),
         Expanded(
           child: Align(
             alignment: Alignment.centerRight,
@@ -62,8 +65,8 @@ class _Top extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               spacing: AppSpace.x4,
               children: [
-                HoverLink(label: 'Download CV', icon: LinkIcon.external, onTap: _openCv),
-                ThemeToggle(),
+                HoverLink(label: context.t(S.downloadCv), icon: LinkIcon.external, onTap: _openCv),
+                const TopControls(),
               ],
             ),
           ),
@@ -86,7 +89,7 @@ class _MobileTop extends StatelessWidget {
         Column(
           children: [
             Text('Ahmet Kadir Çiçek', style: text.title),
-            Text('Cross and Native Mobile Developer', style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
+            Text(context.t(S.role), style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
           ],
         ),
       ],
@@ -94,7 +97,7 @@ class _MobileTop extends StatelessWidget {
     return Stack(
       children: [
         Center(child: top),
-        const Positioned(top: 0, right: 0, child: ThemeToggle()),
+        const Positioned(top: 0, right: 0, child: TopControls()),
       ],
     );
   }
@@ -169,7 +172,7 @@ class _Center extends StatelessWidget {
             ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 460),
               child: Text(
-                'I develop user-friendly mobile apps that improve user experience and help businesses grow.',
+                context.t(S.heroLine),
                 style: text.bodyLarge.copyWith(color: context.colors.inkMuted),
                 textAlign: TextAlign.center,
               ),
@@ -191,7 +194,7 @@ class _Bottom extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         const Expanded(child: _TechStack(alignment: CrossAxisAlignment.start)),
-        HoverLink(label: 'Projects', icon: LinkIcon.down, onTap: onShowWork),
+        HoverLink(label: context.t(projects.title), icon: LinkIcon.down, onTap: onShowWork),
       ],
     );
   }
@@ -211,8 +214,8 @@ class _MobileBottom extends StatelessWidget {
           spacing: AppSpace.x6,
           runSpacing: AppSpace.x3,
           children: [
-            const HoverLink(label: 'Download CV', icon: LinkIcon.external, onTap: _openCv),
-            HoverLink(label: 'Projects', icon: LinkIcon.down, onTap: onShowWork),
+            HoverLink(label: context.t(S.downloadCv), icon: LinkIcon.external, onTap: _openCv),
+            HoverLink(label: context.t(projects.title), icon: LinkIcon.down, onTap: onShowWork),
           ],
         ),
         const _TechStack(alignment: CrossAxisAlignment.center),
@@ -243,13 +246,13 @@ class _TechStack extends StatelessWidget {
     final chip = context.isMobile ? 34.0 : 40.0;
     final chipGap = context.isMobile ? AppSpace.x1 : AppSpace.x2;
     return Semantics(
-      label: 'Tech stack: ${_stack.map((e) => e.$1).join(', ')}',
+      label: '${context.t(S.techStack)}: ${_stack.map((e) => e.$1).join(', ')}',
       excludeSemantics: true,
       child: Column(
         crossAxisAlignment: alignment,
         spacing: AppSpace.x2,
         children: [
-          const Eyebrow('Tech stack'),
+          Eyebrow(context.t(S.techStack)),
           Wrap(
             spacing: chipGap,
             children: [
@@ -258,7 +261,8 @@ class _TechStack extends StatelessWidget {
                   width: chip,
                   height: chip,
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(color: context.colors.canvas, borderRadius: BorderRadius.circular(chip * 0.3)),
+                  decoration:
+                      BoxDecoration(color: context.colors.canvas, borderRadius: BorderRadius.circular(chip * 0.3)),
                   child: Iconify(icon, color: context.colors.ink, size: chip / 2),
                 ),
             ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/hover_link.dart';
 import 'package:portfolio/core/components/page_frame.dart';
 import 'package:portfolio/core/components/primary_button.dart';
@@ -38,13 +40,13 @@ class ContactCtaSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Eyebrow('Have an app in mind?', color: context.colors.onBlockMuted),
+                Eyebrow(context.t(S.ctaEyebrow), color: context.colors.onBlockMuted),
                 const SizedBox(height: AppSpace.x6),
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    mobile ? 'LET\'S MAKE\nIT SIMPLE' : 'LET\'S MAKE IT SIMPLE',
+                    mobile ? context.t(S.ctaTitle).replaceFirst(RegExp(r' (?=\S+ \S+$)'), '\n') : context.t(S.ctaTitle),
                     style: text.h1.copyWith(color: context.colors.onBlock),
                   ),
                 ),
@@ -52,12 +54,13 @@ class ContactCtaSection extends StatelessWidget {
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 520),
                   child: Text(
-                    'Tell me about your project and I\'ll get back to you as soon as possible.',
+                    context.t(S.ctaBody),
                     style: text.bodyLarge.copyWith(color: context.colors.onBlockMuted),
                   ),
                 ),
                 const SizedBox(height: AppSpace.x8),
-                PrimaryButton(label: 'Request a project', inverted: true, onPressed: () => context.go('/contact')),
+                PrimaryButton(
+                    label: context.t(S.requestProject), inverted: true, onPressed: () => context.go('/contact')),
                 SizedBox(height: mobile ? AppSpace.x16 : AppSpace.x24),
                 Divider(height: 1, thickness: 1, color: context.colors.onBlock.withValues(alpha: 0.15)),
                 const SizedBox(height: AppSpace.x6),
@@ -79,7 +82,7 @@ class ContactCtaSection extends StatelessWidget {
                           onTap: () => launchUrl(Uri.parse(AppLinks.github), webOnlyWindowName: '_blank'),
                         ),
                         HoverLink(
-                          label: 'Back to top',
+                          label: context.t(S.backToTop),
                           icon: LinkIcon.up,
                           color: context.colors.onBlock,
                           onTap: onBackToTop,

@@ -28,7 +28,7 @@ void main() {
   const desktop = Size(1440, 900);
 
   for (final collection in collections) {
-    final title = collection.title.toUpperCase();
+    final title = collection.title.en.toUpperCase();
 
     testWidgets('${collection.path} opens the home page at its section', (tester) async {
       await _open(tester, collection.path, desktop);
@@ -47,8 +47,8 @@ void main() {
     for (final entry in collection.entries) {
       testWidgets('${collection.pathOf(entry)} shows the entry and leads back', (tester) async {
         await _open(tester, collection.pathOf(entry), desktop);
-        expect(find.text(entry.title.toUpperCase()), findsOneWidget);
-        await tester.tap(find.text('All ${collection.title.toLowerCase()}'));
+        expect(find.text(entry.title.en.toUpperCase()), findsOneWidget);
+        await tester.tap(find.text('All ${collection.title.en.toLowerCase()}'));
         await tester.pump(const Duration(seconds: 2));
         expect(_location, collection.path);
         await _close(tester);
@@ -61,7 +61,7 @@ void main() {
     for (final collection in collections) {
       expect(AppRouter.titleFor(Uri.parse(collection.path)), AppRouter.homeTitle);
       final entry = collection.entries.first;
-      expect(AppRouter.titleFor(Uri.parse(collection.pathOf(entry))), '${entry.title} — ${AppRouter.siteName}');
+      expect(AppRouter.titleFor(Uri.parse(collection.pathOf(entry))), '${entry.title.en} — ${AppRouter.siteName}');
     }
   });
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/hover_detector_widget.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/theme_manager.dart';
@@ -10,7 +12,7 @@ class ThemeToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final label = dark ? 'Switch to light mode' : 'Switch to dark mode';
+    final label = context.t(dark ? S.toLight : S.toDark);
     return Semantics(
       button: true,
       label: label,

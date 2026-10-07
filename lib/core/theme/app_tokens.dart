@@ -107,7 +107,6 @@ class AppPalette extends ThemeExtension<AppPalette> {
     error: Color(0xFFFF453A), // system red
   );
 
-
   @override
   AppPalette copyWith() => this;
 

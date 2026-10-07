@@ -1,3 +1,5 @@
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/data/collections.dart';
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/features/contact_me/view/contact_form_view.dart';
@@ -22,22 +24,25 @@ class AppRouter {
 
   static const homeTitle = '$siteName — Mobile Developer';
 
+  static String homeTitleIn(AppLanguage language) => '$siteName — ${S.pageTitleRole.of(language)}';
+
   /// Browser tab title of the page at [uri]. Set once above the router, so
   /// a page that is fading out can never write its own title last. A
   /// collection path is the home page opened at a section, so it keeps the
   /// home title.
-  static String titleFor(Uri uri) {
+  static String titleFor(Uri uri, [AppLanguage language = AppLanguage.en]) {
     final segments = uri.pathSegments.where((s) => s.isNotEmpty).toList();
     String page(String name) => '$name — $siteName';
-    if (segments.isEmpty || uri.path == '/home') return homeTitle;
-    if (uri.path == '/contact') return page('Contact');
+    final home = homeTitleIn(language);
+    if (segments.isEmpty || uri.path == '/home') return home;
+    if (uri.path == '/contact') return page(S.contact.of(language));
     for (final collection in collections) {
       if (segments.first != collection.id) continue;
-      if (segments.length == 1) return homeTitle;
+      if (segments.length == 1) return home;
       final entry = collection.bySlug(segments[1]);
-      if (segments.length == 2 && entry != null) return page(entry.title);
+      if (segments.length == 2 && entry != null) return page(entry.title.of(language));
     }
-    return page('Page not found');
+    return page(S.notFound.of(language));
   }
 
   static final GoRouter router = GoRouter(

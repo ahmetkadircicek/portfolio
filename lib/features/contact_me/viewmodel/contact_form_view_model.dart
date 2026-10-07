@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/init/service/firebase_service.dart';
 
 class ContactFormViewModel extends ChangeNotifier {
@@ -54,26 +56,26 @@ class ContactFormViewModel extends ChangeNotifier {
   // Form doğrulama metodları
   String? validateName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter your name';
+      return S.nameEmpty.of(LanguageManager.language.value);
     }
     if (value.length > maxNameLength) {
-      return 'Name should be at most $maxNameLength characters';
+      return S.nameLong(maxNameLength).of(LanguageManager.language.value);
     }
     return null;
   }
 
   String? validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter your email';
+      return S.emailEmpty.of(LanguageManager.language.value);
     }
 
     // Email formatı doğrulama
     final emailRegex = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]{2,}$');
     if (!emailRegex.hasMatch(value)) {
-      return 'Please enter a valid email address';
+      return S.emailInvalid.of(LanguageManager.language.value);
     }
     if (value.length > maxEmailLength) {
-      return 'Email should be at most $maxEmailLength characters';
+      return S.emailLong(maxEmailLength).of(LanguageManager.language.value);
     }
 
     return null;
@@ -81,23 +83,23 @@ class ContactFormViewModel extends ChangeNotifier {
 
   String? validateSubject(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter a subject';
+      return S.subjectEmpty.of(LanguageManager.language.value);
     }
     if (value.length > maxSubjectLength) {
-      return 'Subject should be at most $maxSubjectLength characters';
+      return S.subjectLong(maxSubjectLength).of(LanguageManager.language.value);
     }
     return null;
   }
 
   String? validateMessage(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter your message';
+      return S.messageEmpty.of(LanguageManager.language.value);
     }
     if (value.trim().length < 10) {
-      return 'Message should be at least 10 characters';
+      return S.messageShort.of(LanguageManager.language.value);
     }
     if (value.length > maxMessageLength) {
-      return 'Message should be at most $maxMessageLength characters';
+      return S.messageLong(maxMessageLength).of(LanguageManager.language.value);
     }
     return null;
   }
@@ -120,7 +122,7 @@ class ContactFormViewModel extends ChangeNotifier {
       );
       _formSubmitted = true;
     } catch (_) {
-      _errorMessage = 'Your message could not be sent. Please try again in a moment.';
+      _errorMessage = S.sendFailed.of(LanguageManager.language.value);
     } finally {
       _isSending = false;
       notifyListeners();

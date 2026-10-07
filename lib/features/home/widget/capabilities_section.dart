@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/page_frame.dart';
 import 'package:portfolio/core/components/reveal.dart';
 import 'package:portfolio/core/components/section_header.dart';
@@ -9,28 +11,7 @@ import 'package:portfolio/core/theme/app_tokens.dart';
 class CapabilitiesSection extends StatelessWidget {
   const CapabilitiesSection({super.key});
 
-  static const _items = [
-    (
-      'Cross-platform apps',
-      'Android and iOS apps from one Flutter codebase, structured with MVVM and Provider.',
-      'Flutter · Dart · Provider · MVVM',
-    ),
-    (
-      'Native iOS',
-      'Swift apps built with UIKit, Storyboard and Auto Layout, following Apple\'s design guidelines.',
-      'Swift · UIKit · Lottie · Alamofire',
-    ),
-    (
-      'Backend & integrations',
-      'Cloud data, authentication, AI services, NFC and monetization wired into the app.',
-      'Firebase · REST API · OAuth · Gemini AI · AdMob',
-    ),
-    (
-      'Product design',
-      'Research and interface design before the first line of code.',
-      'Figma · Photoshop · Illustrator · Blender',
-    ),
-  ];
+  static const _items = S.capabilities;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +21,7 @@ class CapabilitiesSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Reveal(child: SectionHeader(title: 'What I do', count: _items.length.toString().padLeft(2, '0'))),
+          Reveal(child: SectionHeader(title: context.t(S.whatIDo), count: _items.length.toString().padLeft(2, '0'))),
           if (context.isMobile)
             // Phones get a short list: the title and its tools.
             for (final item in _items) ...[
@@ -51,7 +32,7 @@ class CapabilitiesSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: AppSpace.x1,
                     children: [
-                      Text(item.$1, style: text.title),
+                      Text(context.t(item.$1), style: text.title),
                       Text(item.$3, style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
                     ],
                   ),
@@ -79,9 +60,9 @@ class CapabilitiesSection extends StatelessWidget {
                             children: [
                               Eyebrow((i + 1).toString().padLeft(2, '0')),
                               const SizedBox(height: AppSpace.x6),
-                              Text(_items[i].$1, style: text.h3),
+                              Text(context.t(_items[i].$1), style: text.h3),
                               const SizedBox(height: AppSpace.x2),
-                              Text(_items[i].$2, style: text.body.copyWith(color: context.colors.inkMuted)),
+                              Text(context.t(_items[i].$2), style: text.body.copyWith(color: context.colors.inkMuted)),
                               const SizedBox(height: AppSpace.x4),
                               Text(_items[i].$3, style: text.bodySmall.copyWith(color: context.colors.inkSubtle)),
                             ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/init/navigation/app_router.dart';
 
 import 'core/theme/theme_manager.dart';
@@ -8,7 +10,7 @@ import 'core/theme/theme_manager.dart';
 Future<void> main() async {
   usePathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
-  await ThemeManager.load();
+  await Future.wait([ThemeManager.load(), LanguageManager.load()]);
 
   runApp(const MyApp());
 }
@@ -18,16 +20,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: ThemeManager.mode,
-      builder: (context, mode, _) => MaterialApp.router(
-      routerConfig: AppRouter.router,
-      debugShowCheckedModeBanner: false,
-      title: AppRouter.homeTitle,
-      theme: ThemeManager.light,
-      darkTheme: ThemeManager.dark,
-      themeMode: mode,
-      builder: (context, child) => _TabTitle(child: child!),
+    return ListenableBuilder(
+      listenable: Listenable.merge([ThemeManager.mode, LanguageManager.language]),
+      builder: (context, _) => MaterialApp.router(
+        routerConfig: AppRouter.router,
+        debugShowCheckedModeBanner: false,
+        title: AppRouter.homeTitle,
+        theme: ThemeManager.light,
+        darkTheme: ThemeManager.dark,
+        themeMode: ThemeManager.mode.value,
+        locale: LanguageManager.language.value.locale,
+        supportedLocales: [for (final l in AppLanguage.values) l.locale],
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        builder: (context, child) => _TabTitle(child: child!),
       ),
     );
   }
@@ -52,17 +57,20 @@ class _TabTitleState extends State<_TabTitle> {
   void initState() {
     super.initState();
     _delegate.addListener(_update);
+    LanguageManager.language.addListener(_update);
     _update();
   }
 
   @override
   void dispose() {
     _delegate.removeListener(_update);
+    LanguageManager.language.removeListener(_update);
     super.dispose();
   }
 
   void _update() => SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
-      label: AppRouter.titleFor(_delegate.currentConfiguration.uri), primaryColor: 0xFF1F2024));
+      label: AppRouter.titleFor(_delegate.currentConfiguration.uri, LanguageManager.language.value),
+      primaryColor: 0xFF1F2024));
 
   // Also on build: the app's own default title is written just above this
   // whenever the app rebuilds, and this must win.

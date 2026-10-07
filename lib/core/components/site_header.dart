@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:portfolio/core/components/theme_toggle.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
+import 'package:portfolio/core/components/language_switch.dart';
 import 'package:portfolio/core/components/hover_detector_widget.dart';
 import 'package:portfolio/core/components/page_frame.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
@@ -32,7 +34,7 @@ class SiteHeader extends StatelessWidget {
                 const Spacer(),
                 if (trailing != null) Flexible(flex: 4, child: trailing!),
                 const SizedBox(width: AppSpace.x4),
-                const ThemeToggle(),
+                const TopControls(),
               ],
             ),
             if (bottom != null) bottom!,
@@ -68,8 +70,7 @@ class HomeMark extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Ahmet Kadir Çiçek', style: text.title.copyWith(height: 1.3)),
-            Text('Cross and Native Mobile Developer',
-                style: text.bodySmall.copyWith(height: 1.3, color: context.colors.inkMuted)),
+            Text(context.t(S.role), style: text.bodySmall.copyWith(height: 1.3, color: context.colors.inkMuted)),
           ],
         ),
       ],
@@ -77,7 +78,7 @@ class HomeMark extends StatelessWidget {
     if (!linksHome) return mark;
     return Semantics(
       link: true,
-      label: 'Home',
+      label: context.t(S.home),
       child: HoverDetector(
         child: GestureDetector(onTap: () => context.go('/home'), child: mark),
       ),
