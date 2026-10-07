@@ -37,16 +37,21 @@ firebase emulators:start --only firestore --project portfolio-9e0f3
 
 ## Content
 
+Projects and jobs are both `Entry` items in a `Collection` (`lib/core/data/entry.dart`). Adding an `Entry` to a collection's list adds its row on the home page and its page at `/<collection>/<slug>`; nothing else needs to change. An entry with `highlights` gets the image deck on its page; one without is text only.
+
 | What | Where |
 | --- | --- |
-| All project texts, images, statuses and links | `lib/core/data/projects.dart` |
+| Projects (texts, logos, statuses, highlight images, links) | `lib/core/data/projects.dart` |
+| Work experience | `lib/core/data/experience.dart` |
+| Which collections the site has, in home page order | `lib/core/data/collections.dart` |
 | Design tokens (colors, spacing, radius, motion, breakpoints) | `lib/core/theme/app_tokens.dart` |
 | Type scale (Cardo headings, Montserrat text) | `lib/core/theme/app_text.dart` |
-| Home sections (hero, work, what I do, footer) | `lib/features/home/widget/` |
+| Home sections (hero, collection lists, what I do, footer) | `lib/features/home/widget/` |
+| Entry page shared by every project and job | `lib/features/entry/view/entry_view.dart` |
 | CV | `web/ahmet-kadir-cicek-cv.pdf` (served as `/ahmet-kadir-cicek-cv.pdf`) |
 | Link preview image | `web/og-image.jpg` (1200x630) |
 | Text for search engines | hidden `<main>` in `web/index.html` — update it with the visible content |
 
-Images are WebP and sized for their largest on-screen use: screenshots 720 px wide, mockups 1400 px (cards zoom 3x on hover), logos 256 px.
+Images are WebP and sized for their largest on-screen use: screenshots 720 px wide, mockups 1400 px (the project page zooms them 2.5x on hover), logos 256 px.
 
 Widgets use only the tokens; a raw color, size or duration in a widget is a bug.
