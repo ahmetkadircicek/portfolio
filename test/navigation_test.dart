@@ -2,7 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/core/data/collections.dart';
+import 'package:portfolio/core/data/projects.dart';
 import 'package:portfolio/core/init/navigation/app_router.dart';
+import 'package:portfolio/features/home/view/home_view.dart';
 import 'package:portfolio/main.dart';
 
 Future<void> _open(WidgetTester tester, String path, Size size) async {
@@ -26,6 +28,8 @@ void main() {
   GoogleFonts.config.allowRuntimeFetching = false;
 
   const desktop = Size(1440, 900);
+
+  setUp(HomeView.forgetPosition);
 
   for (final collection in collections) {
     final title = collection.title.en.toUpperCase();
@@ -63,5 +67,26 @@ void main() {
       final entry = collection.entries.first;
       expect(AppRouter.titleFor(Uri.parse(collection.pathOf(entry))), '${entry.title.en} — ${AppRouter.siteName}');
     }
+  });
+
+  testWidgets('coming back from an entry returns to the same place', (tester) async {
+    await _open(tester, '/home', desktop);
+    final scrollable = find.byType(Scrollable).first;
+    final project = projects.entries.first;
+    final row = find.text(project.title.en.toUpperCase());
+    await tester.ensureVisible(row);
+    await tester.pump(const Duration(seconds: 1));
+    final before = tester.state<ScrollableState>(scrollable).position.pixels;
+    expect(before, greaterThan(0));
+    await tester.tap(row);
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    expect(_location, projects.pathOf(project));
+    await tester.tap(find.text('All projects'));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pump();
+    expect(tester.state<ScrollableState>(find.byType(Scrollable).first).position.pixels, before);
+    await _close(tester);
   });
 }
