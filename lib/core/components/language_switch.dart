@@ -7,8 +7,15 @@ import 'package:portfolio/core/theme/app_tokens.dart';
 
 /// One button in the top bar showing the current language; each press
 /// moves to the next one (EN → TR → DE).
-class LanguageSwitch extends StatelessWidget {
+class LanguageSwitch extends StatefulWidget {
   const LanguageSwitch({super.key});
+
+  @override
+  State<LanguageSwitch> createState() => _LanguageSwitchState();
+}
+
+class _LanguageSwitchState extends State<LanguageSwitch> {
+  bool _hovering = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +28,25 @@ class LanguageSwitch extends StatelessWidget {
       child: Tooltip(
         message: next.nativeName,
         child: HoverDetector(
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () => LanguageManager.set(next),
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpace.x2),
-              child: Text(current.short, style: context.text.label.copyWith(color: context.colors.ink)),
+          child: MouseRegion(
+            onEnter: (_) => setState(() => _hovering = true),
+            onExit: (_) => setState(() => _hovering = false),
+            child: GestureDetector(
+              onTap: () => LanguageManager.set(next),
+              child: AnimatedContainer(
+                duration: AppMotion.base,
+                curve: AppMotion.standard,
+                padding: const EdgeInsets.symmetric(horizontal: AppSpace.x3, vertical: 6),
+                decoration: BoxDecoration(
+                  color: _hovering ? context.colors.surface : context.colors.canvas,
+                  borderRadius: AppRadius.pillAll,
+                  border: Border.all(color: context.colors.line),
+                ),
+                child: Text(
+                  current.short,
+                  style: context.text.label.copyWith(color: context.colors.ink, fontWeight: FontWeight.w700),
+                ),
+              ),
             ),
           ),
         ),
