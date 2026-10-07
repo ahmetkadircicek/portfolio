@@ -27,7 +27,25 @@ class _HighlightDeckState extends State<HighlightDeck> {
   int get _count => widget.slides.length;
   Highlight _at(int offset) => widget.slides[(_index + offset) % _count];
 
-  void _show(int index) => setState(() => _index = index % _count);
+  void _show(int index) {
+    setState(() => _index = index % _count);
+    _warmUp();
+  }
+
+  /// Decodes the images one step ahead and one behind, so paging never waits
+  /// on a decode. The front and the two cards behind it are already on screen.
+  void _warmUp() {
+    if (_count < 4) return;
+    for (final offset in [3, _count - 1]) {
+      precacheImage(AssetImage(_at(offset).image), context);
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _warmUp();
+  }
 
   @override
   Widget build(BuildContext context) {
