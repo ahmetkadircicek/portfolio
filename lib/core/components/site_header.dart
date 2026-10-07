@@ -58,7 +58,7 @@ class HomeMark extends StatelessWidget {
           const CircleAvatar(
             radius: 20,
             backgroundColor: AppColors.surface,
-            backgroundImage: AssetImage('assets/images/common/profile.webp'),
+            backgroundImage: AssetImage('assets/images/common/profile.jpg'),
           ),
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -66,7 +66,7 @@ class HomeMark extends StatelessWidget {
           children: [
             Text('Ahmet Kadir Çiçek', style: text.title.copyWith(height: 1.3)),
             Text('Cross and Native Mobile Developer',
-                style: text.bodySmall.copyWith(fontSize: 12, height: 1.3, color: AppColors.inkMuted)),
+                style: text.bodySmall.copyWith(height: 1.3, color: AppColors.inkMuted)),
           ],
         ),
       ],

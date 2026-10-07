@@ -40,7 +40,7 @@ class Pill extends StatelessWidget {
         children: [
           if (style == PillStyle.status)
             Container(width: 6, height: 6, decoration: BoxDecoration(color: tint, shape: BoxShape.circle)),
-          Text(label, style: context.text.bodySmall.copyWith(fontSize: 13, height: 1.2, color: foreground)),
+          Text(label, style: context.text.bodySmall.copyWith(height: 1.2, color: foreground)),
         ],
       ),
     );

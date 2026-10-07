@@ -9,6 +9,10 @@ class ThemeManager {
         textTheme: GoogleFonts.montserratTextTheme().apply(bodyColor: AppColors.ink, displayColor: AppColors.ink),
         scaffoldBackgroundColor: AppColors.canvas,
         splashFactory: NoSplash.splashFactory,
+        // Pages fade into each other; nothing slides on a website.
+        pageTransitionsTheme: PageTransitionsTheme(
+          builders: {for (final platform in TargetPlatform.values) platform: const _FadePageTransitionsBuilder()},
+        ),
         highlightColor: Colors.transparent,
         hoverColor: Colors.transparent,
         colorScheme: const ColorScheme.light(
@@ -26,4 +30,23 @@ class ThemeManager {
           selectionHandleColor: AppColors.ink,
         ),
       );
+}
+
+/// A plain cross-fade between pages.
+class _FadePageTransitionsBuilder extends PageTransitionsBuilder {
+  const _FadePageTransitionsBuilder();
+
+  @override
+  Duration get transitionDuration => AppMotion.slow;
+
+  @override
+  Widget buildTransitions<T>(
+    PageRoute<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return FadeTransition(opacity: CurvedAnimation(parent: animation, curve: AppMotion.standard), child: child);
+  }
 }
