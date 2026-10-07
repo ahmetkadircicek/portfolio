@@ -41,38 +41,58 @@ class CapabilitiesSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Reveal(child: SectionHeader(title: 'What I do', count: _items.length.toString().padLeft(2, '0'))),
-          const SizedBox(height: AppSpace.x8),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              const gap = AppSpace.x8;
-              final width = (constraints.maxWidth - gap * (columns - 1)) / columns;
-              return Wrap(
-                spacing: gap,
-                runSpacing: AppSpace.x12,
-                children: [
-                  for (var i = 0; i < _items.length; i++)
-                    SizedBox(
-                      width: width,
-                      child: Reveal(
-                        delay: Duration(milliseconds: 80 * (i % columns)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Eyebrow((i + 1).toString().padLeft(2, '0')),
-                            const SizedBox(height: AppSpace.x6),
-                            Text(_items[i].$1, style: text.h3),
-                            const SizedBox(height: AppSpace.x2),
-                            Text(_items[i].$2, style: text.body.copyWith(color: AppColors.inkMuted)),
-                            const SizedBox(height: AppSpace.x4),
-                            Text(_items[i].$3, style: text.bodySmall.copyWith(color: AppColors.inkSubtle)),
-                          ],
+          if (context.isMobile)
+            // Phones get a short list: the title and its tools.
+            for (final item in _items) ...[
+              Reveal(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: AppSpace.x4),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: AppSpace.x1,
+                    children: [
+                      Text(item.$1, style: text.title),
+                      Text(item.$3, style: text.bodySmall.copyWith(color: AppColors.inkMuted)),
+                    ],
+                  ),
+                ),
+              ),
+              const Divider(height: 1, thickness: 1, color: AppColors.line),
+            ]
+          else ...[
+            const SizedBox(height: AppSpace.x8),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                const gap = AppSpace.x8;
+                final width = (constraints.maxWidth - gap * (columns - 1)) / columns;
+                return Wrap(
+                  spacing: gap,
+                  runSpacing: AppSpace.x12,
+                  children: [
+                    for (var i = 0; i < _items.length; i++)
+                      SizedBox(
+                        width: width,
+                        child: Reveal(
+                          delay: Duration(milliseconds: 80 * (i % columns)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Eyebrow((i + 1).toString().padLeft(2, '0')),
+                              const SizedBox(height: AppSpace.x6),
+                              Text(_items[i].$1, style: text.h3),
+                              const SizedBox(height: AppSpace.x2),
+                              Text(_items[i].$2, style: text.body.copyWith(color: AppColors.inkMuted)),
+                              const SizedBox(height: AppSpace.x4),
+                              Text(_items[i].$3, style: text.bodySmall.copyWith(color: AppColors.inkSubtle)),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                ],
-              );
-            },
-          ),
+                  ],
+                );
+              },
+            ),
+          ],
         ],
       ),
     );

@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
-import 'package:iconify_flutter/icons/ci.dart';
-import 'package:iconify_flutter/icons/fa6_brands.dart';
-import 'package:iconify_flutter/icons/icon_park_solid.dart';
-import 'package:iconify_flutter/icons/material_symbols.dart';
 import 'package:iconify_flutter/icons/simple_icons.dart';
 import 'package:portfolio/core/components/hover_link.dart';
 import 'package:portfolio/core/components/section_header.dart';
-import 'package:portfolio/core/components/shimmer_link.dart';
 import 'package:portfolio/core/components/site_header.dart';
 import 'package:portfolio/core/constants/app_links.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
@@ -100,7 +95,7 @@ class _Avatar extends StatelessWidget {
     return CircleAvatar(
       radius: radius,
       backgroundColor: AppColors.canvas,
-      backgroundImage: const AssetImage('assets/images/common/profile.webp'),
+      backgroundImage: const AssetImage('assets/images/common/profile.jpg'),
     );
   }
 }
@@ -175,7 +170,7 @@ class _Bottom extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         const Expanded(child: _TechStack(alignment: CrossAxisAlignment.start)),
-        ShimmerLink(label: 'Selected work', icon: LinkIcon.down, onTap: onShowWork),
+        HoverLink(label: 'Projects', icon: LinkIcon.down, onTap: onShowWork),
       ],
     );
   }
@@ -196,7 +191,7 @@ class _MobileBottom extends StatelessWidget {
           runSpacing: AppSpace.x3,
           children: [
             const HoverLink(label: 'Download CV', icon: LinkIcon.external, onTap: _openCv),
-            ShimmerLink(label: 'Selected work', icon: LinkIcon.down, onTap: onShowWork),
+            HoverLink(label: 'Projects', icon: LinkIcon.down, onTap: onShowWork),
           ],
         ),
         const _TechStack(alignment: CrossAxisAlignment.center),
@@ -209,21 +204,25 @@ class _TechStack extends StatelessWidget {
   final CrossAxisAlignment alignment;
   const _TechStack({required this.alignment});
 
-  static const _icons = [
-    IconParkSolid.adobe_photoshop,
-    IconParkSolid.adobe_illustrate,
-    Ci.adobe_xd,
-    IconParkSolid.figma,
-    Fa6Brands.swift,
-    MaterialSymbols.flutter,
-    SimpleIcons.microsoftoffice,
-    SimpleIcons.blender,
+  // From the Technical Skills section of the CV.
+  static const _stack = [
+    ('Swift', SimpleIcons.swift),
+    ('Flutter', SimpleIcons.flutter),
+    ('Dart', SimpleIcons.dart),
+    ('HarmonyOS', SimpleIcons.harmonyos),
+    ('TypeScript', SimpleIcons.typescript),
+    ('JavaScript', SimpleIcons.javascript),
+    ('Python', SimpleIcons.python),
+    ('Firebase', SimpleIcons.firebase),
   ];
 
   @override
   Widget build(BuildContext context) {
+    // Phones keep all eight chips on one line.
+    final chip = context.isMobile ? 34.0 : 40.0;
+    final chipGap = context.isMobile ? AppSpace.x1 : AppSpace.x2;
     return Semantics(
-      label: 'Tech stack: Photoshop, Illustrator, Adobe XD, Figma, Swift, Flutter, Microsoft Office, Blender',
+      label: 'Tech stack: ${_stack.map((e) => e.$1).join(', ')}',
       excludeSemantics: true,
       child: Column(
         crossAxisAlignment: alignment,
@@ -231,8 +230,17 @@ class _TechStack extends StatelessWidget {
         children: [
           const Eyebrow('Tech stack'),
           Wrap(
-            spacing: AppSpace.x2,
-            children: [for (final icon in _icons) Iconify(icon, color: AppColors.inkMuted, size: 22)],
+            spacing: chipGap,
+            children: [
+              for (final (_, icon) in _stack)
+                Container(
+                  width: chip,
+                  height: chip,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(color: AppColors.canvas, borderRadius: BorderRadius.circular(chip * 0.3)),
+                  child: Iconify(icon, color: AppColors.ink, size: chip / 2),
+                ),
+            ],
           ),
         ],
       ),
