@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:portfolio/core/components/web_link.dart';
 import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/app_logo.dart';
@@ -180,39 +180,42 @@ class _EntryRowState extends State<_EntryRow> {
           onExit: (_) {
             if (widget.hovered.value == widget.index) widget.hovered.value = null;
           },
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () => context.go(widget.collection.pathOf(entry)),
-            child: AnimatedOpacity(
-              opacity: anyHovered && !hovering ? 0.4 : 1,
-              duration: AppMotion.base,
-              curve: AppMotion.standard,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: mobile ? AppSpace.x6 : AppSpace.x8),
-                child: Row(
-                  spacing: mobile ? AppSpace.x4 : AppSpace.x6,
-                  children: [
-                    if (!mobile) SizedBox(width: 32, child: Eyebrow(_number(widget.index))),
-                    AppLogo(path: entry.logo, size: mobile ? 48 : 56),
-                    Expanded(
-                      flex: 4,
-                      child: mobile
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              spacing: AppSpace.x3,
-                              children: [name, meta],
-                            )
-                          : name,
-                    ),
-                    if (desktop)
+          child: WebLink(
+            to: widget.collection.pathOf(entry),
+            builder: (context, follow) => GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: follow,
+              child: AnimatedOpacity(
+                opacity: anyHovered && !hovering ? 0.4 : 1,
+                duration: AppMotion.base,
+                curve: AppMotion.standard,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: mobile ? AppSpace.x6 : AppSpace.x8),
+                  child: Row(
+                    spacing: mobile ? AppSpace.x4 : AppSpace.x6,
+                    children: [
+                      if (!mobile) SizedBox(width: 32, child: Eyebrow(_number(widget.index))),
+                      AppLogo(path: entry.logo, size: mobile ? 48 : 56),
                       Expanded(
-                        flex: 5,
-                        child: Text(context.t(entry.summary),
-                            style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
+                        flex: 4,
+                        child: mobile
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: AppSpace.x3,
+                                children: [name, meta],
+                              )
+                            : name,
                       ),
-                    if (!mobile) SizedBox(width: desktop ? 220 : 180, child: meta),
-                    arrow,
-                  ],
+                      if (desktop)
+                        Expanded(
+                          flex: 5,
+                          child: Text(context.t(entry.summary),
+                              style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
+                        ),
+                      if (!mobile) SizedBox(width: desktop ? 220 : 180, child: meta),
+                      arrow,
+                    ],
+                  ),
                 ),
               ),
             ),

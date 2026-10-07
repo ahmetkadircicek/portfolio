@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:portfolio/core/components/web_link.dart';
 import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/language_switch.dart';
@@ -87,7 +87,9 @@ class HomeMark extends StatelessWidget {
       link: true,
       label: context.t(S.home),
       child: HoverDetector(
-        child: GestureDetector(onTap: onTap ?? () => context.go('/home'), child: mark),
+        child: onTap != null
+            ? GestureDetector(onTap: onTap, child: mark)
+            : WebLink(to: '/home', builder: (context, follow) => GestureDetector(onTap: follow, child: mark)),
       ),
     );
   }
