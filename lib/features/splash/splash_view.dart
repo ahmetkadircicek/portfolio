@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
+import 'package:portfolio/core/theme/app_tokens.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -30,7 +31,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
     super.initState();
     _fadeController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 1), // The splash's own fade, slower than AppMotion.
     )..forward();
 
     _fadeAnimation = CurvedAnimation(
@@ -38,8 +39,10 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
       curve: Curves.easeInOut,
     );
 
-    // Starts downloading the landing page's display font.
+    // Starts downloading the landing page's fonts.
     GoogleFonts.cardo(fontWeight: FontWeight.w900);
+    GoogleFonts.cardo(fontWeight: FontWeight.w700);
+    GoogleFonts.montserrat(fontWeight: FontWeight.w600);
 
     _timer = Timer(const Duration(seconds: 3), _navigateToNextScreen);
   }
@@ -71,10 +74,10 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
     return FadeTransition(
       opacity: _fadeAnimation,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.canvas,
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpace.x6),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -87,23 +90,17 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                     excludeFromSemantics: true,
                   ),
                 ),
-                context.spacerFixedHeight(20),
+                const SizedBox(height: AppSpace.x6),
                 Text(
                   'Hello, I am Ahmet Kadir ÇİÇEK.',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: context.text.title,
                 ),
-                context.spacerFixedHeight(4),
+                const SizedBox(height: AppSpace.x1),
                 Text(
                   'Cross and Native Mobile Application Developer',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
-                  ),
+                  style: context.text.body.copyWith(fontWeight: FontWeight.w300, color: AppColors.inkMuted),
                 ),
               ],
             ),

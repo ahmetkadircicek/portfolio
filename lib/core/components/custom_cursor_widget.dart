@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/init/notifier/app_notifier.dart';
+import 'package:portfolio/core/theme/app_tokens.dart';
 import 'package:provider/provider.dart';
 
 /// Replaces the system cursor with a small circle and a fading trail on
@@ -141,16 +142,29 @@ class _CursorTrailPainter extends CustomPainter {
 
   _CursorTrailPainter({required this.cursor, required this.hover}) : super(repaint: Listenable.merge([cursor, hover]));
 
+  // Each stroke is drawn twice, white under ink, so the cursor stays visible
+  // on dark sections too.
   static final Paint _trailPaint = Paint()
-    ..color = Colors.black
+    ..color = AppColors.ink
     ..style = PaintingStyle.stroke
     ..strokeWidth = 1.0
     ..strokeJoin = StrokeJoin.round;
 
-  static final Paint _pointerPaint = Paint()
-    ..color = Colors.black
+  static final Paint _trailHalo = Paint()
+    ..color = AppColors.onInkMuted
     ..style = PaintingStyle.stroke
-    ..strokeWidth = 0.5;
+    ..strokeWidth = 2.5
+    ..strokeJoin = StrokeJoin.round;
+
+  static final Paint _pointerPaint = Paint()
+    ..color = AppColors.ink
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 1.0;
+
+  static final Paint _pointerHalo = Paint()
+    ..color = AppColors.onInkMuted
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 2.5;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -164,9 +178,14 @@ class _CursorTrailPainter extends CustomPainter {
       while (points.moveNext()) {
         path.lineTo(points.current.dx, points.current.dy);
       }
-      canvas.drawPath(path, _trailPaint);
+      canvas
+        ..drawPath(path, _trailHalo)
+        ..drawPath(path, _trailPaint);
     }
-    canvas.drawCircle(pointer, hover.isHover ? 12 : 4, _pointerPaint);
+    final radius = hover.isHover ? 14.0 : 4.0;
+    canvas
+      ..drawCircle(pointer, radius, _pointerHalo)
+      ..drawCircle(pointer, radius, _pointerPaint);
   }
 
   @override

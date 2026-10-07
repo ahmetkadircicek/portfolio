@@ -39,10 +39,14 @@ firebase emulators:start --only firestore --project portfolio-9e0f3
 
 | What | Where |
 | --- | --- |
-| Home sections (Tunes, Vilsa, Sevkiyatvar) | `lib/features/home/widget/` |
-| Project detail pages | `lib/features/project_details/view/` |
+| All project texts, images, statuses and links | `lib/core/data/projects.dart` |
+| Design tokens (colors, spacing, radius, motion, breakpoints) | `lib/core/theme/app_tokens.dart` |
+| Type scale (Cardo headings, Montserrat text) | `lib/core/theme/app_text.dart` |
+| Home sections (hero, work, what I do, footer) | `lib/features/home/widget/` |
 | CV | `web/ahmet-kadir-cicek-cv.pdf` (served as `/ahmet-kadir-cicek-cv.pdf`) |
 | Link preview image | `web/og-image.jpg` (1200x630) |
 | Text for search engines | hidden `<main>` in `web/index.html` — update it with the visible content |
 
 Images are WebP and sized for their largest on-screen use: screenshots 720 px wide, mockups 1400 px (cards zoom 3x on hover), logos 256 px.
+
+Widgets use only the tokens; a raw color, size or duration in a widget is a bug.

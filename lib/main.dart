@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       routerConfig: AppRouter.router,
       debugShowCheckedModeBanner: false,
       title: 'Ahmet Kadir Çiçek — Mobile Developer',
-      theme: ThemeManager.instance.theme,
+      theme: ThemeManager.theme,
       builder: (context, child) => CustomCursorWidget(child: child!),
     );
   }
