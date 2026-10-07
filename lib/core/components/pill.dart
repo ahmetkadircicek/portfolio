@@ -40,7 +40,8 @@ class Pill extends StatelessWidget {
         children: [
           if (style == PillStyle.status)
             Container(width: 6, height: 6, decoration: BoxDecoration(color: tint, shape: BoxShape.circle)),
-          Text(label, style: context.text.bodySmall.copyWith(height: 1.2, color: foreground)),
+          // Long labels (e.g. in German) wrap instead of spilling out.
+          Flexible(child: Text(label, style: context.text.bodySmall.copyWith(height: 1.2, color: foreground))),
         ],
       ),
     );
