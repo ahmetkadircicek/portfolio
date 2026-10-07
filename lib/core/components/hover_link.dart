@@ -72,9 +72,10 @@ class _HoverLinkState extends State<HoverLink> {
           child: GestureDetector(
             onTap: widget.onTap,
             behavior: HitTestBehavior.opaque,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            // The link is as tall as its text, so it lines up with whatever
+            // sits beside it; the underline hangs below without taking space.
+            child: Stack(
+              clipBehavior: Clip.none,
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -85,14 +86,17 @@ class _HoverLinkState extends State<HoverLink> {
                     if (iconWidget != null && widget.icon != LinkIcon.back) iconWidget,
                   ],
                 ),
-                const SizedBox(height: AppSpace.x1),
                 // The underline grows from the left on hover.
-                AnimatedContainer(
-                  duration: AppMotion.base,
-                  curve: AppMotion.standard,
-                  height: 1,
-                  width: _hovering ? _textWidth(style) : 0,
-                  color: color,
+                Positioned(
+                  left: widget.icon == LinkIcon.back ? (style.fontSize ?? 16) * 0.95 + AppSpace.x2 : 0,
+                  bottom: -AppSpace.x1,
+                  child: AnimatedContainer(
+                    duration: AppMotion.base,
+                    curve: AppMotion.standard,
+                    height: 1,
+                    width: _hovering ? _textWidth(style) : 0,
+                    color: color,
+                  ),
                 ),
               ],
             ),
