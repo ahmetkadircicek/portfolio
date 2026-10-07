@@ -21,7 +21,7 @@ class ContactCtaSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = context.text;
     final mobile = context.isMobile;
-    final footerStyle = text.bodySmall.copyWith(color: context.colors.onInkMuted);
+    final footerStyle = text.bodySmall.copyWith(color: context.colors.onBlockMuted);
 
     return PageFrame(
       child: Padding(
@@ -34,18 +34,18 @@ class ContactCtaSection extends StatelessWidget {
               mobile ? AppSpace.x6 : AppSpace.x16,
               AppSpace.x8,
             ),
-            decoration: BoxDecoration(color: context.colors.ink, borderRadius: AppRadius.lgAll),
+            decoration: BoxDecoration(color: context.colors.block, borderRadius: AppRadius.lgAll),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Eyebrow('Have an app in mind?', color: context.colors.onInkMuted),
+                Eyebrow('Have an app in mind?', color: context.colors.onBlockMuted),
                 const SizedBox(height: AppSpace.x6),
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   alignment: Alignment.centerLeft,
                   child: Text(
                     mobile ? 'LET\'S MAKE\nIT SIMPLE' : 'LET\'S MAKE IT SIMPLE',
-                    style: text.h1.copyWith(color: context.colors.onInk),
+                    style: text.h1.copyWith(color: context.colors.onBlock),
                   ),
                 ),
                 const SizedBox(height: AppSpace.x6),
@@ -53,13 +53,13 @@ class ContactCtaSection extends StatelessWidget {
                   constraints: const BoxConstraints(maxWidth: 520),
                   child: Text(
                     'Tell me about your project and I\'ll get back to you as soon as possible.',
-                    style: text.bodyLarge.copyWith(color: context.colors.onInkMuted),
+                    style: text.bodyLarge.copyWith(color: context.colors.onBlockMuted),
                   ),
                 ),
                 const SizedBox(height: AppSpace.x8),
                 PrimaryButton(label: 'Request a project', inverted: true, onPressed: () => context.go('/contact')),
                 SizedBox(height: mobile ? AppSpace.x16 : AppSpace.x24),
-                Divider(height: 1, thickness: 1, color: context.colors.onInk.withValues(alpha: 0.15)),
+                Divider(height: 1, thickness: 1, color: context.colors.onBlock.withValues(alpha: 0.15)),
                 const SizedBox(height: AppSpace.x6),
                 Flex(
                   direction: mobile ? Axis.vertical : Axis.horizontal,
@@ -75,13 +75,13 @@ class ContactCtaSection extends StatelessWidget {
                         HoverLink(
                           label: 'GitHub',
                           icon: LinkIcon.external,
-                          color: context.colors.onInk,
+                          color: context.colors.onBlock,
                           onTap: () => launchUrl(Uri.parse(AppLinks.github), webOnlyWindowName: '_blank'),
                         ),
                         HoverLink(
                           label: 'Back to top',
                           icon: LinkIcon.up,
-                          color: context.colors.onInk,
+                          color: context.colors.onBlock,
                           onTap: onBackToTop,
                         ),
                       ],
