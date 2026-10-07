@@ -24,9 +24,14 @@ class AssetImageWidget extends StatelessWidget {
     this.decodeAtLayoutWidth = false,
   });
 
+  /// The Wasm renderer (skwasm) draws images decoded with `cacheWidth` as a
+  /// magnified crop of their top-left corner, so the Wasm build always
+  /// decodes at full size. The JavaScript fallback still downsizes.
+  static const _isWasm = bool.fromEnvironment('dart.tool.dart2wasm');
+
   @override
   Widget build(BuildContext context) {
-    if (!decodeAtLayoutWidth) return _buildImage(null);
+    if (!decodeAtLayoutWidth || _isWasm) return _buildImage(null);
     return LayoutBuilder(
       builder: (context, constraints) {
         if (!constraints.hasBoundedWidth) return _buildImage(null);

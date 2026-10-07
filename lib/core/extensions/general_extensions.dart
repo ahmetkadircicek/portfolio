@@ -1,73 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/constants/padding_constants.dart';
+import 'package:portfolio/core/theme/app_text.dart';
+import 'package:portfolio/core/theme/app_tokens.dart';
 
-extension BuildContextExtension<T> on BuildContext {
-  // Size Extensions
-  bool get isMobile => width <= 650.0;
-  bool get isTablet => width < 1024.0 && width >= 650.0;
-  bool get isSmallTablet => width < 650.0 && width > 500.0;
-  bool get isDesktop => width >= 1024.0;
-  bool get isSmall => width < 850.0 && width >= 560.0;
-
+extension BuildContextExtension on BuildContext {
   double get width => MediaQuery.sizeOf(this).width;
   double get height => MediaQuery.sizeOf(this).height;
-  Size get size => MediaQuery.sizeOf(this);
 
-  /// Outer margin of the rounded page cards and navigation bars.
-  EdgeInsets get pageMargin =>
-      isMobile ? PaddingConstants.allMedium : PaddingConstants.allLarge + PaddingConstants.symmetricHorizontalLarge;
+  bool get isMobile => width <= AppBreakpoints.mobile;
+  bool get isDesktop => width >= AppBreakpoints.desktop;
+  bool get isTablet => !isMobile && !isDesktop;
 
-  // Text Style Extensions
-  TextStyle? get displayMedium => Theme.of(this).textTheme.displayMedium;
-  TextStyle? get displaySmall => Theme.of(this).textTheme.displaySmall;
-  TextStyle? get headlineLarge => Theme.of(this).textTheme.headlineLarge;
-  TextStyle? get headlineMedium => Theme.of(this).textTheme.headlineMedium;
-  TextStyle? get titleLarge => Theme.of(this).textTheme.titleLarge;
-  TextStyle? get titleMedium => Theme.of(this).textTheme.titleMedium;
-  TextStyle? get titleSmall => Theme.of(this).textTheme.titleSmall;
-  TextStyle? get labelLarge => Theme.of(this).textTheme.labelLarge;
-  TextStyle? get bodySmall => Theme.of(this).textTheme.bodySmall;
-  TextStyle? get titleTextStyle => Theme.of(this).appBarTheme.titleTextStyle;
-  TextStyle? get bodyExtraSmall => bodySmall?.copyWith(fontSize: 10, height: 1.6, letterSpacing: .5);
-  TextStyle? get bodyLarge => Theme.of(this).textTheme.bodyLarge;
-  TextStyle? get dividerTextSmall =>
-      bodySmall?.copyWith(letterSpacing: 0.5, fontWeight: FontWeight.w700, fontSize: 12.0);
-  TextStyle? get dividerTextLarge =>
-      bodySmall?.copyWith(letterSpacing: 1.5, fontWeight: FontWeight.w700, fontSize: 13.0, height: 1.23);
+  /// Type scale for the current width.
+  AppText get text => isDesktop ? AppText.desktop : (isTablet ? AppText.tablet : AppText.mobile);
 
-  // Color Extensions
-  Color get primaryColor => Theme.of(this).primaryColor;
-  Color get primaryColorDark => Theme.of(this).primaryColorDark;
-  Color get primaryColorLight => Theme.of(this).primaryColorLight;
-  Color get primary => Theme.of(this).colorScheme.primary;
-  Color get onPrimary => Theme.of(this).colorScheme.onPrimary;
-  Color get secondary => Theme.of(this).colorScheme.secondary;
-  Color get onSecondary => Theme.of(this).colorScheme.onSecondary;
-  Color get cardColor => Theme.of(this).cardColor;
-  Color get error => Theme.of(this).colorScheme.error;
-  Color get onError => Theme.of(this).colorScheme.onError;
-  Color get errorContainer => Theme.of(this).colorScheme.errorContainer;
-  Color get surface => Theme.of(this).colorScheme.surface;
-  Color get onSurface => Theme.of(this).colorScheme.onSurface;
-  Color get surfaceContainer => Theme.of(this).colorScheme.surfaceContainer;
-  Color get onSecondaryContainer => Theme.of(this).colorScheme.onSecondaryContainer;
+  /// Horizontal page padding.
+  double get gutter => isDesktop ? AppSpace.x12 : (isTablet ? AppSpace.x8 : AppSpace.x4);
 
-  // Spacer
-  Widget spacerHeight(double percentage) {
-    final height = MediaQuery.sizeOf(this).height * (percentage / 100);
-    return SizedBox(height: height);
-  }
+  /// Space between two page sections.
+  double get sectionGap => isDesktop ? AppSpace.x32 : (isTablet ? AppSpace.x24 : AppSpace.x16);
 
-  Widget spacerWidth(double percentage) {
-    final width = MediaQuery.sizeOf(this).width * (percentage / 100);
-    return SizedBox(width: width);
-  }
-
-  Widget spacerFixedWidth(double width) {
-    return SizedBox(width: width);
-  }
-
-  Widget spacerFixedHeight(double height) {
-    return SizedBox(height: height);
-  }
+  /// True when the visitor asked the system for less motion.
+  bool get reduceMotion => MediaQuery.disableAnimationsOf(this);
 }

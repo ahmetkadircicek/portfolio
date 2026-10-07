@@ -1,3 +1,4 @@
+import 'package:portfolio/core/data/projects.dart';
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/features/contact_me/view/contact_form_view.dart';
 import 'package:portfolio/features/home/view/home_view.dart';
@@ -26,8 +27,7 @@ class AppRouter {
         routes: [
           GoRoute(
             path: ':slug',
-            redirect: (context, state) =>
-                ProjectsView.slugs.contains(state.pathParameters['slug']) ? null : '/projects',
+            redirect: (context, state) => Projects.bySlug(state.pathParameters['slug']) != null ? null : '/projects',
             builder: (context, state) => ProjectsView(initialSlug: state.pathParameters['slug']),
           ),
         ],
