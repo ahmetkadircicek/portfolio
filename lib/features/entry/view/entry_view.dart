@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/simple_icons.dart';
+import 'package:portfolio/core/components/web_link.dart';
 import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/app_logo.dart';
@@ -18,7 +18,6 @@ import 'package:portfolio/core/data/collections.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 import 'package:portfolio/features/entry/widget/highlight_deck.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 /// The page of any entry, at `/<collection>/<slug>`: title with statuses and
 /// tags, the overview and points, the link, and the highlight deck when the
@@ -36,7 +35,7 @@ class EntryView extends StatelessWidget {
     final back = HoverLink(
       label: context.t(S.all(collection.title)),
       icon: LinkIcon.back,
-      onTap: () => context.go(collection.path),
+      to: collection.path,
     );
 
     final intro = Column(
@@ -228,52 +227,55 @@ class _LinkCardState extends State<_LinkCard> {
         child: MouseRegion(
           onEnter: (_) => setState(() => _hovering = true),
           onExit: (_) => setState(() => _hovering = false),
-          child: GestureDetector(
-            onTap: () => launchUrl(address, webOnlyWindowName: '_blank'),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: AppLayout.readingWidth),
-              child: AnimatedContainer(
-                duration: AppMotion.base,
-                curve: AppMotion.standard,
-                padding: const EdgeInsets.all(AppSpace.x4),
-                decoration: BoxDecoration(
-                  color: _hovering ? context.colors.surfaceHover : context.colors.surface,
-                  borderRadius: AppRadius.mdAll,
-                ),
-                child: Row(
-                  spacing: AppSpace.x4,
-                  children: [
-                    Container(
-                      width: 48,
-                      height: 48,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(color: context.colors.canvas, borderRadius: AppRadius.smAll),
-                      child: link.isGithub
-                          ? Iconify(SimpleIcons.github, color: context.colors.ink, size: 24)
-                          : Icon(Icons.language, color: context.colors.ink, size: 24),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        spacing: 2,
-                        children: [
-                          Text(context.t(link.label), style: text.title),
-                          Text(
-                            '${address.host}${address.path}',
-                            style: text.bodySmall.copyWith(color: context.colors.inkMuted),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+          child: WebLink(
+            to: link.url,
+            builder: (context, follow) => GestureDetector(
+              onTap: follow,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: AppLayout.readingWidth),
+                child: AnimatedContainer(
+                  duration: AppMotion.base,
+                  curve: AppMotion.standard,
+                  padding: const EdgeInsets.all(AppSpace.x4),
+                  decoration: BoxDecoration(
+                    color: _hovering ? context.colors.surfaceHover : context.colors.surface,
+                    borderRadius: AppRadius.mdAll,
+                  ),
+                  child: Row(
+                    spacing: AppSpace.x4,
+                    children: [
+                      Container(
+                        width: 48,
+                        height: 48,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(color: context.colors.canvas, borderRadius: AppRadius.smAll),
+                        child: link.isGithub
+                            ? Iconify(SimpleIcons.github, color: context.colors.ink, size: 24)
+                            : Icon(Icons.language, color: context.colors.ink, size: 24),
                       ),
-                    ),
-                    AnimatedSlide(
-                      offset: _hovering ? const Offset(0.15, -0.15) : Offset.zero,
-                      duration: AppMotion.base,
-                      curve: AppMotion.standard,
-                      child: Icon(Icons.north_east, size: 18, color: context.colors.ink),
-                    ),
-                  ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 2,
+                          children: [
+                            Text(context.t(link.label), style: text.title),
+                            Text(
+                              '${address.host}${address.path}',
+                              style: text.bodySmall.copyWith(color: context.colors.inkMuted),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                      AnimatedSlide(
+                        offset: _hovering ? const Offset(0.15, -0.15) : Offset.zero,
+                        duration: AppMotion.base,
+                        curve: AppMotion.standard,
+                        child: Icon(Icons.north_east, size: 18, color: context.colors.ink),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

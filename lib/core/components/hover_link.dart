@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/components/web_link.dart';
 import 'package:portfolio/core/components/hover_detector_widget.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
@@ -19,7 +20,11 @@ enum LinkIcon {
 /// nudges in its direction.
 class HoverLink extends StatefulWidget {
   final String label;
-  final VoidCallback onTap;
+
+  /// Where the link goes: a path in the site (`/contact`) or a full URL. With
+  /// it the link is a real browser link; without it, [onTap] runs.
+  final String? to;
+  final VoidCallback? onTap;
   final LinkIcon icon;
   final TextStyle? style;
   final Color? color;
@@ -27,7 +32,8 @@ class HoverLink extends StatefulWidget {
   const HoverLink({
     super.key,
     required this.label,
-    required this.onTap,
+    this.to,
+    this.onTap,
     this.icon = LinkIcon.none,
     this.style,
     this.color,
@@ -51,6 +57,12 @@ class _HoverLinkState extends State<HoverLink> {
 
   @override
   Widget build(BuildContext context) {
+    final to = widget.to;
+    if (to == null) return _build(context, widget.onTap);
+    return WebLink(to: to, builder: _build);
+  }
+
+  Widget _build(BuildContext context, VoidCallback? onTap) {
     final color = widget.color ?? context.colors.ink;
     final style = (widget.style ?? context.text.link).copyWith(color: color);
     final iconData = widget.icon.data;
@@ -70,7 +82,7 @@ class _HoverLinkState extends State<HoverLink> {
           onEnter: (_) => setState(() => _hovering = true),
           onExit: (_) => setState(() => _hovering = false),
           child: GestureDetector(
-            onTap: widget.onTap,
+            onTap: onTap,
             behavior: HitTestBehavior.opaque,
             // The link is as tall as its text, so it lines up with whatever
             // sits beside it; the underline hangs below without taking space.

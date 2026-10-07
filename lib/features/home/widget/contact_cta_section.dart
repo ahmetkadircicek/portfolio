@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:portfolio/core/components/web_link.dart';
 import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/hover_link.dart';
@@ -10,7 +10,6 @@ import 'package:portfolio/core/components/section_header.dart';
 import 'package:portfolio/core/constants/app_links.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 /// Closing call to action and footer. This is the only place on the home
 /// page that leads to the contact form.
@@ -59,8 +58,11 @@ class ContactCtaSection extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: AppSpace.x8),
-                PrimaryButton(
-                    label: context.t(S.requestProject), inverted: true, onPressed: () => context.go('/contact')),
+                WebLink(
+                  to: '/contact',
+                  builder: (context, follow) =>
+                      PrimaryButton(label: context.t(S.requestProject), inverted: true, onPressed: follow),
+                ),
                 SizedBox(height: mobile ? AppSpace.x16 : AppSpace.x24),
                 Divider(height: 1, thickness: 1, color: context.colors.onBlock.withValues(alpha: 0.15)),
                 const SizedBox(height: AppSpace.x6),
@@ -79,7 +81,7 @@ class ContactCtaSection extends StatelessWidget {
                           label: 'GitHub',
                           icon: LinkIcon.external,
                           color: context.colors.onBlock,
-                          onTap: () => launchUrl(Uri.parse(AppLinks.github), webOnlyWindowName: '_blank'),
+                          to: AppLinks.github,
                         ),
                         HoverLink(
                           label: context.t(S.backToTop),

@@ -11,7 +11,6 @@ import 'package:portfolio/core/components/site_header.dart';
 import 'package:portfolio/core/constants/app_links.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 /// First screen: a rounded card that fills the viewport with the name, the
 /// signature, "MAKE IT SIMPLE" over the 3D shape, the tech stack and the way
@@ -44,8 +43,6 @@ class HeroSection extends StatelessWidget {
   }
 }
 
-void _openCv() => launchUrl(Uri.parse(AppLinks.cv), webOnlyWindowName: '_blank');
-
 class _Top extends StatelessWidget {
   const _Top();
 
@@ -65,7 +62,7 @@ class _Top extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               spacing: AppSpace.x4,
               children: [
-                HoverLink(label: context.t(S.downloadCv), icon: LinkIcon.external, onTap: _openCv),
+                HoverLink(label: context.t(S.downloadCv), icon: LinkIcon.external, to: AppLinks.cv),
                 const TopControls(),
               ],
             ),
@@ -207,7 +204,7 @@ class _MobileBottom extends StatelessWidget {
           spacing: AppSpace.x6,
           runSpacing: AppSpace.x3,
           children: [
-            HoverLink(label: context.t(S.downloadCv), icon: LinkIcon.external, onTap: _openCv),
+            HoverLink(label: context.t(S.downloadCv), icon: LinkIcon.external, to: AppLinks.cv),
             HoverLink(label: context.t(projects.title), icon: LinkIcon.down, onTap: onShowWork),
           ],
         ),

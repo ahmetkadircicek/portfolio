@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,6 +8,8 @@ import 'package:portfolio/core/data/projects.dart';
 import 'package:portfolio/core/init/navigation/app_router.dart';
 import 'package:portfolio/features/home/view/home_view.dart';
 import 'package:portfolio/main.dart';
+// ignore: implementation_imports
+import 'package:url_launcher/src/link.dart' as link;
 
 Future<void> _open(WidgetTester tester, String path, Size size) async {
   tester.view.physicalSize = size;
@@ -31,6 +35,13 @@ void main() {
 
   setUp(HomeView.forgetPosition);
 
+  // In the browser a link's address reaches the router through the engine;
+  // tests have no engine, so hand it over directly.
+  link.pushRouteToFrameworkFunction = (_, route) async {
+    AppRouter.router.go(route);
+    return ByteData(0);
+  };
+
   for (final collection in collections) {
     final title = collection.title.en.toUpperCase();
 
@@ -53,6 +64,7 @@ void main() {
         await _open(tester, collection.pathOf(entry), desktop);
         expect(find.text(entry.title.en.toUpperCase()), findsOneWidget);
         await tester.tap(find.text('All ${collection.title.en.toLowerCase()}'));
+        await tester.pump();
         await tester.pump(const Duration(seconds: 2));
         expect(_location, collection.path);
         await _close(tester);

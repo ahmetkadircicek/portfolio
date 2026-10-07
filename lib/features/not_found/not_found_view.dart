@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/hover_link.dart';
@@ -25,7 +24,7 @@ class NotFoundView extends StatelessWidget {
             const SizedBox(height: AppSpace.x4),
             Text(context.t(S.notFoundBody), style: text.bodyLarge.copyWith(color: context.colors.inkMuted)),
             const SizedBox(height: AppSpace.x8),
-            HoverLink(label: context.t(S.backHome), icon: LinkIcon.back, onTap: () => context.go('/home')),
+            HoverLink(label: context.t(S.backHome), icon: LinkIcon.back, to: '/home'),
           ],
         ),
       ),
