@@ -1,7 +1,5 @@
-import 'package:flutter/widgets.dart';
 import 'package:portfolio/core/data/collections.dart';
 import 'package:go_router/go_router.dart';
-import 'package:portfolio/core/theme/app_tokens.dart';
 import 'package:portfolio/features/contact_me/view/contact_form_view.dart';
 import 'package:portfolio/features/home/view/home_view.dart';
 import 'package:portfolio/features/not_found/not_found_view.dart';
@@ -24,20 +22,37 @@ class AppRouter {
 
   static const siteName = 'Ahmet Kadir Çiçek';
 
-  /// Browser tab title of a page.
-  static Widget titled(String? page, Widget child) => Title(
-      title: page == null ? '$siteName — Mobile Developer' : '$page — $siteName', color: AppColors.ink, child: child);
+  static const homeTitle = '$siteName — Mobile Developer';
+
+  /// Browser tab title of the page at [uri]. Set once above the router, so
+  /// a page that is fading out can never write its own title last. A
+  /// collection path is the home page opened at a section, so it keeps the
+  /// home title.
+  static String titleFor(Uri uri) {
+    final segments = uri.pathSegments.where((s) => s.isNotEmpty).toList();
+    String page(String name) => '$name — $siteName';
+    if (segments.isEmpty || uri.path == '/home') return homeTitle;
+    if (uri.path == '/contact') return page('Contact');
+    if (uri.path == '/tunes/gdpr') return page('Desktop Tunes Privacy Policy');
+    for (final collection in collections) {
+      if (segments.first != collection.id) continue;
+      if (segments.length == 1) return homeTitle;
+      final entry = collection.bySlug(segments[1]);
+      if (segments.length == 2 && entry != null) return page(entry.title);
+    }
+    return page('Page not found');
+  }
 
   static final GoRouter router = GoRouter(
-    errorBuilder: (context, state) => titled('Page not found', const NotFoundView()),
+    errorBuilder: (context, state) => const NotFoundView(),
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => titled(null, const SplashView()),
+        builder: (context, state) => const SplashView(),
       ),
       GoRoute(
         path: '/home',
-        builder: (context, state) => titled(null, const HomeView()),
+        builder: (context, state) => const HomeView(),
       ),
       // `/<collection>` opens the home page at the collection's section,
       // `/<collection>/<slug>` the entry's page; unknown slugs go back to the
@@ -45,7 +60,7 @@ class AppRouter {
       for (final collection in collections)
         GoRoute(
           path: collection.path,
-          builder: (context, state) => titled(collection.title, HomeView(startAt: collection.id)),
+          builder: (context, state) => HomeView(startAt: collection.id),
           routes: [
             GoRoute(
               path: ':slug',
@@ -53,18 +68,18 @@ class AppRouter {
                   collection.bySlug(state.pathParameters['slug']) == null ? collection.path : null,
               builder: (context, state) {
                 final entry = collection.bySlug(state.pathParameters['slug'])!;
-                return titled(entry.title, EntryView(collection: collection, entry: entry));
+                return EntryView(collection: collection, entry: entry);
               },
             ),
           ],
         ),
       GoRoute(
         path: '/contact',
-        builder: (context, state) => titled('Contact', const ContactFormView()),
+        builder: (context, state) => const ContactFormView(),
       ),
       GoRoute(
         path: '/tunes/gdpr',
-        builder: (context, state) => titled('Desktop Tunes Privacy Policy', const TunesGDPRView()),
+        builder: (context, state) => const TunesGDPRView(),
       ),
     ],
   );

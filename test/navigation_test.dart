@@ -55,4 +55,13 @@ void main() {
       });
     }
   }
+
+  test('the tab title is the site name on the home page and its sections', () {
+    expect(AppRouter.titleFor(Uri.parse('/')), AppRouter.homeTitle);
+    for (final collection in collections) {
+      expect(AppRouter.titleFor(Uri.parse(collection.path)), AppRouter.homeTitle);
+      final entry = collection.entries.first;
+      expect(AppRouter.titleFor(Uri.parse(collection.pathOf(entry))), '${entry.title} — ${AppRouter.siteName}');
+    }
+  });
 }
