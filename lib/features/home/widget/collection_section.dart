@@ -34,6 +34,9 @@ class CollectionSection extends StatefulWidget {
 class _CollectionSectionState extends State<CollectionSection> {
   bool get _open => widget.open.value;
 
+  /// The row under the pointer; the others fade back so it stands out.
+  final _hovered = ValueNotifier<int?>(null);
+
   @override
   void initState() {
     super.initState();
@@ -43,6 +46,7 @@ class _CollectionSectionState extends State<CollectionSection> {
   @override
   void dispose() {
     widget.open.removeListener(_rebuild);
+    _hovered.dispose();
     super.dispose();
   }
 
@@ -88,7 +92,7 @@ class _CollectionSectionState extends State<CollectionSection> {
       children: [
         SizedBox(height: mobile ? AppSpace.x2 : AppSpace.x4),
         for (final (i, entry) in entries.indexed) ...[
-          Reveal(child: _EntryRow(collection: collection, entry: entry, index: i)),
+          Reveal(child: _EntryRow(collection: collection, entry: entry, index: i, hovered: _hovered)),
           if (i < entries.length - 1) Divider(height: 1, thickness: 1, color: context.colors.line),
         ],
       ],
@@ -116,18 +120,24 @@ class _EntryRow extends StatefulWidget {
   final Collection collection;
   final Entry entry;
   final int index;
+  final ValueNotifier<int?> hovered;
 
-  const _EntryRow({required this.collection, required this.entry, required this.index});
+  const _EntryRow({required this.collection, required this.entry, required this.index, required this.hovered});
 
   @override
   State<_EntryRow> createState() => _EntryRowState();
 }
 
 class _EntryRowState extends State<_EntryRow> {
-  bool _hovering = false;
-
   @override
   Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: widget.hovered,
+      builder: (context, hovered, _) => _build(context, hovered == widget.index, hovered != null),
+    );
+  }
+
+  Widget _build(BuildContext context, bool hovering, bool anyHovered) {
     final entry = widget.entry;
     final text = context.text;
     final mobile = context.isMobile;
@@ -155,70 +165,56 @@ class _EntryRowState extends State<_EntryRow> {
             ],
           );
     final arrow = AnimatedSlide(
-      offset: Offset(_hovering ? 0.2 : 0, 0),
+      offset: Offset(hovering ? 0.2 : 0, 0),
       duration: AppMotion.base,
       curve: AppMotion.standard,
       child: Icon(Icons.arrow_forward, size: 22, color: context.colors.ink),
     );
-    // The highlight reaches past the row so the content never moves.
-    final bleed = mobile ? AppSpace.x2 : AppSpace.x4;
 
     return Semantics(
       link: true,
       label: '${context.t(entry.title)} — ${context.t(entry.subtitle)}',
       child: HoverDetector(
         child: MouseRegion(
-          onEnter: (_) => setState(() => _hovering = true),
-          onExit: (_) => setState(() => _hovering = false),
+          onEnter: (_) => widget.hovered.value = widget.index,
+          onExit: (_) {
+            if (widget.hovered.value == widget.index) widget.hovered.value = null;
+          },
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () => context.go(widget.collection.pathOf(entry)),
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Positioned(
-                  top: 0,
-                  bottom: 0,
-                  left: -bleed,
-                  right: -bleed,
-                  child: AnimatedOpacity(
-                    opacity: _hovering ? 1 : 0,
-                    duration: AppMotion.base,
-                    curve: AppMotion.standard,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(color: context.colors.surface, borderRadius: AppRadius.mdAll),
+            child: AnimatedOpacity(
+              opacity: anyHovered && !hovering ? 0.4 : 1,
+              duration: AppMotion.base,
+              curve: AppMotion.standard,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: mobile ? AppSpace.x6 : AppSpace.x8),
+                child: Row(
+                  spacing: mobile ? AppSpace.x4 : AppSpace.x6,
+                  children: [
+                    if (!mobile) SizedBox(width: 32, child: Eyebrow(_number(widget.index))),
+                    AppLogo(path: entry.logo, size: mobile ? 48 : 56),
+                    Expanded(
+                      flex: 4,
+                      child: mobile
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              spacing: AppSpace.x3,
+                              children: [name, meta],
+                            )
+                          : name,
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: mobile ? AppSpace.x6 : AppSpace.x8),
-                  child: Row(
-                    spacing: mobile ? AppSpace.x4 : AppSpace.x6,
-                    children: [
-                      if (!mobile) SizedBox(width: 32, child: Eyebrow(_number(widget.index))),
-                      AppLogo(path: entry.logo, size: mobile ? 48 : 56),
+                    if (desktop)
                       Expanded(
-                        flex: 4,
-                        child: mobile
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                spacing: AppSpace.x3,
-                                children: [name, meta],
-                              )
-                            : name,
+                        flex: 5,
+                        child: Text(context.t(entry.summary),
+                            style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
                       ),
-                      if (desktop)
-                        Expanded(
-                          flex: 5,
-                          child: Text(context.t(entry.summary),
-                              style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
-                        ),
-                      if (!mobile) SizedBox(width: desktop ? 220 : 180, child: meta),
-                      arrow,
-                    ],
-                  ),
+                    if (!mobile) SizedBox(width: desktop ? 220 : 180, child: meta),
+                    arrow,
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
