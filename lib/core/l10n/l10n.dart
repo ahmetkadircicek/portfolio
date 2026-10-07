@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/l10n/html_lang.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Languages of the site, in switcher order.
@@ -55,6 +56,7 @@ class LanguageManager {
     } catch (_) {
       // Storage blocked: keep the browser's language.
     }
+    setHtmlLang(language.value.name);
   }
 
   static AppLanguage _fromBrowser() {
@@ -68,6 +70,7 @@ class LanguageManager {
 
   static void set(AppLanguage next) {
     language.value = next;
+    setHtmlLang(next.name);
     SharedPreferences.getInstance().then((p) => p.setString(_key, next.name)).ignore();
   }
 }

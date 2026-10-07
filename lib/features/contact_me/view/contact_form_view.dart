@@ -71,6 +71,7 @@ class _ContactFormState extends State<_ContactForm> {
 
     return Scaffold(
       body: SingleChildScrollView(
+        primary: true,
         child: Column(
           children: [
             const SiteHeader(),

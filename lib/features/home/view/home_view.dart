@@ -153,31 +153,35 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final gap = context.sectionGap;
-    final page = SingleChildScrollView(
+    // Primary, so space, arrows and Page Up/Down scroll the page.
+    final page = PrimaryScrollController(
       controller: _scrollController,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Each section is its own layer, so scrolling moves painted layers
-          // instead of repainting the whole page every frame.
-          RepaintBoundary(
-            child: ValueListenableBuilder(
-              valueListenable: _heroVisible,
-              builder: (context, visible, hero) => TickerMode(enabled: visible, child: hero!),
-              child: HeroSection(key: _heroKey, onShowWork: () => _show(collections.first.id)),
+      child: SingleChildScrollView(
+        primary: true,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Each section is its own layer, so scrolling moves painted layers
+            // instead of repainting the whole page every frame.
+            RepaintBoundary(
+              child: ValueListenableBuilder(
+                valueListenable: _heroVisible,
+                builder: (context, visible, hero) => TickerMode(enabled: visible, child: hero!),
+                child: HeroSection(key: _heroKey, onShowWork: () => _show(collections.first.id)),
+              ),
             ),
-          ),
-          for (final c in collections)
-            Padding(
-              key: _keys[c.id],
-              padding: EdgeInsets.only(top: gap),
-              child: RepaintBoundary(child: CollectionSection(collection: c, open: _open[c.id]!)),
-            ),
-          SizedBox(height: gap),
-          const RepaintBoundary(child: CapabilitiesSection()),
-          SizedBox(height: gap),
-          RepaintBoundary(child: ContactCtaSection(onBackToTop: _backToTop)),
-        ],
+            for (final c in collections)
+              Padding(
+                key: _keys[c.id],
+                padding: EdgeInsets.only(top: gap),
+                child: RepaintBoundary(child: CollectionSection(collection: c, open: _open[c.id]!)),
+              ),
+            SizedBox(height: gap),
+            const RepaintBoundary(child: CapabilitiesSection()),
+            SizedBox(height: gap),
+            RepaintBoundary(child: ContactCtaSection(onBackToTop: _backToTop)),
+          ],
+        ),
       ),
     );
 
