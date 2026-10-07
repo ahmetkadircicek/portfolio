@@ -89,8 +89,6 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                   child: Image.asset(
                     // Plays once (the file's loop count is 1).
                     'assets/images/common/signature_animated.webp',
-                    color: context.colors.signature,
-                    colorBlendMode: BlendMode.srcIn,
                     excludeFromSemantics: true,
                   ),
                 ),

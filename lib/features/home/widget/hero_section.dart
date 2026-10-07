@@ -124,7 +124,6 @@ class _Center extends StatelessWidget {
   Widget build(BuildContext context) {
     final mobile = context.isMobile;
     final text = context.text;
-    final dark = Theme.of(context).brightness == Brightness.dark;
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -136,10 +135,7 @@ class _Center extends StatelessWidget {
             child: Image.asset(
               'assets/images/common/shape.webp',
               fit: BoxFit.contain,
-              // Tinted by the theme, keeping its shading; full strength on dark.
-              opacity: AlwaysStoppedAnimation(dark ? 1 : 0.3),
-              color: context.colors.shapeTint,
-              colorBlendMode: BlendMode.modulate,
+              opacity: const AlwaysStoppedAnimation(0.3),
               gaplessPlayback: true,
               excludeFromSemantics: true,
             ),
@@ -154,10 +150,7 @@ class _Center extends StatelessWidget {
               child: Image.asset(
                 'assets/images/common/signature.webp',
                 fit: BoxFit.fitWidth,
-                // Drawn in ink, so it reads in both modes.
-                color: context.colors.signature,
-                colorBlendMode: BlendMode.srcIn,
-                opacity: AlwaysStoppedAnimation(dark ? 1 : 0.8),
+                opacity: const AlwaysStoppedAnimation(0.8),
                 excludeFromSemantics: true,
               ),
             ),

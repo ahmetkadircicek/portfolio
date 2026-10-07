@@ -10,7 +10,7 @@ import 'core/theme/theme_manager.dart';
 Future<void> main() async {
   usePathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
-  await Future.wait([ThemeManager.load(), LanguageManager.load()]);
+  await LanguageManager.load();
 
   runApp(const MyApp());
 }
@@ -21,14 +21,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: Listenable.merge([ThemeManager.mode, LanguageManager.language]),
+      listenable: LanguageManager.language,
       builder: (context, _) => MaterialApp.router(
         routerConfig: AppRouter.router,
         debugShowCheckedModeBanner: false,
         title: AppRouter.homeTitle,
         theme: ThemeManager.light,
-        darkTheme: ThemeManager.dark,
-        themeMode: ThemeManager.mode.value,
         locale: LanguageManager.language.value.locale,
         supportedLocales: [for (final l in AppLanguage.values) l.locale],
         localizationsDelegates: GlobalMaterialLocalizations.delegates,
