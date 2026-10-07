@@ -30,8 +30,8 @@ class _PrimaryButtonState extends State<PrimaryButton> {
 
   @override
   Widget build(BuildContext context) {
-    final background = widget.inverted ? AppColors.canvas : AppColors.ink;
-    final foreground = widget.inverted ? AppColors.ink : AppColors.onInk;
+    final background = widget.inverted ? context.colors.canvas : context.colors.ink;
+    final foreground = widget.inverted ? context.colors.ink : context.colors.onInk;
     final enabled = widget.onPressed != null && !widget.loading;
 
     final content = widget.loading

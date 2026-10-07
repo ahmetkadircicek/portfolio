@@ -74,7 +74,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
     return FadeTransition(
       opacity: _fadeAnimation,
       child: Scaffold(
-        backgroundColor: AppColors.canvas,
+        backgroundColor: context.colors.canvas,
         body: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSpace.x6),
@@ -87,6 +87,8 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                   child: Image.asset(
                     // Plays once (the file's loop count is 1).
                     'assets/images/common/signature_animated.webp',
+                    color: context.colors.ink,
+                    colorBlendMode: BlendMode.srcIn,
                     excludeFromSemantics: true,
                   ),
                 ),
@@ -100,7 +102,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                 Text(
                   'Cross and Native Mobile Application Developer',
                   textAlign: TextAlign.center,
-                  style: context.text.body.copyWith(color: AppColors.inkMuted),
+                  style: context.text.body.copyWith(color: context.colors.inkMuted),
                 ),
               ],
             ),

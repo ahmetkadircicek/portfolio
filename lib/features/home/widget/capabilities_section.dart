@@ -52,12 +52,12 @@ class CapabilitiesSection extends StatelessWidget {
                     spacing: AppSpace.x1,
                     children: [
                       Text(item.$1, style: text.title),
-                      Text(item.$3, style: text.bodySmall.copyWith(color: AppColors.inkMuted)),
+                      Text(item.$3, style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
                     ],
                   ),
                 ),
               ),
-              const Divider(height: 1, thickness: 1, color: AppColors.line),
+              Divider(height: 1, thickness: 1, color: context.colors.line),
             ]
           else ...[
             const SizedBox(height: AppSpace.x8),
@@ -81,9 +81,9 @@ class CapabilitiesSection extends StatelessWidget {
                               const SizedBox(height: AppSpace.x6),
                               Text(_items[i].$1, style: text.h3),
                               const SizedBox(height: AppSpace.x2),
-                              Text(_items[i].$2, style: text.body.copyWith(color: AppColors.inkMuted)),
+                              Text(_items[i].$2, style: text.body.copyWith(color: context.colors.inkMuted)),
                               const SizedBox(height: AppSpace.x4),
-                              Text(_items[i].$3, style: text.bodySmall.copyWith(color: AppColors.inkSubtle)),
+                              Text(_items[i].$3, style: text.bodySmall.copyWith(color: context.colors.inkSubtle)),
                             ],
                           ),
                         ),

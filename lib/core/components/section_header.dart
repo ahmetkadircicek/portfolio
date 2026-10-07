@@ -5,13 +5,13 @@ import 'package:portfolio/core/theme/app_tokens.dart';
 /// Small upper-case label above content, e.g. `PROJECTS`.
 class Eyebrow extends StatelessWidget {
   final String text;
-  final Color color;
+  final Color? color;
 
-  const Eyebrow(this.text, {super.key, this.color = AppColors.inkSubtle});
+  const Eyebrow(this.text, {super.key, this.color});
 
   @override
   Widget build(BuildContext context) {
-    return Text(text.toUpperCase(), style: context.text.label.copyWith(color: color));
+    return Text(text.toUpperCase(), style: context.text.label.copyWith(color: color ?? context.colors.inkSubtle));
   }
 }
 
@@ -41,7 +41,7 @@ class SectionHeader extends StatelessWidget {
             children: [
               if (count != null)
                 // Small and on the title's baseline, right after it.
-                TextSpan(text: '  ($count)', style: text.label.copyWith(color: AppColors.inkSubtle)),
+                TextSpan(text: '  ($count)', style: text.label.copyWith(color: context.colors.inkSubtle)),
             ],
           ),
           style: text.h1,
@@ -50,11 +50,11 @@ class SectionHeader extends StatelessWidget {
           const SizedBox(height: AppSpace.x4),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 560),
-            child: Text(description!, style: text.bodyLarge.copyWith(color: AppColors.inkMuted)),
+            child: Text(description!, style: text.bodyLarge.copyWith(color: context.colors.inkMuted)),
           ),
         ],
         SizedBox(height: context.isMobile ? AppSpace.x4 : AppSpace.x6),
-        const Divider(height: 1, thickness: 1, color: AppColors.line),
+        Divider(height: 1, thickness: 1, color: context.colors.line),
       ],
     );
   }

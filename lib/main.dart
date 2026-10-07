@@ -5,8 +5,10 @@ import 'package:portfolio/core/init/navigation/app_router.dart';
 
 import 'core/theme/theme_manager.dart';
 
-void main() {
+Future<void> main() async {
   usePathUrlStrategy();
+  WidgetsFlutterBinding.ensureInitialized();
+  await ThemeManager.load();
 
   runApp(const MyApp());
 }
@@ -16,12 +18,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return ValueListenableBuilder(
+      valueListenable: ThemeManager.mode,
+      builder: (context, mode, _) => MaterialApp.router(
       routerConfig: AppRouter.router,
       debugShowCheckedModeBanner: false,
       title: AppRouter.homeTitle,
-      theme: ThemeManager.theme,
+      theme: ThemeManager.light,
+      darkTheme: ThemeManager.dark,
+      themeMode: mode,
       builder: (context, child) => _TabTitle(child: child!),
+      ),
     );
   }
 }

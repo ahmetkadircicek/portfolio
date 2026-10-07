@@ -126,7 +126,7 @@ class _Title extends StatelessWidget {
         // Every entry page's title has the same size, set by the longest one.
         Semantics(header: true, child: UniformLine(entry.title.toUpperCase(), all: allEntryTitles, style: text.h1)),
         const SizedBox(height: AppSpace.x2),
-        Text(entry.subtitle, style: text.bodyLarge.copyWith(color: AppColors.inkMuted)),
+        Text(entry.subtitle, style: text.bodyLarge.copyWith(color: context.colors.inkMuted)),
       ],
     );
 
@@ -149,7 +149,7 @@ class _Title extends StatelessWidget {
             runSpacing: AppSpace.x2,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              for (final s in entry.statuses) Pill.status(s.label, color: s.color),
+              for (final s in entry.statuses) Pill.status(s.label, color: s.colorIn(context.colors)),
               for (final t in entry.tags) Pill(t),
             ],
           ),
@@ -167,8 +167,8 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = context.text;
-    final paragraph = text.bodyLarge.copyWith(color: AppColors.inkMuted, height: 1.7);
-    final point = text.body.copyWith(color: AppColors.inkMuted, height: 1.7);
+    final paragraph = text.bodyLarge.copyWith(color: context.colors.inkMuted, height: 1.7);
+    final point = text.body.copyWith(color: context.colors.inkMuted, height: 1.7);
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: AppLayout.readingWidth),
       child: Column(
@@ -185,7 +185,7 @@ class _Body extends StatelessWidget {
                 // A small square, lined up with the first line of text.
                 Padding(
                   padding: EdgeInsets.only(top: (point.fontSize ?? 16) * 0.75),
-                  child: const SizedBox.square(dimension: 6, child: ColoredBox(color: AppColors.inkSubtle)),
+                  child: SizedBox.square(dimension: 6, child: ColoredBox(color: context.colors.inkSubtle)),
                 ),
                 Expanded(child: Text(p, style: point)),
               ],
@@ -232,7 +232,7 @@ class _LinkCardState extends State<_LinkCard> {
                 curve: AppMotion.standard,
                 padding: const EdgeInsets.all(AppSpace.x4),
                 decoration: BoxDecoration(
-                  color: _hovering ? AppColors.surfaceHover : AppColors.surface,
+                  color: _hovering ? context.colors.surfaceHover : context.colors.surface,
                   borderRadius: AppRadius.mdAll,
                 ),
                 child: Row(
@@ -242,10 +242,10 @@ class _LinkCardState extends State<_LinkCard> {
                       width: 48,
                       height: 48,
                       alignment: Alignment.center,
-                      decoration: const BoxDecoration(color: AppColors.canvas, borderRadius: AppRadius.smAll),
+                      decoration: BoxDecoration(color: context.colors.canvas, borderRadius: AppRadius.smAll),
                       child: link.isGithub
-                          ? const Iconify(SimpleIcons.github, color: AppColors.ink, size: 24)
-                          : const Icon(Icons.language, color: AppColors.ink, size: 24),
+                          ? Iconify(SimpleIcons.github, color: context.colors.ink, size: 24)
+                          : Icon(Icons.language, color: context.colors.ink, size: 24),
                     ),
                     Expanded(
                       child: Column(
@@ -255,7 +255,7 @@ class _LinkCardState extends State<_LinkCard> {
                           Text(link.label, style: text.title),
                           Text(
                             '${address.host}${address.path}',
-                            style: text.bodySmall.copyWith(color: AppColors.inkMuted),
+                            style: text.bodySmall.copyWith(color: context.colors.inkMuted),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -266,7 +266,7 @@ class _LinkCardState extends State<_LinkCard> {
                       offset: _hovering ? const Offset(0.15, -0.15) : Offset.zero,
                       duration: AppMotion.base,
                       curve: AppMotion.standard,
-                      child: const Icon(Icons.north_east, size: 18, color: AppColors.ink),
+                      child: Icon(Icons.north_east, size: 18, color: context.colors.ink),
                     ),
                   ],
                 ),

@@ -15,13 +15,13 @@ class NotFoundView extends StatelessWidget {
         width: double.infinity,
         margin: EdgeInsets.all(context.gutter / (context.isMobile ? 1 : 2)),
         padding: const EdgeInsets.all(AppSpace.x6),
-        decoration: const BoxDecoration(color: AppColors.surface, borderRadius: AppRadius.lgAll),
+        decoration: BoxDecoration(color: context.colors.surface, borderRadius: AppRadius.lgAll),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FittedBox(child: Text('404', style: text.display)),
             const SizedBox(height: AppSpace.x4),
-            Text('This page does not exist.', style: text.bodyLarge.copyWith(color: AppColors.inkMuted)),
+            Text('This page does not exist.', style: text.bodyLarge.copyWith(color: context.colors.inkMuted)),
             const SizedBox(height: AppSpace.x8),
             HoverLink(label: 'Back to home', icon: LinkIcon.back, onTap: () => context.go('/home')),
           ],

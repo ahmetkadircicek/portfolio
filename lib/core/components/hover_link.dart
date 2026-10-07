@@ -51,7 +51,7 @@ class _HoverLinkState extends State<HoverLink> {
 
   @override
   Widget build(BuildContext context) {
-    final color = widget.color ?? AppColors.ink;
+    final color = widget.color ?? context.colors.ink;
     final style = (widget.style ?? context.text.link).copyWith(color: color);
     final iconData = widget.icon.data;
     final iconWidget = iconData == null

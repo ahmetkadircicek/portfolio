@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:portfolio/core/components/theme_toggle.dart';
 import 'package:portfolio/core/components/hover_detector_widget.dart';
 import 'package:portfolio/core/components/page_frame.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
@@ -30,6 +31,8 @@ class SiteHeader extends StatelessWidget {
                 const HomeMark(),
                 const Spacer(),
                 if (trailing != null) Flexible(flex: 4, child: trailing!),
+                const SizedBox(width: AppSpace.x4),
+                const ThemeToggle(),
               ],
             ),
             if (bottom != null) bottom!,
@@ -55,10 +58,10 @@ class HomeMark extends StatelessWidget {
       spacing: AppSpace.x3,
       children: [
         if (showAvatar)
-          const CircleAvatar(
+          CircleAvatar(
             radius: 20,
-            backgroundColor: AppColors.surface,
-            backgroundImage: AssetImage('assets/images/common/profile.jpg'),
+            backgroundColor: context.colors.surface,
+            backgroundImage: const AssetImage('assets/images/common/profile.jpg'),
           ),
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -66,7 +69,7 @@ class HomeMark extends StatelessWidget {
           children: [
             Text('Ahmet Kadir Çiçek', style: text.title.copyWith(height: 1.3)),
             Text('Cross and Native Mobile Developer',
-                style: text.bodySmall.copyWith(height: 1.3, color: AppColors.inkMuted)),
+                style: text.bodySmall.copyWith(height: 1.3, color: context.colors.inkMuted)),
           ],
         ),
       ],

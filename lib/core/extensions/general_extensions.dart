@@ -11,7 +11,10 @@ extension BuildContextExtension on BuildContext {
   bool get isTablet => !isMobile && !isDesktop;
 
   /// Type scale for the current width.
-  AppText get text => isDesktop ? AppText.desktop : (isTablet ? AppText.tablet : AppText.mobile);
+  AppText get text => AppText.of(isDesktop ? 'desktop' : (isTablet ? 'tablet' : 'mobile'), colors.ink);
+
+  /// Colors of the active light or dark theme.
+  AppPalette get colors => Theme.of(this).extension<AppPalette>()!;
 
   /// Horizontal page padding.
   double get gutter => isDesktop ? AppSpace.x12 : (isTablet ? AppSpace.x8 : AppSpace.x4);
