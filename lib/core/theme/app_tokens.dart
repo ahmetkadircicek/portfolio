@@ -9,8 +9,8 @@ class AppColors {
 
   // Neutrals
   static const ink = Color(0xFF1F2024);
-  static const inkMuted = Color(0xB31F2024); // 70 %
-  static const inkSubtle = Color(0x801F2024); // 50 %
+  static const inkMuted = Color(0xB81F2024); // 72 %
+  static const inkSubtle = Color(0x9E1F2024); // 62 %, still 4.5:1 on white
   static const line = Color(0x1A1F2024); // 10 %
   static const canvas = Color(0xFFFFFFFF);
   static const surface = Color(0xFFF3F2F7);
@@ -23,7 +23,7 @@ class AppColors {
 
   // Project status
   static const statusReady = Color(0xFF2E7D32);
-  static const statusProgress = Color(0xFFE65100);
+  static const statusProgress = Color(0xFFC24100);
   static const statusEarly = Color(0xFF1565C0);
   static const statusArchive = Color(0xFF6A1B9A);
 
