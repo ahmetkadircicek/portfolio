@@ -10,7 +10,7 @@
   <meta name="description" content="Portfolio of Ahmet Kadir Çiçek, a cross-platform and native mobile developer building user-friendly apps with Flutter, Swift and Firebase.">
   <meta name="author" content="Ahmet Kadir Çiçek">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#191919" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://ahmetkadircicek.com.tr/">
 
   <!-- Link previews (WhatsApp, LinkedIn, X, Slack...) -->
@@ -51,17 +51,31 @@
   }
   </script>
 
+  <script>
+    // Match the theme the visitor picked last (saved by the app), so the page
+    // does not flash white before Flutter starts.
+    try {
+      var saved = localStorage.getItem('flutter.theme_mode') || '';
+      if (saved.indexOf('dark') >= 0) document.documentElement.dataset.theme = 'dark';
+      if (saved.indexOf('light') >= 0) document.documentElement.dataset.theme = 'light';
+    } catch (e) {}
+  </script>
   <style>
-    html, body { margin: 0; height: 100%; background: #ffffff; }
+    :root { --bg: #ffffff; --spin: 31, 32, 36; color-scheme: light; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) { --bg: #000000; --spin: 255, 255, 255; color-scheme: dark; }
+    }
+    :root[data-theme="dark"] { --bg: #000000; --spin: 255, 255, 255; color-scheme: dark; }
+    html, body { margin: 0; height: 100%; background: var(--bg); }
     /* Shown until Flutter paints its first frame. */
     #loader {
       position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
-      background: #ffffff; transition: opacity .3s ease; z-index: 1;
+      background: var(--bg); transition: opacity .3s ease; z-index: 1;
     }
     #loader.done { opacity: 0; pointer-events: none; }
     #loader span {
       width: 28px; height: 28px; border-radius: 50%;
-      border: 1.5px solid rgba(31, 32, 36, .12); border-top-color: rgba(31, 32, 36, .7);
+      border: 1.5px solid rgba(var(--spin), .12); border-top-color: rgba(var(--spin), .7);
       animation: spin .9s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }

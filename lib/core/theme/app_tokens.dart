@@ -24,6 +24,12 @@ class AppPalette extends ThemeExtension<AppPalette> {
   final Color onBlock;
   final Color onBlockMuted;
 
+  /// The handwritten signature: ink on light, pure white on dark.
+  final Color signature;
+
+  /// Multiplied into the hero's 3D shape; white leaves it as drawn.
+  final Color shapeTint;
+
   // Project status
   final Color statusReady;
   final Color statusProgress;
@@ -45,6 +51,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
     required this.block,
     required this.onBlock,
     required this.onBlockMuted,
+    required this.signature,
+    required this.shapeTint,
     required this.statusReady,
     required this.statusProgress,
     required this.statusEarly,
@@ -65,6 +73,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
     block: Color(0xFF1F2024),
     onBlock: Color(0xFFFFFFFF),
     onBlockMuted: Color(0xB3FFFFFF),
+    signature: Color(0xFF1F2024),
+    shapeTint: Color(0xFFFFFFFF),
     statusReady: Color(0xFF2E7D32),
     statusProgress: Color(0xFFC24100),
     statusEarly: Color(0xFF1565C0),
@@ -72,27 +82,31 @@ class AppPalette extends ThemeExtension<AppPalette> {
     error: Color(0xFFC62828),
   );
 
-  // Neutral greys taken from the profile photo: its backdrop (#191919)
-  // and its white shirt, with no blue cast.
+  // Apple's dark mode layers (system background, secondary and tertiary
+  // grouped backgrounds, labels and system colors), with the blue cast of
+  // #1C1C1E / #EBEBF5 taken out so every grey sits on neutral black.
   static const dark = AppPalette(
-    ink: Color(0xFFE6E6E6),
-    inkMuted: Color(0xB8E6E6E6),
-    inkSubtle: Color(0x9EE6E6E6),
-    line: Color(0x1FE6E6E6),
-    canvas: Color(0xFF191919),
-    surface: Color(0xFF222222),
-    surfaceHover: Color(0xFF2C2C2C),
-    onInk: Color(0xFF191919),
-    onInkMuted: Color(0xB3191919),
-    block: Color(0xFF222222),
-    onBlock: Color(0xFFE6E6E6),
-    onBlockMuted: Color(0xB8E6E6E6),
-    statusReady: Color(0xFF81C784),
-    statusProgress: Color(0xFFFFB74D),
-    statusEarly: Color(0xFF64B5F6),
-    statusArchive: Color(0xFFCE93D8),
-    error: Color(0xFFEF9A9A),
+    ink: Color(0xFFFFFFFF), // label
+    inkMuted: Color(0x99FFFFFF), // secondary label, 60 %
+    inkSubtle: Color(0x80FFFFFF), // 50 %, still 4.5:1 on black
+    line: Color(0xFF383838), // separator
+    canvas: Color(0xFF000000), // system background
+    surface: Color(0xFF161616), // a step under secondary system background
+    surfaceHover: Color(0xFF222222), // a step under tertiary system background
+    onInk: Color(0xFF000000),
+    onInkMuted: Color(0x99000000),
+    block: Color(0xFF161616),
+    onBlock: Color(0xFFFFFFFF),
+    onBlockMuted: Color(0x99FFFFFF),
+    signature: Color(0xFFFFFFFF),
+    shapeTint: Color(0xFF222222), // the hover grey: the shape reads as part of the page
+    statusReady: Color(0xFF30D158), // system green
+    statusProgress: Color(0xFFFF9F0A), // system orange
+    statusEarly: Color(0xFF0A84FF), // system blue
+    statusArchive: Color(0xFFBF5AF2), // system purple
+    error: Color(0xFFFF453A), // system red
   );
+
 
   @override
   AppPalette copyWith() => this;
@@ -114,6 +128,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
       block: l(block, other.block),
       onBlock: l(onBlock, other.onBlock),
       onBlockMuted: l(onBlockMuted, other.onBlockMuted),
+      signature: l(signature, other.signature),
+      shapeTint: l(shapeTint, other.shapeTint),
       statusReady: l(statusReady, other.statusReady),
       statusProgress: l(statusProgress, other.statusProgress),
       statusEarly: l(statusEarly, other.statusEarly),
