@@ -39,6 +39,9 @@ class Entry {
   /// Image cards on the entry's page. Without them the page is text only.
   final List<Highlight> highlights;
 
+  /// App screenshots shown in a row under the page, in this order.
+  final List<String> screenshots;
+
   const Entry({
     required this.slug,
     required this.title,
@@ -52,6 +55,7 @@ class Entry {
     this.statuses = const [],
     this.link,
     this.highlights = const [],
+    this.screenshots = const [],
   });
 }
 
