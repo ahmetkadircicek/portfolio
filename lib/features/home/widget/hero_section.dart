@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/simple_icons.dart';
+import 'package:portfolio/core/components/theme_toggle.dart';
 import 'package:portfolio/core/components/hover_link.dart';
 import 'package:portfolio/core/components/section_header.dart';
 import 'package:portfolio/core/components/site_header.dart';
@@ -27,7 +28,7 @@ class HeroSection extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(gutter / (mobile ? 1 : 2)),
         padding: EdgeInsets.all(mobile ? AppSpace.x4 : AppSpace.x8),
-        decoration: const BoxDecoration(color: AppColors.surface, borderRadius: AppRadius.lgAll),
+        decoration: BoxDecoration(color: context.colors.surface, borderRadius: AppRadius.lgAll),
         child: Column(
           children: [
             mobile ? const _MobileTop() : const _Top(),
@@ -57,7 +58,14 @@ class _Top extends StatelessWidget {
         Expanded(
           child: Align(
             alignment: Alignment.centerRight,
-            child: HoverLink(label: 'Download CV', icon: LinkIcon.external, onTap: _openCv),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: AppSpace.x4,
+              children: [
+                HoverLink(label: 'Download CV', icon: LinkIcon.external, onTap: _openCv),
+                ThemeToggle(),
+              ],
+            ),
           ),
         ),
       ],
@@ -71,16 +79,22 @@ class _MobileTop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = context.text;
-    return Column(
+    final top = Column(
       spacing: AppSpace.x3,
       children: [
         const _Avatar(radius: 36),
         Column(
           children: [
             Text('Ahmet Kadir Çiçek', style: text.title),
-            Text('Cross and Native Mobile Developer', style: text.bodySmall.copyWith(color: AppColors.inkMuted)),
+            Text('Cross and Native Mobile Developer', style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
           ],
         ),
+      ],
+    );
+    return Stack(
+      children: [
+        Center(child: top),
+        const Positioned(top: 0, right: 0, child: ThemeToggle()),
       ],
     );
   }
@@ -94,7 +108,7 @@ class _Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      backgroundColor: AppColors.canvas,
+      backgroundColor: context.colors.canvas,
       backgroundImage: const AssetImage('assets/images/common/profile.jpg'),
     );
   }
@@ -133,6 +147,9 @@ class _Center extends StatelessWidget {
               child: Image.asset(
                 'assets/images/common/signature.webp',
                 fit: BoxFit.fitWidth,
+                // Drawn in ink, so it reads in both modes.
+                color: context.colors.ink,
+                colorBlendMode: BlendMode.srcIn,
                 opacity: const AlwaysStoppedAnimation(0.8),
                 excludeFromSemantics: true,
               ),
@@ -149,7 +166,7 @@ class _Center extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 460),
               child: Text(
                 'I develop user-friendly mobile apps that improve user experience and help businesses grow.',
-                style: text.bodyLarge.copyWith(color: AppColors.inkMuted),
+                style: text.bodyLarge.copyWith(color: context.colors.inkMuted),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -237,8 +254,8 @@ class _TechStack extends StatelessWidget {
                   width: chip,
                   height: chip,
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(color: AppColors.canvas, borderRadius: BorderRadius.circular(chip * 0.3)),
-                  child: Iconify(icon, color: AppColors.ink, size: chip / 2),
+                  decoration: BoxDecoration(color: context.colors.canvas, borderRadius: BorderRadius.circular(chip * 0.3)),
+                  child: Iconify(icon, color: context.colors.ink, size: chip / 2),
                 ),
             ],
           ),

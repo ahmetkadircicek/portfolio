@@ -66,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     final gap = context.sectionGap;
     return Material(
-      color: AppColors.canvas,
+      color: context.colors.canvas,
       child: SingleChildScrollView(
         controller: _scrollController,
         child: Column(

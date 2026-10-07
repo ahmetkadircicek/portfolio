@@ -73,7 +73,7 @@ class _CollectionSectionState extends State<CollectionSection> {
                     width: 44,
                     height: 44,
                     child: Icon(Icons.expand_more,
-                        color: AppColors.ink, semanticLabel: 'Show ${collection.title.toLowerCase()}'),
+                        color: context.colors.ink, semanticLabel: 'Show ${collection.title.toLowerCase()}'),
                   ),
                 ),
               ),
@@ -87,7 +87,7 @@ class _CollectionSectionState extends State<CollectionSection> {
         SizedBox(height: mobile ? AppSpace.x2 : AppSpace.x4),
         for (final (i, entry) in entries.indexed) ...[
           Reveal(child: _EntryRow(collection: collection, entry: entry, index: i)),
-          if (i < entries.length - 1) const Divider(height: 1, thickness: 1, color: AppColors.line),
+          if (i < entries.length - 1) Divider(height: 1, thickness: 1, color: context.colors.line),
         ],
       ],
     );
@@ -137,23 +137,23 @@ class _EntryRowState extends State<_EntryRow> {
       children: [
         // Same size for every title on the site, set by the longest one.
         UniformLine(entry.title.toUpperCase(), all: allEntryTitles, style: text.h2),
-        Text(entry.subtitle, style: text.bodySmall.copyWith(color: AppColors.inkMuted)),
+        Text(entry.subtitle, style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
       ],
     );
     // Statuses when the entry has them; otherwise its label, e.g. a job's
     // period.
     final meta = entry.statuses.isEmpty
-        ? Text(entry.label, style: text.bodySmall.copyWith(color: AppColors.inkSubtle))
+        ? Text(entry.label, style: text.bodySmall.copyWith(color: context.colors.inkSubtle))
         : Wrap(
             spacing: AppSpace.x2,
             runSpacing: AppSpace.x2,
-            children: [for (final status in entry.statuses) Pill.status(status.label, color: status.color)],
+            children: [for (final status in entry.statuses) Pill.status(status.label, color: status.colorIn(context.colors))],
           );
     final arrow = AnimatedSlide(
       offset: Offset(_hovering ? 0.2 : 0, 0),
       duration: AppMotion.base,
       curve: AppMotion.standard,
-      child: const Icon(Icons.arrow_forward, size: 22, color: AppColors.ink),
+      child: Icon(Icons.arrow_forward, size: 22, color: context.colors.ink),
     );
     // The highlight reaches past the row so the content never moves.
     final bleed = mobile ? AppSpace.x2 : AppSpace.x4;
@@ -180,8 +180,8 @@ class _EntryRowState extends State<_EntryRow> {
                     opacity: _hovering ? 1 : 0,
                     duration: AppMotion.base,
                     curve: AppMotion.standard,
-                    child: const DecoratedBox(
-                      decoration: BoxDecoration(color: AppColors.surface, borderRadius: AppRadius.mdAll),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(color: context.colors.surface, borderRadius: AppRadius.mdAll),
                     ),
                   ),
                 ),
@@ -205,7 +205,7 @@ class _EntryRowState extends State<_EntryRow> {
                       if (desktop)
                         Expanded(
                           flex: 5,
-                          child: Text(entry.summary, style: text.bodySmall.copyWith(color: AppColors.inkMuted)),
+                          child: Text(entry.summary, style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
                         ),
                       if (!mobile) SizedBox(width: desktop ? 220 : 180, child: meta),
                       arrow,

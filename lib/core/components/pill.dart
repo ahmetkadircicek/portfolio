@@ -24,10 +24,10 @@ class Pill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tint = color ?? AppColors.ink;
+    final tint = color ?? context.colors.ink;
     final (background, foreground) = switch (style) {
-      PillStyle.neutral => (AppColors.surface, AppColors.ink),
-      PillStyle.onImage => (AppColors.canvas, AppColors.ink),
+      PillStyle.neutral => (context.colors.surface, context.colors.ink),
+      PillStyle.onImage => (context.colors.canvas, context.colors.ink),
       PillStyle.status => (tint.withValues(alpha: 0.1), tint),
     };
 

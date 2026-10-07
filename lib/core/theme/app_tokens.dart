@@ -1,30 +1,106 @@
-import 'package:flutter/animation.dart';
-import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
 
 /// Design tokens. Every color, size, radius and duration on the site comes
 /// from here; widgets never use raw values.
 
-class AppColors {
-  AppColors._();
-
+/// Every color on the site, in a light and a dark set. Widgets read the
+/// active set with `context.colors`, never a raw color, so anything new works
+/// in both modes without extra effort (test/theme_tokens_test.dart checks).
+class AppPalette extends ThemeExtension<AppPalette> {
   // Neutrals
-  static const ink = Color(0xFF1F2024);
-  static const inkMuted = Color(0xB81F2024); // 72 %
-  static const inkSubtle = Color(0x9E1F2024); // 62 %, still 4.5:1 on white
-  static const line = Color(0x1A1F2024); // 10 %
-  static const canvas = Color(0xFFFFFFFF);
-  static const surface = Color(0xFFF3F2F7);
-  static const surfaceHover = Color(0xFFEAE9F0);
-  static const onInk = Color(0xFFFFFFFF);
-  static const onInkMuted = Color(0xB3FFFFFF);
+  final Color ink;
+  final Color inkMuted; // 72 %
+  final Color inkSubtle; // 62 %, still 4.5:1 on canvas
+  final Color line; // 10 %
+  final Color canvas;
+  final Color surface;
+  final Color surfaceHover;
+  final Color onInk;
+  final Color onInkMuted;
 
   // Project status
-  static const statusReady = Color(0xFF2E7D32);
-  static const statusProgress = Color(0xFFC24100);
-  static const statusEarly = Color(0xFF1565C0);
-  static const statusArchive = Color(0xFF6A1B9A);
+  final Color statusReady;
+  final Color statusProgress;
+  final Color statusEarly;
+  final Color statusArchive;
 
-  static const error = Color(0xFFC62828);
+  final Color error;
+
+  const AppPalette({
+    required this.ink,
+    required this.inkMuted,
+    required this.inkSubtle,
+    required this.line,
+    required this.canvas,
+    required this.surface,
+    required this.surfaceHover,
+    required this.onInk,
+    required this.onInkMuted,
+    required this.statusReady,
+    required this.statusProgress,
+    required this.statusEarly,
+    required this.statusArchive,
+    required this.error,
+  });
+
+  static const light = AppPalette(
+    ink: Color(0xFF1F2024),
+    inkMuted: Color(0xB81F2024),
+    inkSubtle: Color(0x9E1F2024),
+    line: Color(0x1A1F2024),
+    canvas: Color(0xFFFFFFFF),
+    surface: Color(0xFFF3F2F7),
+    surfaceHover: Color(0xFFEAE9F0),
+    onInk: Color(0xFFFFFFFF),
+    onInkMuted: Color(0xB3FFFFFF),
+    statusReady: Color(0xFF2E7D32),
+    statusProgress: Color(0xFFC24100),
+    statusEarly: Color(0xFF1565C0),
+    statusArchive: Color(0xFF6A1B9A),
+    error: Color(0xFFC62828),
+  );
+
+  static const dark = AppPalette(
+    ink: Color(0xFFECECEF),
+    inkMuted: Color(0xB8ECECEF),
+    inkSubtle: Color(0x9EECECEF),
+    line: Color(0x1FECECEF),
+    canvas: Color(0xFF121316),
+    surface: Color(0xFF1C1D21),
+    surfaceHover: Color(0xFF26272C),
+    onInk: Color(0xFF121316),
+    onInkMuted: Color(0xB3121316),
+    statusReady: Color(0xFF81C784),
+    statusProgress: Color(0xFFFFB74D),
+    statusEarly: Color(0xFF64B5F6),
+    statusArchive: Color(0xFFCE93D8),
+    error: Color(0xFFEF9A9A),
+  );
+
+  @override
+  AppPalette copyWith() => this;
+
+  @override
+  AppPalette lerp(AppPalette? other, double t) {
+    if (other == null) return this;
+    Color l(Color a, Color b) => Color.lerp(a, b, t)!;
+    return AppPalette(
+      ink: l(ink, other.ink),
+      inkMuted: l(inkMuted, other.inkMuted),
+      inkSubtle: l(inkSubtle, other.inkSubtle),
+      line: l(line, other.line),
+      canvas: l(canvas, other.canvas),
+      surface: l(surface, other.surface),
+      surfaceHover: l(surfaceHover, other.surfaceHover),
+      onInk: l(onInk, other.onInk),
+      onInkMuted: l(onInkMuted, other.onInkMuted),
+      statusReady: l(statusReady, other.statusReady),
+      statusProgress: l(statusProgress, other.statusProgress),
+      statusEarly: l(statusEarly, other.statusEarly),
+      statusArchive: l(statusArchive, other.statusArchive),
+      error: l(error, other.error),
+    );
+  }
 }
 
 /// 4 pt spacing scale.

@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:portfolio/core/theme/app_tokens.dart';
 
 /// Type scale. Cardo (serif, wide tracking, upper case) carries headings;
 /// Montserrat carries everything that is read or clicked. Three weights
@@ -39,13 +38,14 @@ class AppText {
     required double h2,
     required double h3,
     required double bodyLarge,
+    required Color ink,
   }) {
     TextStyle serif(double size, FontWeight weight, double tracking) => GoogleFonts.cardo(
           fontSize: size,
           fontWeight: weight,
           letterSpacing: size * tracking,
           height: 1.1,
-          color: AppColors.ink,
+          color: ink,
         );
     TextStyle sans(double size, FontWeight weight, {double height = 1.6, double tracking = 0}) =>
         GoogleFonts.montserrat(
@@ -53,7 +53,7 @@ class AppText {
           fontWeight: weight,
           height: height,
           letterSpacing: tracking,
-          color: AppColors.ink,
+          color: ink,
         );
 
     return AppText._(
@@ -70,7 +70,14 @@ class AppText {
     );
   }
 
-  static final mobile = _build(display: 30, h1: 24, h2: 20, h3: 16, bodyLarge: 18);
-  static final tablet = _build(display: 60, h1: 32, h2: 22, h3: 20, bodyLarge: 18);
-  static final desktop = _build(display: 80, h1: 40, h2: 24, h3: 20, bodyLarge: 20);
+  static AppText _sized(String size, Color ink) => switch (size) {
+        'mobile' => _build(display: 30, h1: 24, h2: 20, h3: 16, bodyLarge: 18, ink: ink),
+        'tablet' => _build(display: 60, h1: 32, h2: 22, h3: 20, bodyLarge: 18, ink: ink),
+        _ => _build(display: 80, h1: 40, h2: 24, h3: 20, bodyLarge: 20, ink: ink),
+      };
+
+  static final _cache = <(String, Color), AppText>{};
+
+  /// The set for a screen size ('mobile', 'tablet' or 'desktop') in [ink].
+  static AppText of(String size, Color ink) => _cache[(size, ink)] ??= _sized(size, ink);
 }

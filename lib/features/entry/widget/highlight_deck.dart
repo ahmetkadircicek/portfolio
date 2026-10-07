@@ -46,7 +46,7 @@ class _HighlightDeckState extends State<HighlightDeck> {
           child: Transform.scale(
             scale: scale,
             alignment: Alignment.topCenter,
-            child: _Card(child: ColoredBox(color: Color.lerp(AppColors.surface, AppColors.canvas, fade)!)),
+            child: _Card(child: ColoredBox(color: Color.lerp(context.colors.surface, context.colors.canvas, fade)!)),
           ),
         );
 
@@ -120,7 +120,7 @@ class _HighlightDeckState extends State<HighlightDeck> {
                             width: i == _index ? 24 : 8,
                             height: 8,
                             decoration: BoxDecoration(
-                              color: i == _index ? AppColors.ink : AppColors.ink.withValues(alpha: 0.2),
+                              color: i == _index ? context.colors.ink : context.colors.ink.withValues(alpha: 0.2),
                               borderRadius: AppRadius.pillAll,
                             ),
                           ),
@@ -147,9 +147,9 @@ class _Card extends StatelessWidget {
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: AppColors.canvas,
+        color: context.colors.canvas,
         borderRadius: AppRadius.lgAll,
-        border: Border.all(color: AppColors.line),
+        border: Border.all(color: context.colors.line),
         boxShadow: shadow ? AppShadow.soft : null,
       ),
       child: child,
@@ -181,7 +181,7 @@ class _FrontContent extends StatelessWidget {
           height: artHeight,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: slide.colors, begin: Alignment.topLeft, end: Alignment.bottomRight),
+              gradient: LinearGradient(colors: slide.colors.isEmpty ? [context.colors.surface, context.colors.surfaceHover] : slide.colors, begin: Alignment.topLeft, end: Alignment.bottomRight),
             ),
             child: _ZoomArt(slide: slide, counter: counter),
           ),
@@ -201,7 +201,7 @@ class _FrontContent extends StatelessWidget {
                       Text(slide.title, style: text.title, maxLines: 1, overflow: TextOverflow.ellipsis),
                       Text(
                         slide.description,
-                        style: text.bodySmall.copyWith(color: AppColors.inkMuted),
+                        style: text.bodySmall.copyWith(color: context.colors.inkMuted),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -213,10 +213,10 @@ class _FrontContent extends StatelessWidget {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: hovering ? AppColors.ink : AppColors.surface,
+                    color: hovering ? context.colors.ink : context.colors.surface,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.arrow_forward, size: 18, color: hovering ? AppColors.onInk : AppColors.ink),
+                  child: Icon(Icons.arrow_forward, size: 18, color: hovering ? context.colors.onInk : context.colors.ink),
                 ),
               ],
             ),

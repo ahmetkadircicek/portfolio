@@ -138,7 +138,7 @@ class _ContactFormState extends State<_ContactForm> {
               multiline: true,
             ),
             if (viewModel.errorMessage != null)
-              Text(viewModel.errorMessage!, style: context.text.bodySmall.copyWith(color: AppColors.error)),
+              Text(viewModel.errorMessage!, style: context.text.bodySmall.copyWith(color: context.colors.error)),
             const SizedBox(height: AppSpace.x2),
             Align(
               alignment: Alignment.centerLeft,
@@ -180,7 +180,7 @@ class _Intro extends StatelessWidget {
               sent
                   ? 'Your message has been sent successfully. I will get back to you soon.'
                   : 'I\'d love to hear from you. Fill out the form and I\'ll get back to you as soon as possible.',
-              style: text.bodyLarge.copyWith(color: AppColors.inkMuted),
+              style: text.bodyLarge.copyWith(color: context.colors.inkMuted),
             ),
           ),
         ],
@@ -197,7 +197,7 @@ class _Success extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppSpace.x8),
-      decoration: const BoxDecoration(color: AppColors.surface, borderRadius: AppRadius.lgAll),
+      decoration: BoxDecoration(color: context.colors.surface, borderRadius: AppRadius.lgAll),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: AppSpace.x6,
@@ -206,10 +206,10 @@ class _Success extends StatelessWidget {
             width: 56,
             height: 56,
             decoration: BoxDecoration(
-              color: AppColors.statusReady.withValues(alpha: 0.12),
+              color: context.colors.statusReady.withValues(alpha: 0.12),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.check, color: AppColors.statusReady, size: 28),
+            child: Icon(Icons.check, color: context.colors.statusReady, size: 28),
           ),
           Text('Message sent', style: context.text.h3),
           PrimaryButton(label: 'Send another message', onPressed: onSendAnother),
@@ -252,10 +252,10 @@ class _Field extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: AppSpace.x2,
       children: [
-        Eyebrow(label, color: AppColors.inkMuted),
+        Eyebrow(label, color: context.colors.inkMuted),
         TextFormField(
           controller: controller,
-          cursorColor: AppColors.ink,
+          cursorColor: context.colors.ink,
           style: text.body,
           keyboardType: multiline ? TextInputType.multiline : keyboardType,
           textInputAction: multiline ? TextInputAction.newline : TextInputAction.next,
@@ -266,16 +266,16 @@ class _Field extends StatelessWidget {
           onSaved: onSaved,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: text.body.copyWith(color: AppColors.inkSubtle),
-            errorStyle: text.bodySmall.copyWith(color: AppColors.error, height: 1.4),
+            hintStyle: text.body.copyWith(color: context.colors.inkSubtle),
+            errorStyle: text.bodySmall.copyWith(color: context.colors.error, height: 1.4),
             filled: true,
-            fillColor: AppColors.surface,
+            fillColor: context.colors.surface,
             contentPadding: const EdgeInsets.all(AppSpace.x4 + 2),
             border: border(Colors.transparent),
             enabledBorder: border(Colors.transparent),
-            focusedBorder: border(AppColors.ink, 1.5),
-            errorBorder: border(AppColors.error),
-            focusedErrorBorder: border(AppColors.error, 1.5),
+            focusedBorder: border(context.colors.ink, 1.5),
+            errorBorder: border(context.colors.error),
+            focusedErrorBorder: border(context.colors.error, 1.5),
           ),
         ),
       ],

@@ -85,6 +85,8 @@ class Highlight {
   final String description;
   final String label;
   final String image;
+
+  /// Card background gradient; empty uses the theme's surface colors.
   final List<Color> colors;
 
   const Highlight({
@@ -92,19 +94,25 @@ class Highlight {
     required this.description,
     required this.label,
     required this.image,
-    this.colors = const [AppColors.surface, AppColors.surfaceHover],
+    this.colors = const [],
   });
 }
 
 enum EntryStatus {
-  readyToRelease('Ready to Release', AppColors.statusReady),
-  underDevelopment('Under Development', AppColors.statusProgress),
-  earlyDevelopment('Under Early Development', AppColors.statusEarly),
-  earlyProject('Early Project', AppColors.statusArchive);
+  readyToRelease('Ready to Release'),
+  underDevelopment('Under Development'),
+  earlyDevelopment('Under Early Development'),
+  earlyProject('Early Project');
 
   final String label;
-  final Color color;
-  const EntryStatus(this.label, this.color);
+  const EntryStatus(this.label);
+
+  Color colorIn(AppPalette palette) => switch (this) {
+        readyToRelease => palette.statusReady,
+        underDevelopment => palette.statusProgress,
+        earlyDevelopment => palette.statusEarly,
+        earlyProject => palette.statusArchive,
+      };
 }
 
 /// An outside link shown as a card on the entry's page.

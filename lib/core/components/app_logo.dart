@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/components/asset_image_widget.dart';
-import 'package:portfolio/core/theme/app_tokens.dart';
 
 /// An entry's logo as an app icon with the iOS-like corner radius. Without
 /// a [path], e.g. for freelance work, it draws a code mark.
@@ -18,8 +18,8 @@ class AppLogo extends StatelessWidget {
       return Container(
         width: size,
         height: size,
-        decoration: BoxDecoration(color: AppColors.ink, borderRadius: radius),
-        child: Icon(Icons.code, color: AppColors.onInk, size: size * 0.4, semanticLabel: 'Freelance'),
+        decoration: BoxDecoration(color: context.colors.ink, borderRadius: radius),
+        child: Icon(Icons.code, color: context.colors.onInk, size: size * 0.4, semanticLabel: 'Freelance'),
       );
     }
     return Container(
@@ -27,9 +27,9 @@ class AppLogo extends StatelessWidget {
       height: size,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: context.colors.surface,
         borderRadius: radius,
-        border: Border.all(color: AppColors.line),
+        border: Border.all(color: context.colors.line),
       ),
       child: AssetImageWidget(path, fit: BoxFit.cover, width: size, height: size),
     );
