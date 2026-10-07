@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/components/hover_detector_widget.dart';
-import 'package:portfolio/core/components/theme_toggle.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/l10n/strings.dart';
@@ -36,16 +35,12 @@ class LanguageSwitch extends StatelessWidget {
   }
 }
 
-/// Language and theme controls, the same in every top bar.
+/// Controls shown in every top bar.
 class TopControls extends StatelessWidget {
   const TopControls({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
-      mainAxisSize: MainAxisSize.min,
-      spacing: AppSpace.x2,
-      children: [LanguageSwitch(), ThemeToggle()],
-    );
+    return const LanguageSwitch();
   }
 }
