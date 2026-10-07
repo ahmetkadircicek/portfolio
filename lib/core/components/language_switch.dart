@@ -6,42 +6,31 @@ import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 
-/// EN · TR · DE in the top bar; the active one in ink, the others muted.
+/// One button in the top bar showing the current language; each press
+/// moves to the next one (EN → TR → DE).
 class LanguageSwitch extends StatelessWidget {
   const LanguageSwitch({super.key});
 
   @override
   Widget build(BuildContext context) {
     final current = context.language;
-    final style = context.text.label;
+    final next = AppLanguage.values[(current.index + 1) % AppLanguage.values.length];
     return Semantics(
-      label: context.t(S.language),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          for (final (i, language) in AppLanguage.values.indexed) ...[
-            if (i > 0) Text('·', style: style.copyWith(color: context.colors.inkSubtle)),
-            Semantics(
-              button: true,
-              selected: language == current,
-              label: language.nativeName,
-              excludeSemantics: true,
-              child: HoverDetector(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => LanguageManager.set(language),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppSpace.x2, vertical: AppSpace.x2),
-                    child: Text(
-                      language.short,
-                      style: style.copyWith(color: language == current ? context.colors.ink : context.colors.inkSubtle),
-                    ),
-                  ),
-                ),
-              ),
+      button: true,
+      label: '${context.t(S.language)}: ${current.nativeName}',
+      excludeSemantics: true,
+      child: Tooltip(
+        message: next.nativeName,
+        child: HoverDetector(
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => LanguageManager.set(next),
+            child: Padding(
+              padding: const EdgeInsets.all(AppSpace.x2),
+              child: Text(current.short, style: context.text.label.copyWith(color: context.colors.ink)),
             ),
-          ],
-        ],
+          ),
+        ),
       ),
     );
   }
