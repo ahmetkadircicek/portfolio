@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:portfolio/features/contact_me/view/contact_form_view.dart';
 import 'package:portfolio/features/home/view/home_view.dart';
 import 'package:portfolio/features/not_found/not_found_view.dart';
-import 'package:portfolio/features/policies/desktop_tunes_gdpr_view.dart';
 import 'package:portfolio/features/entry/view/entry_view.dart';
 import 'package:portfolio/features/splash/splash_view.dart';
 
@@ -16,7 +15,6 @@ import 'package:portfolio/features/splash/splash_view.dart';
 /// | `/<collection>` | landing page opened at that section, e.g. `/projects` |
 /// | `/<collection>/:slug` | one entry's page, e.g. `/experience/huawei` |
 /// | `/contact` | contact form |
-/// | `/tunes/gdpr` | Desktop Tunes privacy policy |
 class AppRouter {
   AppRouter._();
 
@@ -33,7 +31,6 @@ class AppRouter {
     String page(String name) => '$name — $siteName';
     if (segments.isEmpty || uri.path == '/home') return homeTitle;
     if (uri.path == '/contact') return page('Contact');
-    if (uri.path == '/tunes/gdpr') return page('Desktop Tunes Privacy Policy');
     for (final collection in collections) {
       if (segments.first != collection.id) continue;
       if (segments.length == 1) return homeTitle;
@@ -76,10 +73,6 @@ class AppRouter {
       GoRoute(
         path: '/contact',
         builder: (context, state) => const ContactFormView(),
-      ),
-      GoRoute(
-        path: '/tunes/gdpr',
-        builder: (context, state) => const TunesGDPRView(),
       ),
     ],
   );
