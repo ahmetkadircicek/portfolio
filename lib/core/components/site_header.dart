@@ -16,21 +16,27 @@ class SiteHeader extends StatelessWidget {
   /// Shown under the bar on phones, where it does not fit beside the name.
   final Widget? bottom;
 
-  const SiteHeader({super.key, this.trailing, this.bottom});
+  /// What the name does when tapped; defaults to going to the home page.
+  final VoidCallback? onHome;
+
+  /// Less padding, for the bar that slides over the home page.
+  final bool compact;
+
+  const SiteHeader({super.key, this.trailing, this.bottom, this.onHome, this.compact = false});
 
   @override
   Widget build(BuildContext context) {
     final mobile = context.isMobile;
     return PageFrame(
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: mobile ? AppSpace.x4 : AppSpace.x6),
+        padding: EdgeInsets.symmetric(vertical: compact ? AppSpace.x3 : (mobile ? AppSpace.x4 : AppSpace.x6)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           spacing: AppSpace.x4,
           children: [
             Row(
               children: [
-                const HomeMark(),
+                HomeMark(onTap: onHome),
                 const Spacer(),
                 if (trailing != null) Flexible(flex: 4, child: trailing!),
                 const SizedBox(width: AppSpace.x4),
@@ -49,8 +55,9 @@ class SiteHeader extends StatelessWidget {
 class HomeMark extends StatelessWidget {
   final bool linksHome;
   final bool showAvatar;
+  final VoidCallback? onTap;
 
-  const HomeMark({super.key, this.linksHome = true, this.showAvatar = true});
+  const HomeMark({super.key, this.linksHome = true, this.showAvatar = true, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +87,7 @@ class HomeMark extends StatelessWidget {
       link: true,
       label: context.t(S.home),
       child: HoverDetector(
-        child: GestureDetector(onTap: () => context.go('/home'), child: mark),
+        child: GestureDetector(onTap: onTap ?? () => context.go('/home'), child: mark),
       ),
     );
   }
