@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/components/site_header.dart';
 import 'package:portfolio/core/data/collections.dart';
@@ -43,6 +41,10 @@ class _HomeViewState extends State<HomeView> {
   double _lastOffset = 0;
   double _shownAt = 0;
   final _heroKey = GlobalKey();
+
+  /// False once the hero has scrolled away: its looping shape then stops
+  /// decoding frames instead of burning the main thread off-screen.
+  final _heroVisible = ValueNotifier(true);
   final _keys = {for (final c in collections) c.id: GlobalKey()};
   late final _open = {
     for (final c in collections) c.id: ValueNotifier(_savedOpen[c.id] ?? c.id == widget.startAt),
@@ -104,12 +106,13 @@ class _HomeViewState extends State<HomeView> {
   void _onScroll() {
     final offset = _scrollController.offset;
     _savedOffset = offset;
+    final heroBox = _heroKey.currentContext?.findRenderObject() as RenderBox?;
+    _heroVisible.value = offset < (heroBox?.size.height ?? double.infinity);
     final delta = offset - _lastOffset;
     if (delta.abs() < 6) return;
     _lastOffset = offset;
 
-    final heroHeight =
-        (_heroKey.currentContext?.findRenderObject() as RenderBox?)?.size.height ?? MediaQuery.sizeOf(context).height;
+    final heroHeight = heroBox?.size.height ?? MediaQuery.sizeOf(context).height;
     final line = heroHeight - 80;
     if (offset < line) {
       _barVisible.value = false;
@@ -131,6 +134,7 @@ class _HomeViewState extends State<HomeView> {
   void dispose() {
     _scrollController.dispose();
     _barVisible.dispose();
+    _heroVisible.dispose();
     for (final notifier in _open.values) {
       notifier.dispose();
     }
@@ -154,17 +158,25 @@ class _HomeViewState extends State<HomeView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          HeroSection(key: _heroKey, onShowWork: () => _show(collections.first.id)),
+          // Each section is its own layer, so scrolling moves painted layers
+          // instead of repainting the whole page every frame.
+          RepaintBoundary(
+            child: ValueListenableBuilder(
+              valueListenable: _heroVisible,
+              builder: (context, visible, hero) => TickerMode(enabled: visible, child: hero!),
+              child: HeroSection(key: _heroKey, onShowWork: () => _show(collections.first.id)),
+            ),
+          ),
           for (final c in collections)
             Padding(
               key: _keys[c.id],
               padding: EdgeInsets.only(top: gap),
-              child: CollectionSection(collection: c, open: _open[c.id]!),
+              child: RepaintBoundary(child: CollectionSection(collection: c, open: _open[c.id]!)),
             ),
           SizedBox(height: gap),
-          const CapabilitiesSection(),
+          const RepaintBoundary(child: CapabilitiesSection()),
           SizedBox(height: gap),
-          ContactCtaSection(onBackToTop: _backToTop),
+          RepaintBoundary(child: ContactCtaSection(onBackToTop: _backToTop)),
         ],
       ),
     );
@@ -195,7 +207,8 @@ class _HomeViewState extends State<HomeView> {
   }
 }
 
-/// The site header over a frosted strip of the page, with a hairline below.
+/// The site header on a near-opaque strip with a hairline below. No blur:
+/// a backdrop blur re-renders everything under it on each scroll frame.
 class _TopBar extends StatelessWidget {
   final VoidCallback onHome;
 
@@ -203,17 +216,12 @@ class _TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: context.colors.canvas.withValues(alpha: 0.8),
-            border: Border(bottom: BorderSide(color: context.colors.line)),
-          ),
-          child: SiteHeader(onHome: onHome, compact: true),
-        ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: context.colors.canvas.withValues(alpha: 0.97),
+        border: Border(bottom: BorderSide(color: context.colors.line)),
       ),
+      child: SiteHeader(onHome: onHome, compact: true),
     );
   }
 }
