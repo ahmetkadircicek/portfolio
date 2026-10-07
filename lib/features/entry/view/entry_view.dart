@@ -18,7 +18,6 @@ import 'package:portfolio/core/data/collections.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 import 'package:portfolio/features/entry/widget/highlight_deck.dart';
-import 'package:portfolio/features/entry/widget/screenshot_row.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// The page of any entry, at `/<collection>/<slug>`: title with statuses and
@@ -98,25 +97,7 @@ class EntryView extends StatelessWidget {
               child: PageFrame(
                 child: Padding(
                   padding: EdgeInsets.only(top: mobile ? AppSpace.x6 : AppSpace.x12, bottom: context.sectionGap),
-                  child: entry.screenshots.isEmpty
-                      ? content
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            content,
-                            SizedBox(height: context.sectionGap),
-                            Reveal(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                spacing: AppSpace.x4,
-                                children: [
-                                  Eyebrow(context.t(S.screenshots)),
-                                  ScreenshotRow(paths: entry.screenshots),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                  child: content,
                 ),
               ),
             ),
