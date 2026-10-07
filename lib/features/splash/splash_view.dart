@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
@@ -40,11 +39,6 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
       parent: _fadeController,
       curve: Curves.easeInOut,
     );
-
-    // Starts downloading the landing page's fonts.
-    GoogleFonts.cardo(fontWeight: FontWeight.w700);
-    GoogleFonts.montserrat(fontWeight: FontWeight.w400);
-    GoogleFonts.montserrat(fontWeight: FontWeight.w600);
 
     _timer = Timer(const Duration(seconds: 3), _navigateToNextScreen);
   }
