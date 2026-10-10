@@ -5,7 +5,7 @@ import 'package:portfolio/core/components/web_link.dart';
 import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/app_logo.dart';
-import 'package:portfolio/core/components/hover_detector_widget.dart';
+import 'package:portfolio/core/components/pressable.dart';
 import 'package:portfolio/core/components/hover_link.dart';
 import 'package:portfolio/core/components/page_frame.dart';
 import 'package:portfolio/core/components/pill.dart';
@@ -230,60 +230,56 @@ class _LinkCardState extends State<_LinkCard> {
       link: true,
       label: context.t(link.label),
       excludeSemantics: true,
-      child: HoverDetector(
-        child: MouseRegion(
-          onEnter: (_) => setState(() => _hovering = true),
-          onExit: (_) => setState(() => _hovering = false),
-          child: WebLink(
-            to: link.url,
-            builder: (context, follow) => GestureDetector(
-              onTap: follow,
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: AppLayout.readingWidth),
-                child: AnimatedContainer(
-                  duration: AppMotion.base,
-                  curve: AppMotion.standard,
-                  padding: const EdgeInsets.all(AppSpace.x4),
-                  decoration: BoxDecoration(
-                    color: _hovering ? context.colors.surfaceHover : context.colors.surface,
-                    borderRadius: AppRadius.mdAll,
+      child: WebLink(
+        to: link.url,
+        builder: (context, follow) => Pressable(
+          onPressed: follow,
+          radius: AppRadius.mdAll,
+          onActiveChanged: (active) => setState(() => _hovering = active),
+          builder: (context, _) => ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: AppLayout.readingWidth),
+            child: AnimatedContainer(
+              duration: AppMotion.base,
+              curve: AppMotion.standard,
+              padding: const EdgeInsets.all(AppSpace.x4),
+              decoration: BoxDecoration(
+                color: _hovering ? context.colors.surfaceHover : context.colors.surface,
+                borderRadius: AppRadius.mdAll,
+              ),
+              child: Row(
+                spacing: AppSpace.x4,
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(color: context.colors.canvas, borderRadius: AppRadius.smAll),
+                    child: link.isGithub
+                        ? Iconify(SimpleIcons.github, color: context.colors.ink, size: 24)
+                        : Icon(Icons.language, color: context.colors.ink, size: 24),
                   ),
-                  child: Row(
-                    spacing: AppSpace.x4,
-                    children: [
-                      Container(
-                        width: 48,
-                        height: 48,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(color: context.colors.canvas, borderRadius: AppRadius.smAll),
-                        child: link.isGithub
-                            ? Iconify(SimpleIcons.github, color: context.colors.ink, size: 24)
-                            : Icon(Icons.language, color: context.colors.ink, size: 24),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 2,
-                          children: [
-                            Text(context.t(link.label), style: text.title),
-                            Text(
-                              '${address.host}${address.path}',
-                              style: text.bodySmall.copyWith(color: context.colors.inkMuted),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 2,
+                      children: [
+                        Text(context.t(link.label), style: text.title),
+                        Text(
+                          '${address.host}${address.path}',
+                          style: text.bodySmall.copyWith(color: context.colors.inkMuted),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      AnimatedSlide(
-                        offset: _hovering ? const Offset(0.15, -0.15) : Offset.zero,
-                        duration: AppMotion.base,
-                        curve: AppMotion.standard,
-                        child: Icon(Icons.north_east, size: 18, color: context.colors.ink),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                  AnimatedSlide(
+                    offset: _hovering ? const Offset(0.15, -0.15) : Offset.zero,
+                    duration: AppMotion.base,
+                    curve: AppMotion.standard,
+                    child: Icon(Icons.north_east, size: 18, color: context.colors.ink),
+                  ),
+                ],
               ),
             ),
           ),

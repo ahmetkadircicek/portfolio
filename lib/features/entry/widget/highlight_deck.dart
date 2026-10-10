@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/asset_image_widget.dart';
-import 'package:portfolio/core/components/hover_detector_widget.dart';
+import 'package:portfolio/core/components/pressable.dart';
 import 'package:portfolio/core/components/pill.dart';
 import 'package:portfolio/core/data/entry.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
@@ -74,28 +74,24 @@ class _HighlightDeckState extends State<HighlightDeck> {
     final front = Semantics(
       button: true,
       label: context.t(S.nextImage),
-      child: HoverDetector(
-        child: MouseRegion(
-          onEnter: (_) => setState(() => _hovering = true),
-          onExit: (_) => setState(() => _hovering = false),
-          child: GestureDetector(
-            onTap: () => _show(_index + 1),
-            child: AnimatedSlide(
-              offset: Offset(0, _hovering ? -6 / frontHeight : 0),
+      child: Pressable(
+        onPressed: () => _show(_index + 1),
+        radius: AppRadius.lgAll,
+        onActiveChanged: (active) => setState(() => _hovering = active),
+        builder: (context, _) => AnimatedSlide(
+          offset: Offset(0, _hovering ? -6 / frontHeight : 0),
+          duration: duration,
+          curve: AppMotion.standard,
+          child: _Card(
+            shadow: true,
+            child: AnimatedSwitcher(
               duration: duration,
-              curve: AppMotion.standard,
-              child: _Card(
-                shadow: true,
-                child: AnimatedSwitcher(
-                  duration: duration,
-                  child: _FrontContent(
-                    key: ValueKey(_index),
-                    slide: slide,
-                    counter: '${_index + 1} / $_count',
-                    artHeight: artHeight,
-                    hovering: _hovering,
-                  ),
-                ),
+              child: _FrontContent(
+                key: ValueKey(_index),
+                slide: slide,
+                counter: '${_index + 1} / $_count',
+                artHeight: artHeight,
+                hovering: _hovering,
               ),
             ),
           ),
@@ -129,23 +125,21 @@ class _HighlightDeckState extends State<HighlightDeck> {
                     button: true,
                     selected: i == _index,
                     label: context.t(S.show(context.t(widget.slides[i].title))),
-                    child: HoverDetector(
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () => _show(i),
-                        child: SizedBox(
-                          width: 32,
-                          height: 44,
-                          child: Center(
-                            child: AnimatedContainer(
-                              duration: duration,
-                              curve: AppMotion.emphasized,
-                              width: i == _index ? 24 : 8,
-                              height: 8,
-                              decoration: BoxDecoration(
-                                color: i == _index ? context.colors.ink : context.colors.ink.withValues(alpha: 0.2),
-                                borderRadius: AppRadius.pillAll,
-                              ),
+                    child: Pressable(
+                      onPressed: () => _show(i),
+                      radius: AppRadius.pillAll,
+                      builder: (context, _) => SizedBox(
+                        width: 32,
+                        height: 44,
+                        child: Center(
+                          child: AnimatedContainer(
+                            duration: duration,
+                            curve: AppMotion.emphasized,
+                            width: i == _index ? 24 : 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: i == _index ? context.colors.ink : context.colors.ink.withValues(alpha: 0.2),
+                              borderRadius: AppRadius.pillAll,
                             ),
                           ),
                         ),
