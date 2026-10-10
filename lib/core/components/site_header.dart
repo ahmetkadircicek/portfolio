@@ -36,9 +36,16 @@ class SiteHeader extends StatelessWidget {
           children: [
             Row(
               children: [
-                HomeMark(onTap: onHome),
-                const Spacer(),
-                if (trailing != null) Flexible(flex: 4, child: trailing!),
+                // Without page controls the name takes the free width, so a
+                // phone wraps the title instead of pushing the language
+                // switch off the screen.
+                if (trailing == null)
+                  Expanded(child: Align(alignment: Alignment.centerLeft, child: HomeMark(onTap: onHome)))
+                else ...[
+                  HomeMark(onTap: onHome),
+                  const Spacer(),
+                  Flexible(flex: 4, child: trailing!),
+                ],
                 const SizedBox(width: AppSpace.x4),
                 const TopControls(),
               ],
@@ -72,13 +79,15 @@ class HomeMark extends StatelessWidget {
             backgroundColor: context.colors.surface,
             backgroundImage: const AssetImage('assets/images/common/profile.jpg'),
           ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Ahmet Kadir Çiçek', style: text.title.copyWith(height: 1.3)),
-            Text(context.t(S.role), style: text.bodySmall.copyWith(height: 1.3, color: context.colors.inkMuted)),
-          ],
+        Flexible(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Ahmet Kadir Çiçek', style: text.title.copyWith(height: 1.3)),
+              Text(context.t(S.role), style: text.bodySmall.copyWith(height: 1.3, color: context.colors.inkMuted)),
+            ],
+          ),
         ),
       ],
     );
