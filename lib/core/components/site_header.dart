@@ -98,7 +98,7 @@ class HomeMark extends StatelessWidget {
       child: HoverDetector(
         child: onTap != null
             ? GestureDetector(onTap: onTap, child: mark)
-            : WebLink(to: '/home', builder: (context, follow) => GestureDetector(onTap: follow, child: mark)),
+            : WebLink(to: '/', builder: (context, follow) => GestureDetector(onTap: follow, child: mark)),
       ),
     );
   }

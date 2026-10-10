@@ -78,8 +78,15 @@ void main() {
     }
   });
 
-  testWidgets('coming back from an entry returns to the same place', (tester) async {
+  testWidgets('the old /home address opens the landing page at /', (tester) async {
     await _open(tester, '/home', desktop);
+    expect(_location, '/');
+    expect(find.byType(HomeView), findsOneWidget);
+    await _close(tester);
+  });
+
+  testWidgets('coming back from an entry returns to the same place', (tester) async {
+    await _open(tester, '/', desktop);
     final scrollable = find.byType(Scrollable).first;
     final project = projects.entries.first;
     final row = find.text(project.title.en.toUpperCase());
