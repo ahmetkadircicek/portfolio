@@ -13,17 +13,28 @@ flutter run -d chrome
 
 ## Build and deploy
 
+GitHub Actions deploys the site; nothing needs to run locally.
+
+| Event | Workflow | Result |
+| --- | --- | --- |
+| Pull request | `.github/workflows/firebase-hosting-pull-request.yml` | analyze, test, build, then a Firebase preview channel; the preview URL is posted on the pull request and expires after 7 days |
+| Push to `main` | `.github/workflows/firebase-hosting-merge.yml` | analyze, test, build, then the live site |
+
+Both use the `FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_9E0F3` repository secret, created by `firebase init hosting:github`. The Flutter version is pinned in both workflows; change it there together with your local SDK.
+
+`tool/build_web.sh` is the one build command: `flutter build web --release --wasm --no-web-resources-cdn --pwa-strategy=none`, then `tool/service-worker-cleanup.js` installed as `/flutter_service_worker.js`. To deploy by hand:
+
 ```sh
-firebase deploy --only hosting,firestore:rules
+tool/build_web.sh && firebase deploy --only hosting
 ```
 
-The hosting predeploy hook in `firebase.json` runs `flutter build web --release --wasm --pwa-strategy=none` and installs `tool/service-worker-cleanup.js` as `/flutter_service_worker.js`, so a plain deploy always ships the right build.
+Firestore rules are not deployed by the workflows; after changing `firestore.rules`, run `firebase deploy --only firestore:rules`.
 
 The site has no service worker. Versions before October 2026 installed Flutter's caching worker, which keeps serving the old app from its cache; `web/index.html` removes it on the next visit and the cleanup worker covers browsers that check for worker updates in the background.
 
 `--wasm` produces both a WebAssembly and a JavaScript build. Browsers with WasmGC (recent Chrome, Edge, Firefox) load the smaller and faster Wasm renderer; others fall back to JavaScript automatically.
 
-`firestore:rules` is only needed when `firestore.rules` changes. The first deploy needs a Firestore database: Firebase console → Firestore Database → Create database.
+The first deploy needs a Firestore database: Firebase console → Firestore Database → Create database.
 
 ## Contact form
 

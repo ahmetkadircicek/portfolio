@@ -1,10 +1,6 @@
 {
   "hosting": {
     "public": "build/web",
-    "predeploy": [
-      "flutter build web --release --wasm --no-web-resources-cdn --pwa-strategy=none",
-      "cp tool/service-worker-cleanup.js build/web/flutter_service_worker.js"
-    ],
     "ignore": [
       "firebase.json",
       "**/.*",
