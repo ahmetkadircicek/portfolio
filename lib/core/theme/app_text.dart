@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 /// Type scale. Cardo (serif, wide tracking, upper case) carries headings;
 /// Montserrat carries everything that is read or clicked. Three weights
@@ -18,6 +17,10 @@ class AppText {
   final TextStyle bodySmall;
   final TextStyle label;
   final TextStyle link;
+
+  /// Font families, bundled through the `fonts:` section of pubspec.yaml.
+  static const serifFamily = 'Cardo';
+  static const sansFamily = 'Montserrat';
 
   const AppText._({
     required this.display,
@@ -40,7 +43,8 @@ class AppText {
     required double bodyLarge,
     required Color ink,
   }) {
-    TextStyle serif(double size, FontWeight weight, double tracking) => GoogleFonts.cardo(
+    TextStyle serif(double size, FontWeight weight, double tracking) => TextStyle(
+          fontFamily: serifFamily,
           fontSize: size,
           fontWeight: weight,
           letterSpacing: size * tracking,
@@ -48,7 +52,8 @@ class AppText {
           color: ink,
         );
     TextStyle sans(double size, FontWeight weight, {double height = 1.6, double tracking = 0}) =>
-        GoogleFonts.montserrat(
+        TextStyle(
+          fontFamily: sansFamily,
           fontSize: size,
           fontWeight: weight,
           height: height,

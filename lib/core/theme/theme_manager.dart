@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio/core/theme/app_text.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 
 class ThemeManager {
@@ -10,8 +10,9 @@ class ThemeManager {
   static ThemeData _build(AppPalette p, Brightness brightness) => ThemeData(
         brightness: brightness,
         extensions: [p],
-        textTheme: GoogleFonts.montserratTextTheme(ThemeData(brightness: brightness).textTheme)
-            .apply(bodyColor: p.ink, displayColor: p.ink),
+        textTheme: ThemeData(brightness: brightness)
+            .textTheme
+            .apply(fontFamily: AppText.sansFamily, bodyColor: p.ink, displayColor: p.ink),
         scaffoldBackgroundColor: p.canvas,
         splashFactory: NoSplash.splashFactory,
         // Pages fade into each other; nothing slides on a website.

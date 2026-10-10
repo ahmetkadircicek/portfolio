@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/core/data/collections.dart';
 import 'package:portfolio/core/data/projects.dart';
 import 'package:portfolio/core/init/navigation/app_router.dart';
@@ -29,8 +28,6 @@ Future<void> _close(WidgetTester tester) async {
 String get _location => AppRouter.router.routerDelegate.currentConfiguration.uri.toString();
 
 void main() {
-  GoogleFonts.config.allowRuntimeFetching = false;
-
   const desktop = Size(1440, 900);
 
   setUp(HomeView.forgetPosition);
