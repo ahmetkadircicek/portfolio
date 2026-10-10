@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:portfolio/core/data/collections.dart';
 import 'package:portfolio/core/data/projects.dart';
 import 'package:portfolio/core/init/navigation/app_router.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/features/home/view/home_view.dart';
 import 'package:portfolio/main.dart';
 // ignore: implementation_imports
@@ -76,6 +77,66 @@ void main() {
       final entry = collection.entries.first;
       expect(AppRouter.titleFor(Uri.parse(collection.pathOf(entry))), '${entry.title.en} — ${AppRouter.siteName}');
     }
+  });
+
+  test('the tab title follows the language of the address', () {
+    final tunes = projects.entries.first;
+    expect(AppRouter.titleFor(Uri.parse('/tr')), AppRouter.homeTitleIn(AppLanguage.tr));
+    expect(AppRouter.titleFor(Uri.parse('/de/projects')), AppRouter.homeTitleIn(AppLanguage.de));
+    expect(AppRouter.titleFor(Uri.parse('/tr/contact')), 'İletişim — ${AppRouter.siteName}');
+    expect(AppRouter.titleFor(Uri.parse('/tr${projects.pathOf(tunes)}')), '${tunes.title.tr} — ${AppRouter.siteName}');
+  });
+
+  test('every language keeps the same paths under its prefix', () {
+    for (final language in AppLanguage.values) {
+      for (final path in ['/', '/contact', projects.pathOf(projects.entries.first)]) {
+        final (back, rest) = AppLanguage.split(Uri.parse(language.localize(path)));
+        expect((back, rest), (language, path));
+      }
+    }
+  });
+
+  testWidgets('a Turkish address shows the page in Turkish and its links stay Turkish', (tester) async {
+    final entry = projects.entries.first;
+    await _open(tester, '/tr${projects.pathOf(entry)}', desktop);
+    expect(LanguageManager.language.value, AppLanguage.tr);
+    expect(find.text(entry.subtitle.tr), findsWidgets);
+    await tester.tap(find.text(projects.title.tr));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    expect(_location, '/tr/projects');
+    await _close(tester);
+  });
+
+  testWidgets('the language switch opens the same page in the next language', (tester) async {
+    await _open(tester, '/contact', desktop);
+    await tester.tap(find.text('EN'));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    expect(_location, '/tr/contact');
+    expect(LanguageManager.saved, AppLanguage.tr);
+    await tester.tap(find.text('TR'));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    expect(_location, '/de/contact');
+    LanguageManager.saved = null;
+    await _close(tester);
+  });
+
+  testWidgets('the remembered language applies only when the site opens at /', (tester) async {
+    LanguageManager.saved = AppLanguage.de;
+    addTearDown(() => LanguageManager.saved = null);
+    AppRouter.reopen();
+    await _open(tester, '/', desktop);
+    expect(_location, '/de');
+    AppRouter.router.go('/');
+    await tester.pump();
+    expect(_location, '/');
+    AppRouter.reopen();
+    AppRouter.router.go('/projects');
+    await tester.pump();
+    expect(_location, '/projects');
+    await _close(tester);
   });
 
   testWidgets('the old /home address opens the landing page at /', (tester) async {
