@@ -38,11 +38,10 @@ class EntryView extends StatelessWidget {
       to: collection.path,
     );
 
-    final intro = Column(
+    final title = Reveal(child: _Title(collection: collection, entry: entry));
+    final body = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Reveal(child: _Title(collection: collection, entry: entry)),
-        SizedBox(height: mobile ? AppSpace.x8 : AppSpace.x12),
         Reveal(child: _Body(entry: entry)),
         if (entry.link != null) ...[
           const SizedBox(height: AppSpace.x8),
@@ -50,13 +49,17 @@ class EntryView extends StatelessWidget {
         ],
       ],
     );
+    final intro = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [title, SizedBox(height: mobile ? AppSpace.x8 : AppSpace.x12), body],
+    );
     final hasDeck = entry.highlights.isNotEmpty;
     final deck = Reveal(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: AppSpace.x4,
         children: [
-          // Stacked, the deck opens the page and needs no label.
+          // Stacked, the deck sits right under the title and needs no label.
           if (desktop) Eyebrow(context.t(S.highlights)),
           HighlightDeck(key: ValueKey(entry.slug), slides: entry.highlights),
         ],
@@ -73,13 +76,16 @@ class EntryView extends StatelessWidget {
         children: [Expanded(flex: 7, child: intro), Expanded(flex: 4, child: deck)],
       );
     } else {
-      // Stacked, the images lead and the text follows.
+      // Stacked, the title leads, the images follow and the text comes last.
+      final gap = SizedBox(height: mobile ? AppSpace.x8 : AppSpace.x12);
       content = Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          title,
+          gap,
           Center(child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 480), child: deck)),
-          SizedBox(height: mobile ? AppSpace.x12 : AppSpace.x16),
-          intro,
+          gap,
+          body,
         ],
       );
     }
