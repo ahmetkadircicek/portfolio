@@ -6,14 +6,12 @@ import 'package:portfolio/features/contact_me/view/contact_form_view.dart';
 import 'package:portfolio/features/home/view/home_view.dart';
 import 'package:portfolio/features/not_found/not_found_view.dart';
 import 'package:portfolio/features/entry/view/entry_view.dart';
-import 'package:portfolio/features/splash/splash_view.dart';
 
 /// Every page of the site:
 ///
 /// | Path | Page |
 /// | --- | --- |
-/// | `/` | splash, then `/home` |
-/// | `/home` | landing page |
+/// | `/` | landing page (`/home` leads here) |
 /// | `/<collection>` | landing page opened at that section, e.g. `/projects` |
 /// | `/<collection>/:slug` | one entry's page, e.g. `/experience/huawei` |
 /// | `/contact` | contact form |
@@ -34,7 +32,7 @@ class AppRouter {
     final segments = uri.pathSegments.where((s) => s.isNotEmpty).toList();
     String page(String name) => '$name — $siteName';
     final home = homeTitleIn(language);
-    if (segments.isEmpty || uri.path == '/home') return home;
+    if (segments.isEmpty) return home;
     if (uri.path == '/contact') return page(S.contact.of(language));
     for (final collection in collections) {
       if (segments.first != collection.id) continue;
@@ -50,12 +48,10 @@ class AppRouter {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const SplashView(),
-      ),
-      GoRoute(
-        path: '/home',
         builder: (context, state) => const HomeView(),
       ),
+      // The old address of the landing page, still in links and bookmarks.
+      GoRoute(path: '/home', redirect: (_, _) => '/'),
       // `/<collection>` opens the home page at the collection's section,
       // `/<collection>/<slug>` the entry's page; unknown slugs go back to the
       // section.

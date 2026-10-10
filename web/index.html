@@ -50,19 +50,30 @@
 
   <style>
     html, body { margin: 0; height: 100%; background: #ffffff; }
-    /* Shown until Flutter paints its first frame. */
+    /* The same font files the app loads, so they are fetched once. */
+    @font-face {
+      font-family: Montserrat; font-weight: 400; font-display: swap;
+      src: url(assets/assets/google_fonts/Montserrat-Regular.ttf) format('truetype');
+    }
+    @font-face {
+      font-family: Montserrat; font-weight: 600; font-display: swap;
+      src: url(assets/assets/google_fonts/Montserrat-SemiBold.ttf) format('truetype');
+    }
+    /* The greeting: the signature writes itself while the app loads, and the
+       whole thing fades out on the app's first frame. Matches the app's
+       tokens (canvas, ink, inkMuted, title and body type, x6/x1 spacing). */
     #loader {
-      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
-      background: #ffffff; transition: opacity .3s ease; z-index: 1;
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 0 24px;
+      background: #ffffff; color: #1f2024; text-align: center;
+      font-family: Montserrat, sans-serif; font-size: 16px;
+      transition: opacity .5s cubic-bezier(.215, .61, .355, 1); z-index: 1;
     }
     #loader.done { opacity: 0; pointer-events: none; }
-    #loader span {
-      width: 28px; height: 28px; border-radius: 50%;
-      border: 1.5px solid rgba(31, 32, 36, .12); border-top-color: rgba(31, 32, 36, .7);
-      animation: spin .9s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @media (prefers-reduced-motion: reduce) { #loader span { animation-duration: 2.5s; } }
+    #loader img { width: 200px; height: 52.5px; margin-bottom: 24px; }
+    #loader p { margin: 0; }
+    #loader .hello { font-weight: 600; line-height: 1.4; margin-bottom: 4px; }
+    #loader .role { font-weight: 400; line-height: 1.6; color: rgba(31, 32, 36, .72); }
     /* Text version of the site for search engines and screen readers;
        Flutter draws to a canvas, which neither can read. */
     .sr-only {
@@ -72,7 +83,39 @@
   </style>
 </head>
 <body>
-  <div id="loader" aria-hidden="true"><span></span></div>
+  <div id="loader" aria-hidden="true">
+    <picture>
+      <source media="(prefers-reduced-motion: reduce)" srcset="assets/assets/images/common/signature.webp">
+      <!-- Plays once (the file's loop count is 1). -->
+      <img src="assets/assets/images/common/signature_animated.webp" alt="">
+    </picture>
+    <p class="hello"></p>
+    <p class="role"></p>
+  </div>
+  <script>
+    // The greeting in the language the app will open in (LanguageManager):
+    // the visitor's last pick, else the browser's language, else English.
+    // Texts are S.hello and S.role; test/loader_test.dart keeps them in step.
+    (function () {
+      var texts = {
+        en: ['Hi, I\'m Ahmet Kadir Çiçek.', 'Cross-platform and native mobile developer'],
+        tr: ['Merhaba, ben Ahmet Kadir Çiçek.', 'Cross-platform ve native mobil geliştirici'],
+        de: ['Hallo, ich bin Ahmet Kadir Çiçek.', 'Cross-Platform- und Native-Mobile-Developer']
+      };
+      var language = 'en';
+      var browser = (navigator.languages || [navigator.language || '']).map(function (l) { return l.slice(0, 2); });
+      for (var i = 0; i < browser.length; i++) {
+        if (texts[browser[i]]) { language = browser[i]; break; }
+      }
+      try {
+        var saved = JSON.parse(localStorage.getItem('flutter.language'));
+        if (texts[saved]) language = saved;
+      } catch (e) {}
+      var loader = document.getElementById('loader');
+      loader.querySelector('.hello').textContent = texts[language][0];
+      loader.querySelector('.role').textContent = texts[language][1];
+    })();
+  </script>
 
   <main class="sr-only">
     <h1>Ahmet Kadir Çiçek — Cross-platform and native mobile developer</h1>
@@ -107,7 +150,7 @@
     window.addEventListener('flutter-first-frame', function () {
       var loader = document.getElementById('loader');
       loader.classList.add('done');
-      setTimeout(function () { loader.remove(); }, 400);
+      setTimeout(function () { loader.remove(); }, 600);
     });
   </script>
   <script>

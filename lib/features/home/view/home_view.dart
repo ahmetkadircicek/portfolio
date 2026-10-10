@@ -27,6 +27,14 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  /// What the landing page shows first.
+  static const _landingImages = [
+    'assets/images/common/profile.jpg',
+    'assets/images/common/signature.webp',
+    'assets/images/common/shape.webp',
+  ];
+  static var _preloaded = false;
+
   final _scrollController = ScrollController();
 
   /// Where the visitor was and which sections were open, kept for the
@@ -128,6 +136,22 @@ class _HomeViewState extends State<HomeView> {
       // Still going down a screen later: get out of the way.
       _barVisible.value = false;
     }
+  }
+
+  /// When the site opens on this page, its first frame waits until the
+  /// landing images are decoded; the loader in web/index.html stays up
+  /// meanwhile, so the page appears complete instead of filling in.
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_preloaded) return;
+    _preloaded = true;
+    final binding = WidgetsBinding.instance;
+    final hold = !binding.firstFrameRasterized;
+    if (hold) binding.deferFirstFrame();
+    Future.wait([for (final path in _landingImages) precacheImage(AssetImage(path), context)]).whenComplete(() {
+      if (hold) binding.allowFirstFrame();
+    });
   }
 
   @override

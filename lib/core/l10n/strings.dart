@@ -13,7 +13,7 @@ class S {
   );
   static const pageTitleRole = L('Mobile Developer', tr: 'Mobil Geliştirici', de: 'Mobile Developer');
 
-  // Splash
+  // Loader (web/index.html shows these while the app loads)
   static const hello = L(
     'Hi, I\'m Ahmet Kadir Çiçek.',
     tr: 'Merhaba, ben Ahmet Kadir Çiçek.',
