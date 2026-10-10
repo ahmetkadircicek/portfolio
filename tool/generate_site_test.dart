@@ -75,7 +75,7 @@ const person = {
   'worksFor': {'@type': 'Organization', 'name': 'Huawei Türkiye R&D Center'},
   'knowsAbout': ['Flutter', 'Dart', 'Swift', 'SwiftUI', 'HarmonyOS', 'ArkTS', 'Firebase'],
   'knowsLanguage': ['tr', 'en', 'de'],
-  'sameAs': [AppLinks.github, AppLinks.linkedin],
+  'sameAs': [AppLinks.github, AppLinks.linkedin, AppLinks.medium],
 };
 
 Page home(AppLanguage l, {String path = '/', bool listed = true}) {
@@ -101,6 +101,7 @@ Page home(AppLanguage l, {String path = '/', bool listed = true}) {
         '<a href="${AppLinks.cv}">${esc(S.downloadCv.of(l))}</a>',
         '<a href="${AppLinks.github}">GitHub</a>',
         '<a href="${AppLinks.linkedin}">LinkedIn</a>',
+        '<a href="${AppLinks.medium}">Medium</a>',
       ].join(' ')}</nav>',
       ...sections,
       '<section><h2>${esc(S.whatIDo.of(l))}</h2><ul>${capabilities.join()}</ul></section>',
@@ -134,6 +135,8 @@ Page entryPage(Collection c, Entry e, AppLanguage l) {
     body: [
       '<h1>${esc(e.title.of(l))} — ${esc(e.subtitle.of(l))}</h1>',
       '<p>${esc(e.label.of(l))}</p>',
+      if (e.facts.isNotEmpty)
+        '<dl>${[for (final f in e.facts) '<dt>${esc(f.label.of(l))}</dt><dd>${esc(f.value.of(l))}</dd>'].join()}</dl>',
       '<p>${esc(e.overview.of(l))}</p>',
       if (e.points.isNotEmpty) '<ul>${[for (final p in e.points) '<li>${esc(p.of(l))}</li>'].join()}</ul>',
       if (e.tags.isNotEmpty) '<p>${esc(e.tags.join(', '))}</p>',
@@ -246,7 +249,7 @@ String llms() {
   return [
     '# Ahmet Kadir Çiçek',
     '',
-    '> ${S.role.of(l)} at Huawei Türkiye R&D Center. ${S.heroLine.of(l)}',
+    '> ${S.role.of(l)}, at Huawei Türkiye R&D Center. ${S.heroLine.of(l)}',
     '',
     'The site is also in Turkish ($site/tr) and German ($site/de).',
     '',
@@ -262,6 +265,7 @@ String llms() {
     '- [CV (PDF)]($site${AppLinks.cv})',
     '- [GitHub](${AppLinks.github})',
     '- [LinkedIn](${AppLinks.linkedin})',
+    '- [Medium](${AppLinks.medium})',
     '',
   ].join('\n');
 }

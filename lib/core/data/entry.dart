@@ -37,6 +37,9 @@ class Entry {
   final List<EntryStatus> statuses;
   final EntryLink? link;
 
+  /// Role, team and platforms, shown as a strip under the title.
+  final List<EntryFact> facts;
+
   /// Image cards on the entry's page, every image with its caption. Without
   /// them the page is text only.
   final List<Highlight> highlights;
@@ -53,6 +56,7 @@ class Entry {
     this.tags = const [],
     this.statuses = const [],
     this.link,
+    this.facts = const [],
     this.highlights = const [],
   });
 }
@@ -115,6 +119,23 @@ enum EntryStatus {
         earlyDevelopment => palette.statusEarly,
         earlyProject => palette.statusArchive,
       };
+}
+
+/// One labelled fact about an entry, e.g. Team: four people.
+class EntryFact {
+  final L label;
+  final L value;
+
+  const EntryFact.role(this.value) : label = const L('Role', tr: 'Rol', de: 'Rolle');
+  const EntryFact.team(this.value) : label = const L('Team', tr: 'Ekip', de: 'Team');
+  const EntryFact.platforms(this.value) : label = const L('Platforms', tr: 'Platformlar', de: 'Plattformen');
+
+  static const solo = EntryFact.team(L('Just me', tr: 'Sadece ben', de: 'Nur ich'));
+  static const ideaToRelease = EntryFact.role(
+    L('Everything, idea to release', tr: 'Her şey, fikirden yayına', de: 'Alles, von der Idee bis zum Release'),
+  );
+  static const androidAndIos = EntryFact.platforms(L.same('Android · iOS'));
+  static const ios = EntryFact.platforms(L.same('iOS'));
 }
 
 /// An outside link shown as a card on the entry's page.
