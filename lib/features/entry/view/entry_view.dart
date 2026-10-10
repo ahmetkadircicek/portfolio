@@ -153,6 +153,19 @@ class _Title extends StatelessWidget {
             spacing: AppSpace.x8,
             children: [AppLogo(path: entry.logo, size: 112), Expanded(child: heading)],
           ),
+        if (entry.facts.isNotEmpty)
+          Wrap(
+            spacing: AppSpace.x12,
+            runSpacing: AppSpace.x4,
+            children: [
+              for (final fact in entry.facts)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: AppSpace.x1,
+                  children: [Eyebrow(context.t(fact.label)), Text(context.t(fact.value), style: text.title)],
+                ),
+            ],
+          ),
         // Statuses first, then every tag, in one wrap.
         if (entry.statuses.isNotEmpty || entry.tags.isNotEmpty)
           Wrap(

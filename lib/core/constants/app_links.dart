@@ -8,4 +8,6 @@ class AppLinks {
   static const github = 'https://github.com/ahmetkadircicek';
 
   static const linkedin = 'https://www.linkedin.com/in/akadircicek';
+
+  static const medium = 'https://medium.com/@akadircicek';
 }

@@ -7,9 +7,9 @@ class S {
 
   // Identity
   static const role = L(
-    'Cross-platform and native mobile developer',
-    tr: 'Cross-platform ve native mobil geliştirici',
-    de: 'Cross-Platform- und Native-Mobile-Developer',
+    'Mobile developer · Flutter, iOS, HarmonyOS',
+    tr: 'Mobil geliştirici · Flutter, iOS, HarmonyOS',
+    de: 'Mobile Developer · Flutter, iOS, HarmonyOS',
   );
   static const pageTitleRole = L('Mobile Developer', tr: 'Mobil Geliştirici', de: 'Mobile Developer');
 
@@ -44,11 +44,20 @@ class S {
     (
       L('Native iOS', tr: 'Native iOS', de: 'Native iOS'),
       L(
-        'Swift apps with UIKit, Storyboard and Auto Layout, following Apple\'s guidelines.',
-        tr: 'UIKit, Storyboard ve Auto Layout ile, Apple\'ın rehberlerine uygun Swift uygulamaları.',
-        de: 'Swift-Apps mit UIKit, Storyboard und Auto Layout, nach Apples Richtlinien.',
+        'Swift apps in SwiftUI and UIKit that follow Apple\'s guidelines, through to App Store Connect.',
+        tr: 'SwiftUI ve UIKit ile, Apple\'ın rehberlerine uygun Swift uygulamaları; App Store Connect\'e kadar.',
+        de: 'Swift-Apps mit SwiftUI und UIKit nach Apples Richtlinien, bis in App Store Connect.',
       ),
-      'Swift · UIKit · Lottie · Alamofire',
+      'Swift · SwiftUI · UIKit · App Store Connect',
+    ),
+    (
+      L('HarmonyOS & wearables', tr: 'HarmonyOS ve giyilebilirler', de: 'HarmonyOS & Wearables'),
+      L(
+        'Watch apps in ArkTS and JS that talk to the phone and read health data through Huawei\'s kits.',
+        tr: 'Huawei kitleriyle telefonla konuşan ve sağlık verisi okuyan, ArkTS ve JS ile saat uygulamaları.',
+        de: 'Watch-Apps in ArkTS und JS, die über Huaweis Kits mit dem Smartphone sprechen und Gesundheitsdaten lesen.',
+      ),
+      'ArkTS · ArkUI · Wear Engine · Health Kit',
     ),
     (
       L('Backend & integrations', tr: 'Backend ve entegrasyonlar', de: 'Backend & Integrationen'),
@@ -86,6 +95,11 @@ class S {
   );
   static const requestProject = L('Request a project', tr: 'Proje talebi', de: 'Projekt anfragen');
   static const backToTop = L('Back to top', tr: 'Başa dön', de: 'Nach oben');
+  static const now = L(
+    'Now: building watch apps at Huawei and telling myself this site is finished.',
+    tr: 'Şu an: Huawei\'de saat uygulamaları yazıyorum ve bu sitenin bittiğine kendimi inandırmaya çalışıyorum.',
+    de: 'Gerade: Ich baue Watch-Apps bei Huawei und rede mir ein, dass diese Seite fertig ist.',
+  );
 
   // Contact
   static const contact = L('Contact', tr: 'İletişim', de: 'Kontakt');

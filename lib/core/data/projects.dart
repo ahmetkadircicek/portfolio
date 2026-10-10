@@ -25,6 +25,7 @@ const projects = Collection(
       ),
       label: L('Music', tr: 'Müzik', de: 'Musik'),
       logo: 'assets/images/tunes/tunes_logo.webp',
+      facts: [EntryFact.ideaToRelease, EntryFact.solo, EntryFact.androidAndIos],
       tags: ['Flutter', 'Dart', 'Firebase', 'Provider', 'MVVM', 'Figma', 'Replicate', 'REST API', 'Google AdMob'],
       statuses: [EntryStatus.readyToRelease],
       highlights: [
@@ -167,6 +168,7 @@ const projects = Collection(
       ),
       label: L('Finance', tr: 'Finans', de: 'Finanzen'),
       logo: 'assets/images/vilsa/vilsa_logo.webp',
+      facts: [EntryFact.ideaToRelease, EntryFact.solo, EntryFact.androidAndIos],
       tags: ['Flutter', 'Dart', 'Firebase', 'Provider', 'MVVM', 'Figma', 'Charts'],
       statuses: [EntryStatus.readyToRelease],
       link: EntryLink.github('https://github.com/ahmetkadircicek/vilsa'),
@@ -300,6 +302,10 @@ const projects = Collection(
       ),
       label: L('Logistics', tr: 'Lojistik', de: 'Logistik'),
       logo: 'assets/images/sevkiyatvar/sevkiyatvar_logo.webp',
+      facts: [
+        EntryFact.role(L('Lead developer of the rebuild', tr: 'Yeniden yazımın lider geliştiricisi', de: 'Leitender Entwickler des Neubaus')),
+        EntryFact.androidAndIos,
+      ],
       tags: ['Flutter', 'Dart', 'MVVM', 'REST API', 'Connectivity', 'Provider'],
       statuses: [EntryStatus.readyToRelease],
       highlights: [
@@ -432,6 +438,7 @@ const projects = Collection(
       ),
       label: L('Travel', tr: 'Seyahat', de: 'Reisen'),
       logo: 'assets/images/travelai/travelai_logo.webp',
+      facts: [EntryFact.ideaToRelease, EntryFact.solo, EntryFact.ios],
       tags: ['Swift', 'UIKit', 'Lottie', 'Alamofire', 'Google Gemini AI', 'Firebase', 'OAuth'],
       highlights: [
         Highlight(
@@ -524,6 +531,7 @@ const projects = Collection(
       ),
       label: L('Education', tr: 'Eğitim', de: 'Bildung'),
       logo: 'assets/images/visiostellar/visiostellar_logo.webp',
+      facts: [EntryFact.ideaToRelease, EntryFact.solo, EntryFact.ios],
       tags: ['Swift', 'UIKit', 'Storyboard', 'Auto Layout', 'iOS', 'Xcode', 'MVC'],
       highlights: [
         Highlight(
@@ -616,6 +624,11 @@ const projects = Collection(
       ),
       label: L('Retail', tr: 'Perakende', de: 'Einzelhandel'),
       logo: 'assets/images/peasy/peasy_logo.webp',
+      facts: [
+        EntryFact.role(L('Mobile app', tr: 'Mobil uygulama', de: 'Mobile App')),
+        EntryFact.team(L('Four students', tr: 'Dört öğrenci', de: 'Vier Studierende')),
+        EntryFact.androidAndIos,
+      ],
       tags: ['Flutter', 'Dart', 'NFC', 'Firebase', 'REST API', 'Recommendation systems'],
       highlights: [
         Highlight(
