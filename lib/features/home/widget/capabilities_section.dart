@@ -16,7 +16,7 @@ class CapabilitiesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = context.text;
-    final columns = context.isDesktop ? 4 : (context.isTablet ? 2 : 1);
+    final columns = context.isDesktop ? 3 : (context.isTablet ? 2 : 1);
     return PageFrame(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

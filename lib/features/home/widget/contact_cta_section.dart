@@ -72,17 +72,24 @@ class ContactCtaSection extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   spacing: AppSpace.x4,
                   children: [
-                    Text('© ${DateTime.now().year} Ahmet Kadir Çiçek', style: footerStyle),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: AppSpace.x1,
+                      children: [
+                        Text(context.t(S.now), style: footerStyle),
+                        Text('© ${DateTime.now().year} Ahmet Kadir Çiçek', style: footerStyle),
+                      ],
+                    ),
                     Wrap(
                       spacing: AppSpace.x6,
                       runSpacing: AppSpace.x3,
                       children: [
-                        HoverLink(
-                          label: 'GitHub',
-                          icon: LinkIcon.external,
-                          color: context.colors.onBlock,
-                          to: AppLinks.github,
-                        ),
+                        for (final (label, to) in [
+                          ('GitHub', AppLinks.github),
+                          ('LinkedIn', AppLinks.linkedin),
+                          ('Medium', AppLinks.medium),
+                        ])
+                          HoverLink(label: label, icon: LinkIcon.external, color: context.colors.onBlock, to: to),
                         HoverLink(
                           label: context.t(S.backToTop),
                           icon: LinkIcon.up,

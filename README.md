@@ -67,7 +67,7 @@ Projects and jobs are both `Entry` items in a `Collection` (`lib/core/data/entry
 
 | What | Where |
 | --- | --- |
-| Projects (texts, logos, statuses, highlight images, links) | `lib/core/data/projects.dart` |
+| Projects (texts, logos, statuses, facts, highlight images, links) | `lib/core/data/projects.dart` |
 | Work experience | `lib/core/data/experience.dart` |
 | Which collections the site has, in home page order | `lib/core/data/collections.dart` |
 | Design tokens (colors, spacing, radius, motion, breakpoints) | `lib/core/theme/app_tokens.dart` |
