@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:portfolio/core/data/collections.dart';
 import 'package:portfolio/core/data/projects.dart';
+import 'package:portfolio/core/components/pressable.dart';
 import 'package:portfolio/core/init/navigation/app_router.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/features/home/view/home_view.dart';
@@ -136,6 +138,21 @@ void main() {
     AppRouter.router.go('/projects');
     await tester.pump();
     expect(_location, '/projects');
+    await _close(tester);
+  });
+
+  testWidgets('links work from the keyboard and show where the focus is', (tester) async {
+    await _open(tester, projects.pathOf(projects.entries.first), desktop);
+    Finder ring() => find.descendant(of: find.byType(Pressable), matching: find.byType(DecoratedBox));
+    final before = ring().evaluate().length;
+    await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+    await tester.pump();
+    expect(ring().evaluate().length, before + 1);
+    // The first stop is the name in the top bar, which leads home.
+    await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    expect(_location, '/');
     await _close(tester);
   });
 

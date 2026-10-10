@@ -3,7 +3,7 @@ import 'package:portfolio/core/components/web_link.dart';
 import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/language_switch.dart';
-import 'package:portfolio/core/components/hover_detector_widget.dart';
+import 'package:portfolio/core/components/pressable.dart';
 import 'package:portfolio/core/components/page_frame.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
@@ -95,11 +95,9 @@ class HomeMark extends StatelessWidget {
     return Semantics(
       link: true,
       label: context.t(S.home),
-      child: HoverDetector(
-        child: onTap != null
-            ? GestureDetector(onTap: onTap, child: mark)
-            : WebLink(to: '/', builder: (context, follow) => GestureDetector(onTap: follow, child: mark)),
-      ),
+      child: onTap != null
+          ? Pressable(onPressed: onTap, builder: (context, _) => mark)
+          : WebLink(to: '/', builder: (context, follow) => Pressable(onPressed: follow, builder: (context, _) => mark)),
     );
   }
 }

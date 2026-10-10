@@ -3,7 +3,7 @@ import 'package:portfolio/core/components/web_link.dart';
 import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/components/app_logo.dart';
-import 'package:portfolio/core/components/hover_detector_widget.dart';
+import 'package:portfolio/core/components/pressable.dart';
 import 'package:portfolio/core/components/page_frame.dart';
 import 'package:portfolio/core/components/pill.dart';
 import 'package:portfolio/core/components/reveal.dart';
@@ -65,10 +65,9 @@ class _CollectionSectionState extends State<CollectionSection> {
         ? Semantics(
             button: true,
             expanded: _open,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => widget.open.value = !_open,
-              child: SectionHeader(
+            child: Pressable(
+              onPressed: () => widget.open.value = !_open,
+              builder: (context, _) => SectionHeader(
                 title: context.t(collection.title),
                 count: count,
                 trailing: AnimatedRotation(
@@ -174,49 +173,47 @@ class _EntryRowState extends State<_EntryRow> {
     return Semantics(
       link: true,
       label: '${context.t(entry.title)} — ${context.t(entry.subtitle)}',
-      child: HoverDetector(
-        child: MouseRegion(
-          onEnter: (_) => widget.hovered.value = widget.index,
-          onExit: (_) {
-            if (widget.hovered.value == widget.index) widget.hovered.value = null;
+      child: WebLink(
+        to: widget.collection.pathOf(entry),
+        builder: (context, follow) => Pressable(
+          onPressed: follow,
+          onActiveChanged: (active) {
+            if (active) {
+              widget.hovered.value = widget.index;
+            } else if (widget.hovered.value == widget.index) {
+              widget.hovered.value = null;
+            }
           },
-          child: WebLink(
-            to: widget.collection.pathOf(entry),
-            builder: (context, follow) => GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: follow,
-              child: AnimatedOpacity(
-                opacity: anyHovered && !hovering ? 0.4 : 1,
-                duration: AppMotion.base,
-                curve: AppMotion.standard,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: mobile ? AppSpace.x6 : AppSpace.x8),
-                  child: Row(
-                    spacing: mobile ? AppSpace.x4 : AppSpace.x6,
-                    children: [
-                      if (!mobile) SizedBox(width: 32, child: Eyebrow(_number(widget.index))),
-                      AppLogo(path: entry.logo, size: mobile ? 48 : 56),
-                      Expanded(
-                        flex: 4,
-                        child: mobile
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                spacing: AppSpace.x3,
-                                children: [name, meta],
-                              )
-                            : name,
-                      ),
-                      if (desktop)
-                        Expanded(
-                          flex: 5,
-                          child: Text(context.t(entry.summary),
-                              style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
-                        ),
-                      if (!mobile) SizedBox(width: desktop ? 220 : 180, child: meta),
-                      arrow,
-                    ],
+          builder: (context, _) => AnimatedOpacity(
+            opacity: anyHovered && !hovering ? 0.4 : 1,
+            duration: AppMotion.base,
+            curve: AppMotion.standard,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: mobile ? AppSpace.x6 : AppSpace.x8),
+              child: Row(
+                spacing: mobile ? AppSpace.x4 : AppSpace.x6,
+                children: [
+                  if (!mobile) SizedBox(width: 32, child: Eyebrow(_number(widget.index))),
+                  AppLogo(path: entry.logo, size: mobile ? 48 : 56),
+                  Expanded(
+                    flex: 4,
+                    child: mobile
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            spacing: AppSpace.x3,
+                            children: [name, meta],
+                          )
+                        : name,
                   ),
-                ),
+                  if (desktop)
+                    Expanded(
+                      flex: 5,
+                      child: Text(context.t(entry.summary),
+                          style: text.bodySmall.copyWith(color: context.colors.inkMuted)),
+                    ),
+                  if (!mobile) SizedBox(width: desktop ? 220 : 180, child: meta),
+                  arrow,
+                ],
               ),
             ),
           ),
