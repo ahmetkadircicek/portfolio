@@ -1,6 +1,8 @@
 # Portfolio
 
-Source of [ahmetkadircicek.com.tr](https://ahmetkadircicek.com.tr), a Flutter web app hosted on Firebase (project `portfolio-9e0f3`).
+**Live: [ahmetkadircicek.com.tr](https://ahmetkadircicek.com.tr)**
+
+Portfolio of Ahmet Kadir Çiçek, mobile developer. A Flutter web app compiled to WebAssembly, in English, Turkish and German, hosted on Firebase (project `portfolio-9e0f3`) with a Firestore-backed contact form.
 
 ## Run locally
 
