@@ -50,7 +50,7 @@ class SiteHeader extends StatelessWidget {
                 const TopControls(),
               ],
             ),
-            if (bottom != null) bottom!,
+            ?bottom,
           ],
         ),
       ),
