@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:portfolio/core/l10n/html_lang.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,6 +14,24 @@ enum AppLanguage {
   const AppLanguage(this.short, this.nativeName);
 
   Locale get locale => Locale(name);
+
+  /// Where the language's pages live: English at the root, the others
+  /// under `/tr` and `/de`.
+  String get prefix => this == en ? '' : '/$name';
+
+  /// [path] (`/`, `/projects/tunes`) in this language.
+  String localize(String path) => path == '/' && prefix.isNotEmpty ? prefix : '$prefix$path';
+
+  /// The language of [uri] and its path without the language prefix.
+  static (AppLanguage, String) split(Uri uri) {
+    final segments = uri.pathSegments.where((s) => s.isNotEmpty).toList();
+    for (final language in values) {
+      if (language != en && segments.isNotEmpty && segments.first == language.name) {
+        return (language, '/${segments.skip(1).join('/')}');
+      }
+    }
+    return (en, '/${segments.join('/')}');
+  }
 }
 
 /// A text in every language of the site. All three are required, so a new
@@ -37,8 +56,9 @@ class L {
       };
 }
 
-/// The active language: the visitor's last pick, else the browser's
-/// language, else English.
+/// The active language, which is the language of the address: `/tr/...` is
+/// Turkish, `/de/...` German, everything else English. The visitor's last
+/// pick is remembered and only applied when the site opens at `/`.
 class LanguageManager {
   LanguageManager._();
 
@@ -46,31 +66,48 @@ class LanguageManager {
 
   static final language = ValueNotifier(AppLanguage.en);
 
+  /// The visitor's last pick in the language switch, if any.
+  static AppLanguage? saved;
+
+  /// Reads the remembered pick and starts in the language the site opens
+  /// in, so the first frame is already in it.
   static Future<void> load() async {
-    language.value = _fromBrowser();
     try {
-      final saved = (await SharedPreferences.getInstance()).getString(_key);
-      for (final l in AppLanguage.values) {
-        if (l.name == saved) language.value = l;
-      }
+      final name = (await SharedPreferences.getInstance()).getString(_key);
+      saved = AppLanguage.values.where((l) => l.name == name).firstOrNull;
     } catch (_) {
-      // Storage blocked: keep the browser's language.
+      // Storage blocked: nothing remembered.
     }
-    setHtmlLang(language.value.name);
+    final start = Uri.parse(WidgetsBinding.instance.platformDispatcher.defaultRouteName);
+    language.value = start.path == '/' ? saved ?? AppLanguage.en : AppLanguage.split(start).$1;
   }
 
-  static AppLanguage _fromBrowser() {
-    for (final locale in WidgetsBinding.instance.platformDispatcher.locales) {
-      for (final l in AppLanguage.values) {
-        if (l.name == locale.languageCode) return l;
+  static Uri? _pending;
+
+  /// Follows the address to [uri]. The router can announce a page while
+  /// widgets build; the change then waits for the end of the frame.
+  static void follow(Uri uri) {
+    final scheduler = SchedulerBinding.instance;
+    if (scheduler.schedulerPhase == SchedulerPhase.persistentCallbacks) {
+      if (_pending == null) {
+        scheduler.addPostFrameCallback((_) {
+          final latest = _pending!;
+          _pending = null;
+          follow(latest);
+        });
       }
+      _pending = uri;
+      return;
     }
-    return AppLanguage.en;
-  }
-
-  static void set(AppLanguage next) {
+    final (next, _) = AppLanguage.split(uri);
+    if (language.value == next) return;
     language.value = next;
     setHtmlLang(next.name);
+  }
+
+  /// Remembers [next] as the visitor's pick.
+  static void choose(AppLanguage next) {
+    saved = next;
     SharedPreferences.getInstance().then((p) => p.setString(_key, next.name)).ignore();
   }
 }

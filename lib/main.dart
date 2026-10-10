@@ -67,7 +67,7 @@ class _TabTitleState extends State<_TabTitle> {
   }
 
   void _update() => SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
-      label: AppRouter.titleFor(_delegate.currentConfiguration.uri, LanguageManager.language.value),
+      label: AppRouter.titleFor(_delegate.currentConfiguration.uri),
       primaryColor: 0xFF1F2024));
 
   // Also on build: the app's own default title is written just above this
