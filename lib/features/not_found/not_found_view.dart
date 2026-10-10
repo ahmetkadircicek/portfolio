@@ -24,7 +24,7 @@ class NotFoundView extends StatelessWidget {
             const SizedBox(height: AppSpace.x4),
             Text(context.t(S.notFoundBody), style: text.bodyLarge.copyWith(color: context.colors.inkMuted)),
             const SizedBox(height: AppSpace.x8),
-            HoverLink(label: context.t(S.backHome), icon: LinkIcon.back, to: '/home'),
+            HoverLink(label: context.t(S.backHome), icon: LinkIcon.back, to: '/'),
           ],
         ),
       ),
