@@ -1,6 +1,6 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/core/data/projects.dart';
 import 'package:portfolio/core/init/navigation/app_router.dart';
 import 'package:portfolio/features/entry/widget/highlight_deck.dart';
@@ -22,15 +22,16 @@ Future<void> _close(WidgetTester tester) async {
 }
 
 void main() {
-  GoogleFonts.config.allowRuntimeFetching = false;
-
-  // Phone layouts are measured with the site's own fonts, as in main.dart;
-  // the wider test font would overflow rows that fit on a real phone.
+  // Phone layouts are measured with the site's own fonts, as on the web;
+  // the wider test font would overflow rows that fit on a real phone. Tests
+  // do not load the pubspec fonts by themselves.
   setUpAll(() async {
-    GoogleFonts.montserrat(fontWeight: FontWeight.w400);
-    GoogleFonts.montserrat(fontWeight: FontWeight.w600);
-    GoogleFonts.cardo(fontWeight: FontWeight.w700);
-    await GoogleFonts.pendingFonts();
+    Future<ByteData> font(String file) => rootBundle.load('assets/google_fonts/$file');
+    await (FontLoader('Montserrat')
+          ..addFont(font('Montserrat-Regular.ttf'))
+          ..addFont(font('Montserrat-SemiBold.ttf')))
+        .load();
+    await (FontLoader('Cardo')..addFont(font('Cardo-Bold.ttf'))).load();
   });
 
   final entry = projects.entries.firstWhere((e) => e.highlights.isNotEmpty);
