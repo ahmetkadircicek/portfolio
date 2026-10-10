@@ -6,4 +6,6 @@ class AppLinks {
   static const cv = '/ahmet-kadir-cicek-cv.pdf';
 
   static const github = 'https://github.com/ahmetkadircicek';
+
+  static const linkedin = 'https://www.linkedin.com/in/akadircicek';
 }
