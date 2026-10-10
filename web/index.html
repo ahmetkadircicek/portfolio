@@ -93,8 +93,8 @@
     <p class="role"></p>
   </div>
   <script>
-    // The greeting in the language the app will open in (LanguageManager):
-    // the visitor's last pick, else the browser's language, else English.
+    // The greeting in the language the app will open in: the address's
+    // (/tr/..., /de/...), else at / the visitor's last pick, else English.
     // Texts are S.hello and S.role; test/loader_test.dart keeps them in step.
     (function () {
       var texts = {
@@ -103,14 +103,16 @@
         de: ['Hallo, ich bin Ahmet Kadir Çiçek.', 'Cross-Platform- und Native-Mobile-Developer']
       };
       var language = 'en';
-      var browser = (navigator.languages || [navigator.language || '']).map(function (l) { return l.slice(0, 2); });
-      for (var i = 0; i < browser.length; i++) {
-        if (texts[browser[i]]) { language = browser[i]; break; }
+      var first = location.pathname.split('/')[1];
+      if (first === 'tr' || first === 'de') {
+        language = first;
+      } else if (location.pathname === '/') {
+        try {
+          var saved = JSON.parse(localStorage.getItem('flutter.language'));
+          if (texts[saved]) language = saved;
+        } catch (e) {}
       }
-      try {
-        var saved = JSON.parse(localStorage.getItem('flutter.language'));
-        if (texts[saved]) language = saved;
-      } catch (e) {}
+      document.documentElement.lang = language;
       var loader = document.getElementById('loader');
       loader.querySelector('.hello').textContent = texts[language][0];
       loader.querySelector('.role').textContent = texts[language][1];
