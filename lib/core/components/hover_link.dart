@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/components/web_link.dart';
-import 'package:portfolio/core/components/hover_detector_widget.dart';
+import 'package:portfolio/core/components/pressable.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 
@@ -16,9 +16,9 @@ enum LinkIcon {
   const LinkIcon(this.data);
 }
 
-/// Text link with an underline that draws in on hover and an arrow that
-/// nudges in its direction.
-class HoverLink extends StatefulWidget {
+/// Text link with an underline that draws in on hover or keyboard focus and
+/// an arrow that nudges in its direction.
+class HoverLink extends StatelessWidget {
   final String label;
 
   /// Where the link goes: a path in the site (`/contact`) or a full URL. With
@@ -39,14 +39,7 @@ class HoverLink extends StatefulWidget {
     this.color,
   });
 
-  @override
-  State<HoverLink> createState() => _HoverLinkState();
-}
-
-class _HoverLinkState extends State<HoverLink> {
-  bool _hovering = false;
-
-  Offset get _nudge => switch (widget.icon) {
+  Offset get _nudge => switch (icon) {
         LinkIcon.forward => const Offset(3, 0),
         LinkIcon.back => const Offset(-3, 0),
         LinkIcon.external => const Offset(2, -2),
@@ -57,70 +50,69 @@ class _HoverLinkState extends State<HoverLink> {
 
   @override
   Widget build(BuildContext context) {
-    final to = widget.to;
-    if (to == null) return _build(context, widget.onTap);
+    final to = this.to;
+    if (to == null) return _build(context, onTap);
     return WebLink(to: to, builder: _build);
   }
 
   Widget _build(BuildContext context, VoidCallback? onTap) {
-    final color = widget.color ?? context.colors.ink;
-    final style = (widget.style ?? context.text.link).copyWith(color: color);
-    final iconData = widget.icon.data;
+    final color = this.color ?? context.colors.ink;
+    final style = (this.style ?? context.text.link).copyWith(color: color);
+    return Semantics(
+      link: true,
+      child: Pressable(
+        onPressed: onTap,
+        ringColor: color,
+        radius: AppRadius.smAll,
+        builder: (context, active) => _link(context, style, color, active),
+      ),
+    );
+  }
+
+  Widget _link(BuildContext context, TextStyle style, Color color, bool active) {
+    final iconData = icon.data;
     final iconWidget = iconData == null
         ? null
         : AnimatedSlide(
-            offset: _hovering ? _nudge / 16 : Offset.zero,
+            offset: active ? _nudge / 16 : Offset.zero,
             duration: AppMotion.base,
             curve: AppMotion.standard,
             child: Icon(iconData, size: (style.fontSize ?? 16) * 0.95, color: color),
           );
 
-    return Semantics(
-      link: true,
-      child: HoverDetector(
-        child: MouseRegion(
-          onEnter: (_) => setState(() => _hovering = true),
-          onExit: (_) => setState(() => _hovering = false),
-          child: GestureDetector(
-            onTap: onTap,
-            behavior: HitTestBehavior.opaque,
-            // The link is as tall as its text, so it lines up with whatever
-            // sits beside it; the underline hangs below without taking space.
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: AppSpace.x2,
-                  children: [
-                    if (widget.icon == LinkIcon.back) iconWidget!,
-                    Flexible(child: Text(widget.label, style: style)),
-                    if (iconWidget != null && widget.icon != LinkIcon.back) iconWidget,
-                  ],
-                ),
-                // The underline grows from the left on hover.
-                Positioned(
-                  left: widget.icon == LinkIcon.back ? (style.fontSize ?? 16) * 0.95 + AppSpace.x2 : 0,
-                  bottom: -AppSpace.x1,
-                  child: AnimatedContainer(
-                    duration: AppMotion.base,
-                    curve: AppMotion.standard,
-                    height: 1,
-                    width: _hovering ? _textWidth(style) : 0,
-                    color: color,
-                  ),
-                ),
-              ],
-            ),
+    // The link is as tall as its text, so it lines up with whatever sits
+    // beside it; the underline hangs below without taking space.
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          spacing: AppSpace.x2,
+          children: [
+            if (icon == LinkIcon.back) iconWidget!,
+            Flexible(child: Text(label, style: style)),
+            if (iconWidget != null && icon != LinkIcon.back) iconWidget,
+          ],
+        ),
+        // The underline grows from the left on hover or focus.
+        Positioned(
+          left: icon == LinkIcon.back ? (style.fontSize ?? 16) * 0.95 + AppSpace.x2 : 0,
+          bottom: -AppSpace.x1,
+          child: AnimatedContainer(
+            duration: AppMotion.base,
+            curve: AppMotion.standard,
+            height: 1,
+            width: active ? _textWidth(style) : 0,
+            color: color,
           ),
         ),
-      ),
+      ],
     );
   }
 
   double _textWidth(TextStyle style) {
     final painter = TextPainter(
-      text: TextSpan(text: widget.label, style: style),
+      text: TextSpan(text: label, style: style),
       textDirection: TextDirection.ltr,
       maxLines: 1,
     )..layout();
