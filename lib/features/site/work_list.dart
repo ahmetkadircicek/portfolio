@@ -238,7 +238,7 @@ class _StickyTopState extends State<_StickyTop> {
   }
 
   void _update() {
-    if (!mounted) return;
+    if (!mounted || ModalRoute.isCurrentOf(context) == false) return;
     final box = context.findRenderObject() as RenderBox?;
     final child = _childKey.currentContext?.findRenderObject() as RenderBox?;
     if (box == null || child == null || !box.hasSize || !child.hasSize || !box.attached) return;

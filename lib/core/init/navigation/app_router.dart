@@ -1,22 +1,22 @@
-import 'package:portfolio/core/l10n/strings.dart';
-import 'package:portfolio/core/l10n/l10n.dart';
-import 'package:portfolio/core/data/collections.dart';
 import 'package:go_router/go_router.dart';
-import 'package:portfolio/features/contact_me/view/contact_form_view.dart';
-import 'package:portfolio/features/home/view/home_view.dart';
-import 'package:portfolio/features/not_found/not_found_view.dart';
-import 'package:portfolio/features/entry/view/entry_view.dart';
-import 'package:portfolio/features/splash/splash_view.dart';
+import 'package:portfolio/core/components/site_nav.dart';
+import 'package:portfolio/core/data/work.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
+import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/features/site/home_page.dart';
+import 'package:portfolio/features/site/not_found_page.dart';
+import 'package:portfolio/features/site/project_page.dart';
 
 /// Every page of the site:
 ///
 /// | Path | Page |
 /// | --- | --- |
-/// | `/` | splash, then `/home` |
-/// | `/home` | landing page |
-/// | `/<collection>` | landing page opened at that section, e.g. `/projects` |
-/// | `/<collection>/:slug` | one entry's page, e.g. `/experience/huawei` |
-/// | `/contact` | contact form |
+/// | `/` | home page |
+/// | `/projects`, `/about`, `/contact` | home page opened at that section |
+/// | `/projects/:slug` | a project's case study, e.g. `/projects/tunes` |
+///
+/// Older addresses (`/home`, `/experience/…`) lead to their place on the
+/// home page; anything else is the not found page.
 class AppRouter {
   AppRouter._();
 
@@ -27,57 +27,45 @@ class AppRouter {
   static String homeTitleIn(AppLanguage language) => '$siteName — ${S.pageTitleRole.of(language)}';
 
   /// Browser tab title of the page at [uri]. Set once above the router, so
-  /// a page that is fading out can never write its own title last. A
-  /// collection path is the home page opened at a section, so it keeps the
-  /// home title.
+  /// a page that is fading out can never write its own title last.
   static String titleFor(Uri uri, [AppLanguage language = AppLanguage.en]) {
     final segments = uri.pathSegments.where((s) => s.isNotEmpty).toList();
     String page(String name) => '$name — $siteName';
-    final home = homeTitleIn(language);
-    if (segments.isEmpty || uri.path == '/home') return home;
-    if (uri.path == '/contact') return page(S.contact.of(language));
-    for (final collection in collections) {
-      if (segments.first != collection.id) continue;
-      if (segments.length == 1) return home;
-      final entry = collection.bySlug(segments[1]);
-      if (segments.length == 2 && entry != null) return page(entry.title.of(language));
+    if (segments.isEmpty || segments.length == 1 && _sections.contains(segments.first)) {
+      return homeTitleIn(language);
+    }
+    if (segments.length == 2 && segments.first == 'projects') {
+      final project = projectBySlug(segments[1]);
+      if (project != null) return page(project.name);
     }
     return page(S.notFound.of(language));
   }
 
+  static const _sections = {'home', 'projects', 'about', 'contact', 'experience'};
+
   static final GoRouter router = GoRouter(
-    errorBuilder: (context, state) => const NotFoundView(),
+    errorBuilder: (context, state) => const NotFoundPage(),
     routes: [
+      GoRoute(path: '/', builder: (context, state) => const HomePage()),
+      GoRoute(path: '/home', redirect: (context, state) => '/'),
+      GoRoute(path: '/experience', redirect: (context, state) => HomeSection.about.path),
+      GoRoute(path: '/experience/:slug', redirect: (context, state) => HomeSection.about.path),
       GoRoute(
-        path: '/',
-        builder: (context, state) => const SplashView(),
+        path: HomeSection.work.path,
+        builder: (context, state) => const HomePage(startAt: HomeSection.work),
+        routes: [
+          GoRoute(
+            path: ':slug',
+            redirect: (context, state) =>
+                projectBySlug(state.pathParameters['slug']) == null ? HomeSection.work.path : null,
+            builder: (context, state) => ProjectPage(project: projectBySlug(state.pathParameters['slug'])!),
+          ),
+        ],
       ),
+      GoRoute(path: HomeSection.about.path, builder: (context, state) => const HomePage(startAt: HomeSection.about)),
       GoRoute(
-        path: '/home',
-        builder: (context, state) => const HomeView(),
-      ),
-      // `/<collection>` opens the home page at the collection's section,
-      // `/<collection>/<slug>` the entry's page; unknown slugs go back to the
-      // section.
-      for (final collection in collections)
-        GoRoute(
-          path: collection.path,
-          builder: (context, state) => HomeView(startAt: collection.id),
-          routes: [
-            GoRoute(
-              path: ':slug',
-              redirect: (context, state) =>
-                  collection.bySlug(state.pathParameters['slug']) == null ? collection.path : null,
-              builder: (context, state) {
-                final entry = collection.bySlug(state.pathParameters['slug'])!;
-                return EntryView(collection: collection, entry: entry);
-              },
-            ),
-          ],
-        ),
-      GoRoute(
-        path: '/contact',
-        builder: (context, state) => const ContactFormView(),
+        path: HomeSection.contact.path,
+        builder: (context, state) => const HomePage(startAt: HomeSection.contact),
       ),
     ],
   );
