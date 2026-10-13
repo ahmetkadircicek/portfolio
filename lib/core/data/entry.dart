@@ -101,10 +101,10 @@ class Highlight {
 }
 
 enum EntryStatus {
-  readyToRelease(L('Ready for release', tr: 'Yayına hazır', de: 'Bereit für den Release')),
-  underDevelopment(L('In development', tr: 'Geliştiriliyor', de: 'In Entwicklung')),
-  earlyDevelopment(L('Early development', tr: 'Erken geliştirme', de: 'Frühe Entwicklung')),
-  earlyProject(L('Early project', tr: 'İlk proje', de: 'Frühes Projekt'));
+  readyToRelease(L('Ready for release', tr: 'Yayına hazır')),
+  underDevelopment(L('In development', tr: 'Geliştiriliyor')),
+  earlyDevelopment(L('Early development', tr: 'Erken geliştirme')),
+  earlyProject(L('Early project', tr: 'İlk proje'));
 
   final L label;
   const EntryStatus(this.label);
@@ -124,7 +124,7 @@ class EntryLink {
 
   const EntryLink({required this.label, required this.url});
 
-  const EntryLink.github(this.url) : label = const L('Source code', tr: 'Kaynak kod', de: 'Quellcode');
+  const EntryLink.github(this.url) : label = const L('Source code', tr: 'Kaynak kod');
 
   bool get isGithub => Uri.parse(url).host == 'github.com';
 }
