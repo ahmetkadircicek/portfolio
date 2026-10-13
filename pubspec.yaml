@@ -33,13 +33,7 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
 
-  cloud_firestore: ^6.0.1
-  cupertino_icons: ^1.0.8
-  firebase_core: ^4.1.0
   go_router: ^14.2.3
-  google_fonts: ^6.2.1
-  iconify_flutter: ^0.0.5
-  provider: ^6.1.2
   url_launcher: ^6.3.1
   shared_preferences: ^2.5.5
   flutter_localizations:
@@ -72,14 +66,9 @@ flutter:
     - assets/images/tunes/
     - assets/images/vilsa/
     - assets/images/sevkiyatvar/
-    - assets/images/visiostellar/
     - assets/images/peasy/
-    - assets/images/travelai/
-    - assets/images/experience/
     # Loaded only when a project figure needs it (project_figures.dart).
     - assets/fonts/montserrat/
-    # Bundled so text never waits on fonts.gstatic.com or reflows when fonts arrive.
-    - assets/google_fonts/
 
   # The redesign's three voices: a serif that speaks, a sans that is read and
   # a mono for facts. Declared here so the engine loads them before the first
