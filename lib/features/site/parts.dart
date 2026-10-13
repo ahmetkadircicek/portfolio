@@ -128,7 +128,7 @@ class ContactBand extends StatelessWidget {
     final top = Pressable(
       onTap: onTop,
       to: onTop == null ? '/' : null,
-      builder: (context, _, __) => Center(widthFactor: 1, child: Text('${context.t(Copy.top)} ↑', style: note)),
+      builder: (context, _, _) => Center(widthFactor: 1, child: Text('${context.t(Copy.top)} ↑', style: note)),
     );
     final copyright = Text('© ${DateTime.now().year} ${Profile.name}', style: note);
     final source = TextLink(label: context.t(Copy.builtWith), to: Profile.source, style: note);

@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:portfolio/core/data/work.dart';
 import 'package:portfolio/core/init/navigation/app_router.dart';
+import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/main.dart';
 
 import 'home_page_test.dart' show loadSiteFonts;
@@ -59,7 +60,28 @@ void main() {
     await _close(tester);
   });
 
+  testWidgets('/tr pages are in turkish', (tester) async {
+    await _open(tester, '/tr${tunes.path}');
+    expect(_location, '/tr${tunes.path}');
+    expect(find.text(tunes.chapters.first.lead.tr), findsOneWidget);
+    await _close(tester);
+  });
+
+  testWidgets('old german pages lead to the english ones', (tester) async {
+    await _open(tester, '/de${tunes.path}');
+    expect(_location, tunes.path);
+    await _close(tester);
+  });
+
+  testWidgets('old turkish experience pages lead to the turkish about', (tester) async {
+    await _open(tester, '/tr/experience/huawei');
+    expect(_location, '/tr/about');
+    await _close(tester);
+  });
+
   test('tab titles', () {
+    expect(AppRouter.titleFor(Uri.parse('/tr')), AppRouter.homeTitleIn(AppLanguage.tr));
+    expect(AppRouter.titleFor(Uri.parse('/tr/projects/vilsa')), 'Vilsa — ${AppRouter.siteName}');
     expect(AppRouter.titleFor(Uri.parse('/')), AppRouter.homeTitle);
     expect(AppRouter.titleFor(Uri.parse('/about')), AppRouter.homeTitle);
     expect(AppRouter.titleFor(Uri.parse('/projects/tunes')), 'Tunes — ${AppRouter.siteName}');
