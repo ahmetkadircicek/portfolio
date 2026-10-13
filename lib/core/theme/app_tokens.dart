@@ -30,6 +30,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
 
   final Color error;
 
+  /// Keyboard focus ring; on dark blocks the ring takes [onBlock].
+  final Color focus;
+
   const AppPalette({
     required this.ink,
     required this.inkMuted,
@@ -48,6 +51,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
     required this.statusEarly,
     required this.statusArchive,
     required this.error,
+    required this.focus,
   });
 
   static const light = AppPalette(
@@ -68,6 +72,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
     statusEarly: Color(0xFF1565C0),
     statusArchive: Color(0xFF6A1B9A),
     error: Color(0xFFC62828),
+    focus: Color(0xFF1F2024),
   );
 
   @override
@@ -95,6 +100,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
       statusEarly: l(statusEarly, other.statusEarly),
       statusArchive: l(statusArchive, other.statusArchive),
       error: l(error, other.error),
+      focus: l(focus, other.focus),
     );
   }
 }
@@ -149,6 +155,15 @@ class AppShadow {
 
   /// Same layers fully transparent, so [soft] can animate in and out.
   static final none = [for (final s in soft) s.copyWith(color: s.color.withValues(alpha: 0))];
+}
+
+/// The keyboard focus ring: a line around the focused control with a gap,
+/// following its shape.
+class AppFocus {
+  AppFocus._();
+
+  static const double width = 2;
+  static const double gap = 3;
 }
 
 class AppMotion {

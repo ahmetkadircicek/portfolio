@@ -6,8 +6,9 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- page:head: tool/generate_site_test.dart writes this per page and language. -->
   <title>Ahmet Kadir Çiçek — Mobile Developer</title>
-  <meta name="description" content="Portfolio of Ahmet Kadir Çiçek, a cross-platform and native mobile developer building user-friendly apps with Flutter, Swift and Firebase.">
+  <meta name="description" content="I build mobile apps that are easy to use and do their job well.">
   <meta name="author" content="Ahmet Kadir Çiçek">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://ahmetkadircicek.com.tr/">
@@ -18,11 +19,23 @@
   <meta property="og:title" content="Ahmet Kadir Çiçek — Mobile Developer">
   <meta property="og:description" content="Make it simple. I build mobile apps that are easy to use and do their job well.">
   <meta property="og:url" content="https://ahmetkadircicek.com.tr/">
-  <meta property="og:image" content="https://ahmetkadircicek.com.tr/og-image.jpg">
+  <meta property="og:image" content="https://ahmetkadircicek.com.tr/og/en/home.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Ahmet Kadir Çiçek — Make it simple">
   <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ahmet Kadir Çiçek",
+    "jobTitle": "Mobile Developer",
+    "url": "https://ahmetkadircicek.com.tr/",
+    "image": "https://ahmetkadircicek.com.tr/assets/assets/images/common/profile.jpg",
+    "sameAs": ["https://github.com/ahmetkadircicek"]
+  }
+  </script>
+  <!-- /page:head -->
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -36,33 +49,35 @@
   <link rel="manifest" href="manifest.json">
 
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Ahmet Kadir Çiçek",
-    "jobTitle": "Cross and Native Mobile Developer",
-    "url": "https://ahmetkadircicek.com.tr/",
-    "image": "https://ahmetkadircicek.com.tr/og-image.jpg",
-    "sameAs": ["https://github.com/ahmetkadircicek"]
-  }
-  </script>
 
   <style>
     html, body { margin: 0; height: 100%; background: #ffffff; }
-    /* Shown until Flutter paints its first frame. */
+    /* The same font files the app loads, so they are fetched once. */
+    @font-face {
+      font-family: 'Instrument Sans'; font-weight: 500; font-display: swap;
+      src: url(assets/assets/fonts/InstrumentSans-Medium.ttf) format('truetype');
+    }
+    @font-face {
+      font-family: 'Geist Mono'; font-weight: 400; font-display: swap;
+      src: url(assets/assets/fonts/GeistMono-Regular.ttf) format('truetype');
+    }
+    /* The greeting: the name and the role until the app's first frame, then
+       it fades out. Matches the app's tokens (canvas, ink, inkSubtle, the
+       sans for the name and the mono label for the role). */
     #loader {
-      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
-      background: #ffffff; transition: opacity .3s ease; z-index: 1;
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 0 24px;
+      background: #ffffff; color: #1f2024; text-align: center;
+      font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 15px;
+      transition: opacity .5s cubic-bezier(.215, .61, .355, 1); z-index: 1;
     }
     #loader.done { opacity: 0; pointer-events: none; }
-    #loader span {
-      width: 28px; height: 28px; border-radius: 50%;
-      border: 1.5px solid rgba(31, 32, 36, .12); border-top-color: rgba(31, 32, 36, .7);
-      animation: spin .9s linear infinite;
+    #loader p { margin: 0; }
+    #loader .hello { font-weight: 500; line-height: 1.4; margin-bottom: 6px; }
+    #loader .role {
+      font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: .04em;
+      text-transform: uppercase; line-height: 1.4; color: rgba(31, 32, 36, .62);
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @media (prefers-reduced-motion: reduce) { #loader span { animation-duration: 2.5s; } }
     /* Text version of the site for search engines and screen readers;
        Flutter draws to a canvas, which neither can read. */
     .sr-only {
@@ -72,34 +87,43 @@
   </style>
 </head>
 <body>
-  <div id="loader" aria-hidden="true"><span></span></div>
+  <div id="loader" aria-hidden="true">
+    <p class="hello"></p>
+    <p class="role"></p>
+  </div>
+  <script>
+    // The greeting in the language the app will open in: the address's
+    // (/tr/...), else at / the visitor's last pick, else English. Texts are
+    // Profile.name and Copy.pageTitleRole; test/loader_test.dart keeps them
+    // in step.
+    (function () {
+      var texts = {
+        en: ['Ahmet Kadir Çiçek', 'Mobile Developer'],
+        tr: ['Ahmet Kadir Çiçek', 'Mobil Geliştirici']
+      };
+      var language = 'en';
+      var first = location.pathname.split('/')[1];
+      if (first === 'tr') {
+        language = first;
+      } else if (location.pathname === '/') {
+        try {
+          var saved = JSON.parse(localStorage.getItem('flutter.language'));
+          if (texts[saved]) language = saved;
+        } catch (e) {}
+      }
+      document.documentElement.lang = language;
+      var loader = document.getElementById('loader');
+      loader.querySelector('.hello').textContent = texts[language][0];
+      loader.querySelector('.role').textContent = texts[language][1];
+    })();
+  </script>
 
+  <!-- page:body: the page as text, also written per page. -->
   <main class="sr-only">
-    <h1>Ahmet Kadir Çiçek — Cross-platform and native mobile developer</h1>
-    <p>Make it simple. I build mobile apps that are easy to use and do their job well.</p>
-    <nav>
-      <a href="/projects">Projects</a>
-      <a href="/experience">Experience</a>
-      <a href="/contact">Request a project</a>
-      <a href="/ahmet-kadir-cicek-cv.pdf">Download CV</a>
-      <a href="https://github.com/ahmetkadircicek">GitHub</a>
-    </nav>
-    <section>
-      <h2>Projects</h2>
-      <article><h3><a href="/projects/tunes">Tunes.AI — AI music platform</a></h3><p>A music app that creates songs and playlists with AI, built from scratch with Flutter and Firebase.</p></article>
-      <article><h3><a href="/projects/vilsa">Vilsa — Stock portfolio tracker</a></h3><p>A Flutter app for tracking stock portfolios across markets, with dividend tracking.</p></article>
-      <article><h3><a href="/projects/sevkiyatvar">Sevkiyatvar — Logistics platform</a></h3><p>An existing logistics app rebuilt in Flutter with a clearer interface for drivers and dispatchers.</p></article>
-      <article><h3><a href="/projects/travelai">TravelAI — Travel companion</a></h3><p>A social travel app where people share routes and hidden spots, with AI suggestions.</p></article>
-      <article><h3><a href="/projects/visiostellar">Visiostellar — iOS astronomy app</a></h3><p>My first iOS app: space news, celestial objects and astronomy basics, written in Swift.</p></article>
-      <article><h3><a href="/projects/peasy">Peasy — Self-checkout app</a></h3><p>A self-checkout app with NFC, built as a graduation project in a team of four.</p></article>
-    </section>
-    <section>
-      <h2>Experience</h2>
-      <article><h3><a href="/experience/huawei">Mobile Developer — Huawei Türkiye R&amp;D Center</a></h3><p>HarmonyOS watch apps in ArkTS and JS, and support for partner teams until their app is live.</p></article>
-      <article><h3><a href="/experience/freelance">Freelance Mobile Developer — Independent client projects</a></h3><p>Flutter apps from the first requirement to the store, with push notifications.</p></article>
-      <article><h3><a href="/experience/ibb">Mobile Developer Intern — Istanbul Metropolitan Municipality</a></h3><p>A Flutter app built end to end with NFC, AI features and push notifications.</p></article>
-    </section>
+    <h1>Ahmet Kadir Çiçek — Mobile Developer</h1>
+    <p>I like taking an app from a rough idea to a working product on my own: research, design and code.</p>
   </main>
+  <!-- /page:body -->
 
   <noscript>This portfolio needs JavaScript. You can still <a href="/ahmet-kadir-cicek-cv.pdf">download my CV</a>.</noscript>
 
@@ -107,7 +131,7 @@
     window.addEventListener('flutter-first-frame', function () {
       var loader = document.getElementById('loader');
       loader.classList.add('done');
-      setTimeout(function () { loader.remove(); }, 400);
+      setTimeout(function () { loader.remove(); }, 600);
     });
   </script>
   <script>
