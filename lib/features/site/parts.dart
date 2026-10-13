@@ -37,7 +37,11 @@ class SectionHeader extends StatelessWidget {
         child: context.isMobile
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [title, MonoLabel(context.t(detail))],
+                children: [
+                  title,
+                  const SizedBox(width: AppSpace.x4),
+                  Flexible(child: MonoLabel(context.t(detail))),
+                ],
               )
             : GridRow(cells: [
                 GridCell(start: 1, span: 3, child: title),
@@ -166,7 +170,7 @@ class ContactBand extends StatelessWidget {
                             children: [
                               links,
                               source,
-                              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [copyright, top]),
+                              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Flexible(child: copyright), top]),
                             ],
                           )
                         : GridRow(crossAxisAlignment: CrossAxisAlignment.center, cells: [
