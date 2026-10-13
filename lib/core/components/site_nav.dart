@@ -142,7 +142,7 @@ class _SiteNavState extends State<SiteNav> {
                     onTap: () => setState(() => _open = !_open),
                     builder: (context, _, __) => Center(
                       widthFactor: 1,
-                      child: Text(context.t(_open ? Copy.close : Copy.menu).toUpperCase(),
+                      child: Text(context.upper(context.t(_open ? Copy.close : Copy.menu)),
                           style: type.label.copyWith(color: colors.ink)),
                     ),
                   )
@@ -269,7 +269,7 @@ class _Menu extends StatelessWidget {
                 to: Profile.cv,
                 builder: (context, _, __) => Center(
                   widthFactor: 1,
-                  child: Text('${context.t(Copy.cv)} ↗'.toUpperCase(), style: type.label.copyWith(color: colors.ink)),
+                  child: Text(context.upper('${context.t(Copy.cv)} ↗'), style: type.label.copyWith(color: colors.ink)),
                 ),
               ),
               const _LanguageToggle(),
