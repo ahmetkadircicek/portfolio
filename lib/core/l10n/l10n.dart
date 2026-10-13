@@ -80,4 +80,9 @@ extension LocalizedContext on BuildContext {
 
   /// [text] in the page's language.
   String t(L text) => text.of(language);
+
+  /// [text] in upper case by the page's language: Turkish keeps the dot
+  /// on İ.
+  String upper(String text) =>
+      (language == AppLanguage.tr ? text.replaceAll('i', 'İ') : text).toUpperCase();
 }
