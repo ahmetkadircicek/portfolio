@@ -79,6 +79,28 @@ flutter:
     # Bundled so text never waits on fonts.gstatic.com or reflows when fonts arrive.
     - assets/google_fonts/
 
+  # The redesign's three voices: a serif that speaks, a sans that is read and
+  # a mono for facts. Declared here so the engine loads them before the first
+  # frame. Licenses: assets/fonts/OFL-*.txt.
+  fonts:
+    - family: Instrument Serif
+      fonts:
+        - asset: assets/fonts/InstrumentSerif-Regular.ttf
+        - asset: assets/fonts/InstrumentSerif-Italic.ttf
+          style: italic
+    - family: Instrument Sans
+      fonts:
+        - asset: assets/fonts/InstrumentSans-Regular.ttf
+        - asset: assets/fonts/InstrumentSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/InstrumentSans-SemiBold.ttf
+          weight: 600
+    - family: Geist Mono
+      fonts:
+        - asset: assets/fonts/GeistMono-Regular.ttf
+        - asset: assets/fonts/GeistMono-Medium.ttf
+          weight: 500
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
