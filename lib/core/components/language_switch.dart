@@ -6,7 +6,7 @@ import 'package:portfolio/core/l10n/strings.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 
 /// One button in the top bar showing the current language; each press
-/// moves to the next one (EN → TR → DE).
+/// moves to the other one (EN ⇄ TR).
 class LanguageSwitch extends StatefulWidget {
   const LanguageSwitch({super.key});
 

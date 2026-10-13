@@ -5,8 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Languages of the site, in switcher order.
 enum AppLanguage {
   en('EN', 'English'),
-  tr('TR', 'Türkçe'),
-  de('DE', 'Deutsch');
+  tr('TR', 'Türkçe');
 
   final String short;
   final String nativeName;
@@ -15,25 +14,22 @@ enum AppLanguage {
   Locale get locale => Locale(name);
 }
 
-/// A text in every language of the site. All three are required, so a new
-/// text cannot ship half translated.
+/// A text in every language of the site. Both are required, so a new text
+/// cannot ship half translated.
 class L {
   final String en;
   final String tr;
-  final String de;
 
-  const L(this.en, {required this.tr, required this.de});
+  const L(this.en, {required this.tr});
 
   /// Same text in every language, e.g. a product name.
   const L.same(String text)
       : en = text,
-        tr = text,
-        de = text;
+        tr = text;
 
   String of(AppLanguage language) => switch (language) {
         AppLanguage.en => en,
         AppLanguage.tr => tr,
-        AppLanguage.de => de,
       };
 }
 
