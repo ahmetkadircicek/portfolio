@@ -41,8 +41,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _show(HomeSection section, {bool animate = true}) {
+    // Under a project page this page is built but not laid out.
+    if (!mounted || ModalRoute.isCurrentOf(context) == false) return;
     final box = _keys[section]?.currentContext?.findRenderObject() as RenderBox?;
-    if (box == null || !_controller.hasClients) return;
+    if (box == null || !box.attached || !box.hasSize || !_controller.hasClients) return;
     final position = _controller.position;
     final target = (position.pixels + box.localToGlobal(Offset.zero).dy - AppLayout.navHeight)
         .clamp(0.0, position.maxScrollExtent);
