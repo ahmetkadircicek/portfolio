@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:portfolio/core/components/pressable.dart';
 import 'package:portfolio/core/data/profile.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
+import 'package:url_launcher/link.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 
 /// The home page's sections the navigation leads to.
@@ -140,7 +142,7 @@ class _SiteNavState extends State<SiteNav> {
                   Pressable(
                     isButton: true,
                     onTap: () => setState(() => _open = !_open),
-                    builder: (context, _, __) => Center(
+                    builder: (context, _, _) => Center(
                       widthFactor: 1,
                       child: Text(context.upper(context.t(_open ? Copy.close : Copy.menu)),
                           style: type.label.copyWith(color: colors.ink)),
@@ -219,14 +221,23 @@ class _LanguageToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     final current = context.language;
     final other = AppLanguage.values.firstWhere((l) => l != current);
-    return Pressable(
-      isButton: true,
-      semanticLabel: other.nativeName,
-      onTap: () => LanguageManager.set(other),
-      builder: (context, hovered, _) => Center(
-        widthFactor: 1,
-        child: Text(other.short,
-            style: context.type.label.copyWith(color: hovered ? context.colors.ink : context.colors.inkMuted)),
+    // The same page in the other language, as a real link.
+    final uri = GoRouter.maybeOf(context)?.routerDelegate.currentConfiguration.uri ?? Uri(path: '/');
+    final (_, path) = AppLanguage.split(uri);
+    return Link(
+      uri: Uri.parse(other.localize(path)),
+      builder: (context, follow) => Pressable(
+        isButton: true,
+        semanticLabel: other.nativeName,
+        onTap: () {
+          LanguageManager.choose(other);
+          follow?.call();
+        },
+        builder: (context, hovered, _) => Center(
+          widthFactor: 1,
+          child: Text(other.short,
+              style: context.type.label.copyWith(color: hovered ? context.colors.ink : context.colors.inkMuted)),
+        ),
       ),
     );
   }
@@ -255,7 +266,7 @@ class _Menu extends StatelessWidget {
               child: Pressable(
                 to: onSection == null ? section.path : null,
                 onTap: onSection == null ? null : () => onSection!(section),
-                builder: (context, _, __) => Padding(
+                builder: (context, _, _) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: AppSpace.x2),
                   child: Text(context.t(section.title), style: link),
                 ),
@@ -267,7 +278,7 @@ class _Menu extends StatelessWidget {
             children: [
               Pressable(
                 to: Profile.cv,
-                builder: (context, _, __) => Center(
+                builder: (context, _, _) => Center(
                   widthFactor: 1,
                   child: Text(context.upper('${context.t(Copy.cv)} ↗'), style: type.label.copyWith(color: colors.ink)),
                 ),

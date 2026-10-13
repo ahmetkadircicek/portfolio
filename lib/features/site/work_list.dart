@@ -167,7 +167,7 @@ class _Text extends StatelessWidget {
         if (showLink)
           Pressable(
             to: project.path,
-            builder: (context, _, __) => Align(
+            builder: (context, _, _) => Align(
               alignment: Alignment.centerLeft,
               widthFactor: 1,
               child: Text(context.upper('${context.t(Copy.viewProject)} →'), style: type.label.copyWith(color: colors.ink)),
