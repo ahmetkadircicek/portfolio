@@ -173,4 +173,13 @@ class AppLayout {
 
   /// Width of long-form text such as project overviews.
   static const double readingWidth = 720;
+
+  /// The redesign's content column: at most this wide with the gutter, on a
+  /// grid of [columns] separated by [columnGap].
+  static const double pageWidth = 1200;
+  static const int columns = 12;
+  static const double columnGap = 24;
+
+  /// Height of the global navigation bar.
+  static const double navHeight = 52;
 }
