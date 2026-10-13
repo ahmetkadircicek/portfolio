@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/init/navigation/app_router.dart';
 
@@ -11,13 +10,7 @@ import 'core/theme/theme_manager.dart';
 Future<void> main() async {
   usePathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
-  // Fonts ship with the site (assets/google_fonts/); load them before the
-  // first frame so text never reflows.
-  GoogleFonts.config.allowRuntimeFetching = false;
-  GoogleFonts.montserrat(fontWeight: FontWeight.w400);
-  GoogleFonts.montserrat(fontWeight: FontWeight.w600);
-  GoogleFonts.cardo(fontWeight: FontWeight.w700);
-  await Future.wait([LanguageManager.load(), GoogleFonts.pendingFonts()]);
+  await LanguageManager.load();
 
   runApp(const MyApp());
 }

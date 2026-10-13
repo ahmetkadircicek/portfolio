@@ -125,6 +125,10 @@ class Copy {
   static const backToStart = L('Back to the start', tr: 'Başa dön');
   static const openSource = L('open source', tr: 'açık kaynak');
 
+  // Tab titles
+  static const pageTitleRole = L('Mobile Developer', tr: 'Mobil Geliştirici');
+  static const notFound = L('Page not found', tr: 'Sayfa bulunamadı');
+
   // Not found
   static const error404 = L('Error 404', tr: 'Hata 404');
   static const nothingHere = L('Nothing here.', tr: 'Burada bir şey yok.');

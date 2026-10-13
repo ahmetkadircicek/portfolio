@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:portfolio/core/components/site_nav.dart';
 import 'package:portfolio/core/data/work.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
-import 'package:portfolio/core/l10n/strings.dart';
+import 'package:portfolio/core/data/profile.dart';
 import 'package:portfolio/features/site/home_page.dart';
 import 'package:portfolio/features/site/not_found_page.dart';
 import 'package:portfolio/features/site/project_page.dart';
@@ -24,7 +24,7 @@ class AppRouter {
 
   static const homeTitle = '$siteName — Mobile Developer';
 
-  static String homeTitleIn(AppLanguage language) => '$siteName — ${S.pageTitleRole.of(language)}';
+  static String homeTitleIn(AppLanguage language) => '$siteName — ${Copy.pageTitleRole.of(language)}';
 
   /// Browser tab title of the page at [uri]. Set once above the router, so
   /// a page that is fading out can never write its own title last.
@@ -38,7 +38,7 @@ class AppRouter {
       final project = projectBySlug(segments[1]);
       if (project != null) return page(project.name);
     }
-    return page(S.notFound.of(language));
+    return page(Copy.notFound.of(language));
   }
 
   static const _sections = {'home', 'projects', 'about', 'contact', 'experience'};

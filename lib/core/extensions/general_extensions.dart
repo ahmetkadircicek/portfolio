@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/theme/app_text.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 import 'package:portfolio/core/theme/app_type.dart';
 
@@ -10,9 +9,6 @@ extension BuildContextExtension on BuildContext {
   bool get isMobile => width <= AppBreakpoints.mobile;
   bool get isDesktop => width >= AppBreakpoints.desktop;
   bool get isTablet => !isMobile && !isDesktop;
-
-  /// Type scale for the current width.
-  AppText get text => AppText.of(isDesktop ? 'desktop' : (isTablet ? 'tablet' : 'mobile'), colors.ink);
 
   /// The redesign's type scale (serif, sans and mono) for the current width.
   AppType get type => AppType.of(isDesktop ? 'desktop' : (isTablet ? 'tablet' : 'mobile'), colors.ink);
