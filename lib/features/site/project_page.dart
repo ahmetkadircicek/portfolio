@@ -3,27 +3,29 @@ import 'package:portfolio/core/components/grid.dart';
 import 'package:portfolio/core/components/pressable.dart';
 import 'package:portfolio/core/components/screen_stage.dart';
 import 'package:portfolio/core/components/site_nav.dart';
+import 'package:portfolio/core/data/figures.dart';
 import 'package:portfolio/core/data/profile.dart';
 import 'package:portfolio/core/data/work.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/l10n/l10n.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
 import 'package:portfolio/features/site/parts.dart';
+import 'package:portfolio/features/site/project_figures.dart';
 
 /// A project's case study at `/projects/<slug>`: the title and facts, the
 /// cover, the chapters, the screens, the technology and the way on to the
-/// next project. [figures] are the project's own diagrams, shown after its
-/// second chapter.
+/// next project. The project's notebook (see figures.dart) adds its
+/// diagrams after the second chapter and its tables inside chapters.
 class ProjectPage extends StatelessWidget {
   final Project project;
-  final Widget? figures;
 
-  const ProjectPage({super.key, required this.project, this.figures});
+  const ProjectPage({super.key, required this.project});
 
   @override
   Widget build(BuildContext context) {
     final mobile = context.isMobile;
     final chapterGap = mobile ? AppSpace.x20 : AppSpace.x30;
+    final notebook = notebookOf(project);
     return SitePage(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -40,10 +42,10 @@ class ProjectPage extends StatelessWidget {
           ),
           for (final (i, chapter) in project.chapters.indexed) ...[
             SizedBox(height: chapterGap),
-            _Chapter(number: i + 1, chapter: chapter),
-            if (i == 1 && figures != null) ...[
+            _Chapter(number: i + 1, chapter: chapter, table: notebook?.tables[i]),
+            if (i == 1 && notebook != null) ...[
               SizedBox(height: mobile ? AppSpace.x6 : AppSpace.x12),
-              PageColumn(child: figures!),
+              PageColumn(child: NotebookFigures(notebook: notebook)),
             ],
           ],
           SizedBox(height: chapterGap),
@@ -173,8 +175,9 @@ class _Header extends StatelessWidget {
 class _Chapter extends StatelessWidget {
   final int number;
   final Chapter chapter;
+  final ChapterTable? table;
 
-  const _Chapter({required this.number, required this.chapter});
+  const _Chapter({required this.number, required this.chapter, this.table});
 
   @override
   Widget build(BuildContext context) {
@@ -188,6 +191,7 @@ class _Chapter extends StatelessWidget {
           const SizedBox(height: AppSpace.x5),
           Text(context.t(paragraph), style: type.body.copyWith(color: context.colors.inkMuted)),
         ],
+        if (table != null) ...[const SizedBox(height: AppSpace.x8), ChapterTableView(table!)],
       ],
     );
     return PageColumn(
@@ -274,7 +278,7 @@ class _Technology extends StatelessWidget {
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(context.t(group).toUpperCase(), style: type.note.copyWith(color: colors.inkSubtle)),
+                        Text(context.upper(context.t(group)), style: type.note.copyWith(color: colors.inkSubtle)),
                         Text(tools, style: type.bodySmall),
                       ],
                     )
@@ -284,7 +288,7 @@ class _Technology extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: 200,
-                          child: Text(context.t(group).toUpperCase(), style: type.note.copyWith(color: colors.inkSubtle)),
+                          child: Text(context.upper(context.t(group)), style: type.note.copyWith(color: colors.inkSubtle)),
                         ),
                         const SizedBox(width: AppSpace.x6),
                         Expanded(child: Text(tools, style: type.bodySmall)),

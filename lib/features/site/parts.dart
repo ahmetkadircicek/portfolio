@@ -15,7 +15,7 @@ class MonoLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text.toUpperCase(), style: context.type.label.copyWith(color: color ?? context.colors.inkSubtle));
+    return Text(context.upper(text), style: context.type.label.copyWith(color: color ?? context.colors.inkSubtle));
   }
 }
 

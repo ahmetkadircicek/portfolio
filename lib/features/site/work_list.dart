@@ -170,7 +170,7 @@ class _Text extends StatelessWidget {
             builder: (context, _, __) => Align(
               alignment: Alignment.centerLeft,
               widthFactor: 1,
-              child: Text('${context.t(Copy.viewProject)} →'.toUpperCase(), style: type.label.copyWith(color: colors.ink)),
+              child: Text(context.upper('${context.t(Copy.viewProject)} →'), style: type.label.copyWith(color: colors.ink)),
             ),
           ),
       ],
@@ -199,7 +199,7 @@ class _ViewPill extends StatelessWidget {
             decoration: BoxDecoration(color: context.colors.ink, borderRadius: AppRadius.pillAll),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpace.x4, vertical: 10),
-              child: Text('${context.t(Copy.viewProject)} →'.toUpperCase(),
+              child: Text(context.upper('${context.t(Copy.viewProject)} →'),
                   style: context.type.label.copyWith(color: context.colors.onInk)),
             ),
           ),
