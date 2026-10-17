@@ -41,6 +41,9 @@ class Project {
   /// Technology by group, e.g. `(App, Flutter · Dart)`.
   final List<(L, String)> technology;
 
+  /// Pages that belong to the project, e.g. its privacy policy: label, URL.
+  final List<(L, String)> links;
+
   const Project({
     required this.slug,
     required this.name,
@@ -59,6 +62,7 @@ class Project {
     required this.chapters,
     required this.screens,
     required this.technology,
+    this.links = const [],
   });
 
   String get path => '/projects/$slug';
@@ -89,6 +93,7 @@ const _tunes = 'assets/images/tunes/tunes_screenshots';
 const _vilsa = 'assets/images/vilsa/vilsa_screenshots';
 const _sevk = 'assets/images/sevkiyatvar/sevkiyatvar_screenshots';
 const _peasy = 'assets/images/peasy/peasy_screenshots';
+const _tahtaya = 'assets/images/tahtaya_kalk/tahtaya_kalk_screenshots';
 
 const _app = L('App', tr: 'Uygulama');
 const _backend = L('Backend', tr: 'Backend');
@@ -96,7 +101,143 @@ const _design = L('Design', tr: 'Tasarım');
 
 /// Every project, in home page order. The last one's "next project" leads
 /// back to the first.
-const work = [tunes, vilsa, sevkiyatvar, peasy];
+const work = [tahtayaKalk, tunes, vilsa, sevkiyatvar, peasy];
+
+const tahtayaKalk = Project(
+  slug: 'tahtaya-kalk',
+  name: 'Tahtaya Kalk',
+  descriptor: L('Drawing Party Game', tr: 'Çizerek Anlatma Oyunu'),
+  lede: L(
+    'A Turkish party game for iPhone and iPad: one player draws a word on a real board while their team guesses, and the app deals the words, runs the timer and keeps score.',
+    tr: 'iPhone ve iPad için Türkçe bir parti oyunu: bir oyuncu kelimeyi gerçek bir tahtaya çizer, takımı tahmin eder; kelimeleri dağıtmak, süreyi tutmak ve puanı saymak uygulamanın işi.',
+  ),
+  summary: L(
+    'Draw the word, your team guesses; the app keeps the time and the score.',
+    tr: 'Kelimeyi çiz, takımın bilsin; süreyi ve puanı uygulama tutsun.',
+  ),
+  label: L('Personal · preparing for TestFlight', tr: 'Kişisel · TestFlight’a hazırlanıyor'),
+  role: L('Solo — idea, design, code', tr: 'Tek başıma — fikir, tasarım, kod'),
+  platform: L('iPhone & iPad · 2026', tr: 'iPhone ve iPad · 2026'),
+  status: L('Preparing for TestFlight', tr: 'TestFlight’a hazırlanıyor'),
+  stack: 'Swift · SwiftUI · Observation · AVFoundation',
+  logo: 'assets/images/tahtaya_kalk/tahtaya_kalk_logo.webp',
+  color: Color(0xFF3B7BFF),
+  cover: ['${_tahtaya}_3.webp', '${_tahtaya}_1.webp', '${_tahtaya}_4.webp', '${_tahtaya}_6.webp', '${_tahtaya}_7.webp'],
+  chapters: [
+    Chapter(
+      label: L('The idea', tr: 'Fikir'),
+      lead: L(
+        'A drawing game for a room full of people, where the phone stays out of the way.',
+        tr: 'Kalabalık bir oda için bir çizim oyunu; telefon işin önüne geçmiyor.',
+      ),
+      body: [
+        L(
+          'One player draws on a whiteboard or on paper while their team guesses. Two to four teams play; before the game you pick the turn length, the number of rounds and the free passes per turn. A guessed word is a point; a pass is free until the turn’s free passes run out, then it costs a point. Teams with the same top score share the win, and a rematch starts with the same settings. It is my own project, from the idea to the code, built with AI coding assistants.',
+          tr: 'Bir oyuncu tahtaya ya da kâğıda çizer, takımı tahmin eder. İki ila dört takım oynar; oyundan önce tur süresi, tur sayısı ve tur başına bedava pas seçilir. Bilinen kelime bir puan; pas, turun bedava pasları bitene kadar ücretsiz, sonra bir puan götürür. En yüksek puanda eşit kalan takımlar galibiyeti paylaşır, rövanş aynı ayarlarla başlar. Fikirden koda kendi projem; yapay zekâ kodlama asistanlarıyla geliştirdim.',
+        ),
+      ],
+    ),
+    Chapter(
+      label: L('Design', tr: 'Tasarım'),
+      lead: L(
+        'Loud, chunky and readable on every team’s color.',
+        tr: 'Gürültülü, tombul ve her takımın renginde okunur.',
+      ),
+      body: [
+        L(
+          'A cartoonish 3D style borrowed from mobile party games: thick dark ink outlines, hard drop shadows and SF Rounded in its Black weight. The whole background takes the color of the team that is playing, so badges and rows sit on white with a colored dot, or on lime when the team itself is yellow, and stay readable on all four colors. The copy is playful Turkish, like “Süre bitti, kalemler yere!”, time’s up, pens down.',
+          tr: 'Mobil parti oyunlarından ödünç alınmış çizgi filmsi bir 3D stil: kalın koyu mürekkep konturları, sert gölgeler ve Black ağırlığında SF Rounded. Arka planın tamamı oynayan takımın rengini alıyor; rozetler ve satırlar bu yüzden renkli noktalı beyaz zeminde, takım sarıysa limon yeşilinde duruyor ve dört rengin hepsinde okunuyor. Metinler esprili bir Türkçe: “Süre bitti, kalemler yere!” gibi.',
+        ),
+      ],
+    ),
+    Chapter(
+      label: L('Engineering', tr: 'Mühendislik'),
+      lead: L(
+        'One state machine, and a timer that cannot drift.',
+        tr: 'Tek bir durum makinesi ve kayamayan bir sayaç.',
+      ),
+      body: [
+        L(
+          'Swift and SwiftUI with the Observation framework. One state machine drives every screen, from setup to the final scores. The timer is worked out from an end date checked every 200 ms rather than from counted ticks, so pausing is exact, and the game pauses itself when the app goes to the background. Sound plays on an ambient audio session, so it respects the silent switch and mixes with music already playing, and sound and haptics have their own switches.',
+          tr: 'Observation framework ile Swift ve SwiftUI. Tek bir durum makinesi kurulumdan final skorlarına kadar her ekranı yönetiyor. Sayaç, sayılan tiklerden değil her 200 ms’de kontrol edilen bir bitiş zamanından hesaplanıyor; bu yüzden duraklatma tam isabetli ve uygulama arka plana geçince oyun kendini duraklatıyor. Ses, ambient bir ses oturumunda çalıyor; sessiz moda uyuyor ve çalan müziğe karışıyor. Ses ve titreşimin ayrı anahtarları var.',
+        ),
+        L(
+          'Nothing leaves the phone: no account, no ads, no analytics. Settings and the history of seen words live in UserDefaults, and the App Store privacy answer is “Data Not Collected”. There are no unit tests yet; a UI test target takes the App Store screenshots, and I play-tested the game on an iPhone SE, an iPhone 17 Pro Max and an iPad Pro in the Simulator.',
+          tr: 'Telefondan hiçbir şey çıkmıyor: hesap yok, reklam yok, analitik yok. Ayarlar ve görülen kelimelerin geçmişi UserDefaults’ta duruyor; App Store gizlilik cevabı “Veri Toplanmıyor”. Henüz birim testi yok; bir UI test hedefi App Store ekran görüntülerini çekiyor ve oyunu Simülatör’de iPhone SE, iPhone 17 Pro Max ve iPad Pro üzerinde oynayarak test ettim.',
+        ),
+      ],
+    ),
+    Chapter(
+      label: L('The words', tr: 'Kelimeler'),
+      lead: L(
+        'The hardest part was never dealing the same word twice.',
+        tr: 'En zor kısım, aynı kelimeyi asla iki kez vermemekti.',
+      ),
+      body: [
+        L(
+          'A word must not come back within a game, words nobody has seen in earlier games should come first, each level borrows a fixed slice of the level below, and undoing a turn or fixing the summary must not put a seen word back in the deck. Each game keeps a set of used words and each level a history of seen ones, and every new deck is drawn from words that are in neither. When a whole level has been seen, its history starts again from this game’s words.',
+          tr: 'Bir kelime aynı oyunda geri gelmemeli, önceki oyunlarda kimsenin görmediği kelimeler önce çıkmalı, her seviye bir alt seviyeden sabit bir dilim almalı; turu geri almak ya da özeti düzeltmek görülmüş bir kelimeyi desteye geri koymamalı. Her oyun kullanılan kelimelerin, her seviye de görülenlerin kaydını tutuyor; her yeni deste ikisinde de olmayan kelimelerden çekiliyor. Bir seviyenin tamamı görülünce geçmişi bu oyunun kelimeleriyle yeniden başlıyor.',
+        ),
+        L(
+          'Keeping the word secret came close. The drawer holds the phone while the team faces the board, so the word stays hidden until the card is pressed and held, and each new word opens for a moment and closes again.',
+          tr: 'Kelimeyi gizli tutmak da az kalsın o kadar zordu. Çizen telefonu tutarken takım tahtaya bakıyor; bu yüzden kelime kart basılı tutulana kadar gizli kalıyor, her yeni kelime bir an açılıp yeniden kapanıyor.',
+        ),
+      ],
+    ),
+    Chapter(
+      label: L('What I learned', tr: 'Öğrendiklerim'),
+      lead: L('Curating beats volume.', tr: 'Seçmek, çoğaltmaktan iyidir.'),
+      body: [
+        L(
+          'A quality pass flagged 127 words that were hard to draw or wrong for their level, and the lists went from 2,700 words to 2,607; keeping abstract words for the hardest level made the levels feel distinct. Real-time timers should come from end dates, not counted ticks. Party games need big targets, sound and haptic feedback, and corrections that forgive a wrong tap. And AI agents do mechanical work best when it comes as written tasks, with a separate build and review step afterwards.',
+          tr: 'Bir kalite taraması çizmesi zor ya da seviyesine uymayan 127 kelime buldu; listeler 2.700 kelimeden 2.607’ye indi. Soyut kelimeleri en zor seviyeye ayırmak seviyeleri birbirinden belirgin şekilde ayırdı. Gerçek zamanlı sayaçlar sayılan tiklerden değil bitiş zamanlarından gelmeli. Parti oyunları büyük dokunma alanları, ses ve titreşim geri bildirimi ve yanlış dokunuşu affeden düzeltmeler ister. Yapay zekâ ajanları da mekanik işi en iyi yazılı görevler olarak aldıklarında yapıyor; ardından ayrı bir build ve inceleme adımıyla.',
+        ),
+      ],
+    ),
+  ],
+  screens: [
+    Screen('${_tahtaya}_1.webp',
+        title: L('Pick the rules', tr: 'Kuralları seç'),
+        caption: L('Teams, turn length, free passes, rounds, and sound and haptics under the logo.',
+            tr: 'Logonun altında takımlar, tur süresi, bedava pas, tur sayısı, ses ve titreşim.')),
+    Screen('${_tahtaya}_2.webp',
+        title: L('Choose how hard', tr: 'Zorluğu seç'),
+        caption: L('The four levels with their word counts, the start button and the estimated game length.',
+            tr: 'Kelime sayılarıyla dört seviye, başlat düğmesi ve tahmini oyun süresi.')),
+    Screen('${_tahtaya}_3.webp',
+        title: L('Whose turn is it?', tr: 'Sıra kimde?'),
+        caption: L('After the opening draw: the starting team, a reminder to hide the phone and the scoreboard.',
+            tr: 'Açılış kurasından sonra: başlayan takım, telefonu saklama hatırlatması ve puan tablosu.')),
+    Screen('${_tahtaya}_4.webp',
+        title: L('Draw it, don’t say it', tr: 'Çiz, söyleme'),
+        caption: L('The secret word, the countdown, the turn score, undo, and Pas and Bildi.',
+            tr: 'Gizli kelime, geri sayım, tur puanı, geri al ve Pas ile Bildi.')),
+    Screen('${_tahtaya}_5.webp',
+        title: L('Pens down', tr: 'Kalemler yere'),
+        caption: L('Time is up, and the team says whether the last word was guessed in time.',
+            tr: 'Süre bitti; takım son kelimenin zamanında bilinip bilinmediğini söylüyor.')),
+    Screen('${_tahtaya}_6.webp',
+        title: L('Fix a mis-tap', tr: 'Yanlış dokunuşu düzelt'),
+        caption: L('Every word of the turn; a tap flips Bildi and Pas and the score follows.',
+            tr: 'Turun her kelimesi; bir dokunuş Bildi ile Pas’ı değiştirir, puan da takip eder.')),
+    Screen('${_tahtaya}_7.webp',
+        title: L('And the winner is', tr: 'Ve kazanan'),
+        caption: L('The final scores with a rematch button.', tr: 'Rövanş düğmesiyle final skorları.')),
+    Screen('${_tahtaya}_8.webp',
+        title: L('The rules in one card', tr: 'Tek kartta kurallar'),
+        caption: L('How to play, shown on first launch.', tr: 'Nasıl oynanır; ilk açılışta gösterilir.')),
+  ],
+  technology: [
+    (_app, 'Swift, SwiftUI, Observation'),
+    (L('Data', tr: 'Veri'), 'UserDefaults, bundled word lists'),
+    (L('Sound', tr: 'Ses'), 'AVAudioPlayer, UIFeedbackGenerator, CC0 sounds from Kenney.nl'),
+    (L('Tooling', tr: 'Araçlar'), 'XcodeGen, Xcode UI tests, Claude Code, Google Antigravity'),
+  ],
+  links: [
+    (L('Privacy policy', tr: 'Gizlilik politikası'), 'https://ahmetkadircicek.com.tr/tahtaya-kalk/privacy'),
+    (L('Support', tr: 'Destek'), 'https://ahmetkadircicek.com.tr/tahtaya-kalk/support'),
+  ],
+);
 
 const tunes = Project(
   slug: 'tunes',
