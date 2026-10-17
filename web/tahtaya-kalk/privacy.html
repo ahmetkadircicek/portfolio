@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tahtaya Kalk — Gizlilik Politikası / Privacy Policy</title>
+  <meta name="description" content="Tahtaya Kalk iOS oyunu gizlilik politikası. Hiçbir kişisel veri toplanmaz, işlenmez veya paylaşılmaz. GDPR ve KVKK uyumluluk bildirimi.">
+  <meta name="author" content="Ahmet Kadir Çiçek">
+  <link rel="canonical" href="https://ahmetkadircicek.com.tr/tahtaya-kalk/privacy">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+
+  <!-- Google Fonts: Portfolio typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #1F2024;
+      --ink-muted: rgba(31, 32, 36, 0.72);
+      --ink-subtle: rgba(31, 32, 36, 0.62);
+      --line: rgba(31, 32, 36, 0.10);
+      --canvas: #FFFFFF;
+      --surface: #F3F2F7;
+      --surface-hover: #EAE9F0;
+      --block: #1F2024;
+      --on-block: #FFFFFF;
+      --on-block-muted: rgba(255, 255, 255, 0.70);
+      --font-serif: "Instrument Serif", Georgia, serif;
+      --font-sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: opacity 0.15s ease;
+    }
+    a:hover { opacity: 0.75; }
+
+    /* Top Bar matching Portfolio SiteHeader */
+    .site-nav {
+      border-bottom: 1px solid var(--line);
+      padding: 14px 20px;
+      background: var(--canvas);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .site-nav-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .brand-role {
+      font-size: 12px;
+      color: var(--ink-muted);
+      line-height: 1.2;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink-muted);
+    }
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    /* Container */
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* App Header Banner */
+    .app-hero {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 24px;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      margin-bottom: 36px;
+    }
+    .app-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(31, 32, 36, 0.12);
+      flex-shrink: 0;
+    }
+    .app-hero-info {
+      flex: 1;
+    }
+    .app-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-subtle);
+      margin-bottom: 4px;
+    }
+    .app-title {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .app-subtitle {
+      font-size: 14px;
+      color: var(--ink-muted);
+    }
+    .app-nav-pills {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: var(--canvas);
+      color: var(--ink);
+      transition: all 0.15s ease;
+    }
+    .pill.active {
+      background: var(--ink);
+      color: #FFFFFF;
+      border-color: var(--ink);
+    }
+    .pill:hover:not(.active) {
+      background: var(--surface-hover);
+    }
+
+    /* Lang Selector Anchor */
+    .lang-anchor-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+      margin-bottom: 32px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-subtle);
+    }
+    .lang-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .lang-links a:hover {
+      background: var(--surface);
+    }
+
+    /* Content Typography */
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 38px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .date-meta {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--ink-subtle);
+      margin-bottom: 28px;
+      display: block;
+    }
+    h2 {
+      font-family: var(--font-sans);
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 36px;
+      margin-bottom: 12px;
+      color: var(--ink);
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+    }
+    h2:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 24px;
+    }
+    p {
+      margin-bottom: 14px;
+      color: rgba(31, 32, 36, 0.88);
+    }
+    ul {
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+    li {
+      margin-bottom: 6px;
+      color: rgba(31, 32, 36, 0.88);
+    }
+
+    /* Highlight box */
+    .callout {
+      background: var(--surface);
+      border-left: 3px solid var(--ink);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 15px;
+    }
+    .callout strong {
+      color: var(--ink);
+    }
+
+    /* Divider between TR and EN */
+    .lang-divider {
+      margin: 64px 0 48px;
+      border: 0;
+      height: 1px;
+      background: var(--line);
+      position: relative;
+    }
+    .lang-divider::after {
+      content: "EN / ENGLISH";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--canvas);
+      padding: 0 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--ink-subtle);
+    }
+
+    /* Footer matching ContactBand */
+    .site-footer {
+      background: var(--block);
+      color: var(--on-block);
+      padding: 48px 20px 36px;
+      margin-top: 80px;
+      font-size: 14px;
+    }
+    .site-footer-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-brand h3 {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+    .footer-brand p {
+      color: var(--on-block-muted);
+      font-size: 13px;
+      margin: 0;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-links a {
+      color: var(--on-block-muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .footer-links a:hover {
+      color: var(--on-block);
+      text-decoration: underline;
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--on-block-muted);
+    }
+    .footer-bottom a {
+      color: var(--on-block-muted);
+    }
+
+    @media (max-width: 600px) {
+      .app-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .app-icon {
+        width: 60px;
+        height: 60px;
+      }
+      .app-title {
+        font-size: 28px;
+      }
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="site-nav">
+    <div class="site-nav-inner">
+      <a href="/" class="brand-link" title="Portföye Dön">
+        <img src="/assets/images/common/profile.jpg" alt="Ahmet Kadir Çiçek" class="avatar" onerror="this.style.display='none'">
+        <div class="brand-text">
+          <span class="brand-name">Ahmet Kadir Çiçek</span>
+          <span class="brand-role">Mobile Developer</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="/#projects">Projeler</a>
+        <a href="/tahtaya-kalk/support">Destek</a>
+        <a href="/tahtaya-kalk/privacy" style="color: var(--ink); font-weight: 600;">Gizlilik</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- App Hero Banner -->
+    <header class="app-hero">
+      <img src="/tahtaya-kalk/icon.png" alt="Tahtaya Kalk Logo" class="app-icon" onerror="this.src='/icons/apple-touch-icon.png'">
+      <div class="app-hero-info">
+        <div class="app-badge">iOS Oyunu · 4+ Yaş · Resmi Belge</div>
+        <div class="app-title">Tahtaya Kalk</div>
+        <div class="app-subtitle">Çizerek Anlat Parti Oyunu — Geliştirici: Ahmet Kadir Çiçek</div>
+        <div class="app-nav-pills">
+          <a href="/tahtaya-kalk/privacy" class="pill active">Gizlilik Politikası</a>
+          <a href="/tahtaya-kalk/support" class="pill">Destek &amp; SSS</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Language Quick-Jump -->
+    <div class="lang-anchor-bar">
+      <span>DİL / LANGUAGE</span>
+      <div class="lang-links">
+        <a href="#tr">Türkçe</a> · <a href="#en">English</a>
+      </div>
+    </div>
+
+    <!-- TURKISH SECTION -->
+    <article id="tr">
+      <h1>Gizlilik Politikası</h1>
+      <span class="date-meta">Son Güncelleme: 17 Ekim 2026 · Sürüm: 1.0</span>
+
+      <div class="callout">
+        <strong>Özet Taahhüt:</strong> Tahtaya Kalk uygulaması kullanıcılarından <strong>hiçbir kişisel veri toplamaz, işlemez, sunuculara göndermez veya üçüncü taraflarla paylaşmaz</strong>. Oyun ayarları ve kelime geçmişi yalnızca cihazınızın yerel hafızasında saklanır.
+      </div>
+
+      <h2>1. Veri Sorumlusu ve İletişim</h2>
+      <p>Bu gizlilik politikası, <strong>Ahmet Kadir Çiçek</strong> ("Geliştirici") tarafından geliştirilen ve Apple App Store üzerinden dağıtılan <strong>Tahtaya Kalk</strong> iOS uygulaması için geçerlidir.</p>
+      <p>Gizlilik, veri güvenliği veya uygulamanın işleyişi ile ilgili her türlü soru, öneri ve bildirim için iletişim adresimiz:</p>
+      <p>
+        <strong>Geliştirici:</strong> Ahmet Kadir Çiçek<br>
+        <strong>E-posta:</strong> <a href="mailto:akadircicek@outlook.com">akadircicek@outlook.com</a><br>
+        <strong>Web Sitesi:</strong> <a href="https://ahmetkadircicek.com.tr">https://ahmetkadircicek.com.tr</a>
+      </p>
+
+      <h2>2. Toplanmayan Veriler (Data Not Collected)</h2>
+      <p>Tahtaya Kalk, kullanıcı gizliliğini temel tasarım prensibi olarak benimsemiştir. Uygulamamız kapsamında:</p>
+      <ul>
+        <li><strong>Kimlik ve İletişim Bilgileri:</strong> Ad, soyad, e-posta adresi, telefon numarası gibi hiçbir kişisel kimlik verisi talep edilmez veya toplanmaz.</li>
+        <li><strong>Hesap ve Oturum:</strong> Uygulama herhangi bir kayıt, giriş veya kullanıcı hesabı gerektirmez; anonim hesap oluşturulmaz.</li>
+        <li><strong>Konum Verisi:</strong> GPS, hücresel ağ veya IP tabanlı konum bilgisine hiçbir şekilde erişilmez.</li>
+        <li><strong>Cihaz ve Donanım İzinleri:</strong> Kamera, mikrofon, Bluetooth, kişiler rehberi veya fotoğraf galerisi gibi hassas donanım izinleri talep edilmez ve kullanılmaz.</li>
+        <li><strong>Takip ve Reklam Kimlikleri:</strong> Apple IDFA (Reklam Tanımlayıcısı), IDFV veya herhangi bir dijital parmak izi (fingerprinting) izlenmez.</li>
+      </ul>
+
+      <h2>3. Yerel Veri Saklama (UserDefaults)</h2>
+      <p>Oyunun temel işlevlerini sorunsuz yerine getirebilmesi için yalnızca aşağıdaki yapılandırma tercihleri cihazınızın kendi yerel hafızasında (iOS <code>UserDefaults</code>) saklanır:</p>
+      <ul>
+        <li>Oyun tercihleri (seçilen takım sayısı, çizim süresi, bedava pas adedi, toplam tur sayısı).</li>
+        <li>Ses efektleri ve titreşim anahtarlarının açık/kapalı durumu.</li>
+        <li>Aynı oyun oturumu boyunca daha önce çıkmış olan kelimelerin tekrar gelmesini engelleyen geçici kelime kimlik geçmişi.</li>
+      </ul>
+      <p>Bu yerel veriler:</p>
+      <ul>
+        <li>Yalnızca cihazınızda kalır; geliştiriciye, bulut sunucularına veya harici sistemlere asla aktarılmaz.</li>
+        <li>Uygulamayı cihazınızdan sildiğiniz anda iOS işletim sistemi tarafından kalıcı olarak silinir.</li>
+      </ul>
+
+      <h2>4. Üçüncü Taraf Analitik, Takip ve Reklamlar</h2>
+      <p>Uygulama içerisinde hiçbir üçüncü taraf analiz kütüphanesi (Google Analytics, Firebase Analytics vb.), reklam ağı (AdMob, Unity Ads vb.), çerez (cookie) veya kullanıcı davranışı izleme modülü bulunmamaktadır.</p>
+
+      <h2>5. Çocukların Gizliliği (COPPA ve GDPR-K Uyumluluğu)</h2>
+      <p>Tahtaya Kalk, 4 yaş ve üzeri (4+) derecelendirmesine sahip, aileler, çocuklar ve arkadaş grupları için güvenli bir çizim ve tahmin oyunudur.</p>
+      <p>13 yaşın (veya Avrupa Birliği genelinde 16 yaşın) altındaki çocuklardan bilerek ya da bilmeyerek hiçbir veri toplanmaz. Uygulama, Apple App Store Çocuk ve Aile kategorisi standartlarına ve ilgili uluslararası mevzuata (COPPA, GDPR-K) tam uyumludur.</p>
+
+      <h2>6. KVKK ve GDPR Kapsamındaki Haklarınız</h2>
+      <p>6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ve Avrupa Birliği Genel Veri Koruma Tüzüğü (GDPR) kapsamında veri sahiplerine tanınan bilgi edinme, silme, düzeltme ve veri aktarımı hakları mevcuttur.</p>
+      <p>Ancak Tahtaya Kalk uygulaması kullanıcıya ait <strong>hiçbir kişisel veriyi toplamadığı, işlemediği ve sunucularda saklamadığı için</strong>, sistemlerimizde erişilebilecek, düzeltilebilecek, silinebilecek veya kopyası teslim edilebilecek bir kişisel veri bulunmamaktadır. Gizlilik taahhütlerimize ilişkin teyit talepleriniz için <a href="mailto:akadircicek@outlook.com">akadircicek@outlook.com</a> adresiyle dilediğiniz zaman irtibata geçebilirsiniz.</p>
+
+      <h2>7. Politika Değişiklikleri</h2>
+      <p>Bu gizlilik politikası metninde zaman içinde yapılabilecek iyileştirmeler veya yasal gereklilik güncellemeleri doğrudan bu sayfada (<code>https://ahmetkadircicek.com.tr/tahtaya-kalk/privacy</code>) yayınlanacaktır. Uygulamanın temel "veri toplamama" felsefesi hiçbir koşulda değiştirilmeyecektir.</p>
+    </article>
+
+    <hr class="lang-divider">
+
+    <!-- ENGLISH SECTION -->
+    <article id="en">
+      <h1>Privacy Policy</h1>
+      <span class="date-meta">Last Updated: October 17, 2026 · Version: 1.0</span>
+
+      <div class="callout">
+        <strong>Core Commitment:</strong> The Tahtaya Kalk application <strong>does not collect, process, transmit to servers, or share any personal data</strong> with third parties. Game settings and temporary word history remain exclusively stored on your personal device.
+      </div>
+
+      <h2>1. Data Controller &amp; Contact</h2>
+      <p>This privacy policy applies to the iOS mobile application <strong>Tahtaya Kalk</strong>, developed and published by <strong>Ahmet Kadir Çiçek</strong> ("Developer") on the Apple App Store.</p>
+      <p>For any inquiries, feedback, or verification regarding privacy and data safety, please contact:</p>
+      <p>
+        <strong>Developer:</strong> Ahmet Kadir Çiçek<br>
+        <strong>Email:</strong> <a href="mailto:akadircicek@outlook.com">akadircicek@outlook.com</a><br>
+        <strong>Website:</strong> <a href="https://ahmetkadircicek.com.tr">https://ahmetkadircicek.com.tr</a>
+      </p>
+
+      <h2>2. Data Not Collected</h2>
+      <p>Tahtaya Kalk is built with privacy by design. Our application strictly adheres to the following principles:</p>
+      <ul>
+        <li><strong>No Personal Identification:</strong> We do not collect names, email addresses, phone numbers, or account credentials.</li>
+        <li><strong>No User Accounts:</strong> The game does not require sign-up, sign-in, or anonymous profiling.</li>
+        <li><strong>No Location Tracking:</strong> We never access GPS, cellular, or network-based geolocation data.</li>
+        <li><strong>No Sensitive Hardware Access:</strong> We do not request or use permissions for camera, microphone, Bluetooth, contacts, or photo library.</li>
+        <li><strong>No Advertising or Tracking Identifiers:</strong> We do not access or track Apple's IDFA (Identifier for Advertisers), IDFV, or device fingerprinting.</li>
+      </ul>
+
+      <h2>3. Local Storage on Device (UserDefaults)</h2>
+      <p>To ensure a smooth gameplay experience across sessions, only the following local preferences are saved within the device's secure local sandbox (iOS <code>UserDefaults</code>):</p>
+      <ul>
+        <li>Game setup choices (team count, drawing duration, free pass allowance, round count).</li>
+        <li>Sound effects and haptics toggle states.</li>
+        <li>Temporary session word history to avoid repeating already-played words within the same session.</li>
+      </ul>
+      <p>These local preferences:</p>
+      <ul>
+        <li>Never leave your device and are never transmitted to external servers or third parties.</li>
+        <li>Are permanently erased when the application is deleted from the device.</li>
+      </ul>
+
+      <h2>4. Third-Party Analytics and Advertising</h2>
+      <p>Tahtaya Kalk contains no third-party analytics SDKs, no advertising networks, no cookies, and no tracking scripts whatsoever.</p>
+
+      <h2>5. Children's Privacy (COPPA &amp; GDPR-K Compliance)</h2>
+      <p>Tahtaya Kalk is rated 4+ and is designed to be completely safe for all age groups, including children and families. We do not knowingly collect any data from children under 13 (or under 16 in the EU). The application fully complies with Apple App Store Kids &amp; Family standards, COPPA, and GDPR-K provisions.</p>
+
+      <h2>6. Rights Under GDPR &amp; KVKK</h2>
+      <p>Under applicable international privacy regulations (including GDPR and KVKK), users hold rights to data access, rectification, erasure, and portability.</p>
+      <p>Because Tahtaya Kalk <strong>does not collect, process, or store any personal data</strong>, there is no personal data held in our systems to access, correct, delete, or transfer. For any questions or formal verification requests, users can reach us at <a href="mailto:akadircicek@outlook.com">akadircicek@outlook.com</a>.</p>
+
+      <h2>7. Changes to This Policy</h2>
+      <p>Any future updates to this policy will be posted on this page (<code>https://ahmetkadircicek.com.tr/tahtaya-kalk/privacy</code>). The core commitment to zero data collection remains permanent.</p>
+    </article>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>Ahmet Kadir Çiçek</h3>
+          <p>Cross-platform and native mobile developer.</p>
+        </div>
+        <div class="footer-links">
+          <a href="/tahtaya-kalk/support">Tahtaya Kalk Destek &amp; SSS</a>
+          <a href="/tahtaya-kalk/privacy">Tahtaya Kalk Gizlilik Politikası</a>
+          <a href="https://github.com/ahmetkadircicek" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:akadircicek@outlook.com">akadircicek@outlook.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Ahmet Kadir Çiçek. Tüm hakları saklıdır.</span>
+        <a href="#top">Yukarı çık ↑</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
