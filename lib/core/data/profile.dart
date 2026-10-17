@@ -101,7 +101,7 @@ class Copy {
 
   // Sections
   static const intro = L('Intro', tr: 'Giriş');
-  static const workRange = L('Four apps, 2024 — 2025', tr: 'Dört uygulama, 2024 — 2025');
+  static const workRange = L('Five apps, 2024 — 2026', tr: 'Beş uygulama, 2024 — 2026');
   static const aboutRange = L('Work, education, skills', tr: 'İş, eğitim, yetenekler');
   static const atHuawei = L('At Huawei', tr: 'Huawei’de');
   static const experience = L('Experience', tr: 'Deneyim');
