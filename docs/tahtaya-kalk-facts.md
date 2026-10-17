@@ -64,7 +64,7 @@ A close second was keeping the word secret. The drawer holds the phone while tea
 
 ## Screenshots
 
-All are real iPhone 17 Pro Max Simulator captures (1320 × 2868), in `assets/images/tahtaya_kalk/raw/`.
+All are real iPhone 17 Pro Max Simulator captures (1320 × 2868). The site uses them framed like the other projects as `assets/images/tahtaya_kalk/tahtaya_kalk_screenshots_<n>.webp`, in this order.
 
 | File | Title | Caption |
 |---|---|---|

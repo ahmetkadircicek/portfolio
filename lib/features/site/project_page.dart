@@ -165,6 +165,16 @@ class _Header extends StatelessWidget {
                 ),
               ),
             ),
+            if (project.links.isNotEmpty) ...[
+              const SizedBox(height: AppSpace.x3),
+              Wrap(
+                spacing: AppSpace.x6,
+                children: [
+                  for (final (label, url) in project.links)
+                    TextLink(label: '${context.t(label)} ↗', to: url, style: type.bodySmall.copyWith(color: colors.ink)),
+                ],
+              ),
+            ],
           ],
         ),
       ),

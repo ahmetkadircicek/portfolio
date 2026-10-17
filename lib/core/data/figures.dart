@@ -184,6 +184,7 @@ Notebook? notebookOf(Project project) => switch (project.slug) {
       'vilsa' => _vilsa,
       'sevkiyatvar' => _sevkiyatvar,
       'peasy' => _peasy,
+      'tahtaya-kalk' => _tahtaya,
       _ => null,
     };
 
@@ -517,3 +518,66 @@ const _peasy = Notebook(rows: [
     ]),
   ],
 ]);
+
+const _tahtaya = Notebook(rows: [
+  [
+    FigureCell(1, 12, [
+      FlowFigure(
+        L('Fig. 1 — One game', tr: 'Şekil 1 — Bir oyun'),
+        L('One state machine drives every screen', tr: 'Her ekranı tek bir durum makinesi yönetir'),
+        L('One state machine', tr: 'Tek durum makinesi'),
+        boxes: [
+          FigureBox(L('Setup', tr: 'Kurulum'), kicker: L.same('01'), detail: L('teams · time · rounds · passes', tr: 'takımlar · süre · tur · pas')),
+          FigureBox(L('Handoff', tr: 'Devir'), kicker: L.same('02'), detail: L('whose turn, hide the phone', tr: 'sıra kimde, telefonu sakla')),
+          FigureBox(L('Countdown', tr: 'Geri sayım'), kicker: L.same('03')),
+          FigureBox(L('Playing', tr: 'Oyun'), kicker: L.same('04'), detail: L('hold to see the word', tr: 'kelimeyi görmek için basılı tut')),
+          FigureBox(L('Summary', tr: 'Özet'), kicker: L.same('05'), detail: L('fix a mis-tap', tr: 'yanlış dokunuşu düzelt')),
+          FigureBox(L('Game over', tr: 'Oyun sonu'), kicker: L.same('06'), detail: L('rematch', tr: 'rövanş'), dark: true),
+        ],
+      ),
+    ]),
+  ],
+  [
+    FigureCell(1, 6, [
+      GridFigure(
+        L('Fig. 2 — Four levels', tr: 'Şekil 2 — Dört seviye'),
+        L('Words in each pool', tr: 'Her havuzdaki kelime'),
+        null,
+        boxes: [
+          FigureBox(L.same('Çöp Adam'), kicker: L('Easy', tr: 'Kolay'), detail: L('834 words', tr: '834 kelime')),
+          FigureBox(L.same('Karalamacı'), kicker: L('Medium', tr: 'Orta'), detail: L('618 + 300 from below = 918', tr: '618 + alttan 300 = 918')),
+          FigureBox(L.same('Ressam'), kicker: L('Hard', tr: 'Zor'), detail: L('569 + 300 from below = 869', tr: '569 + alttan 300 = 869')),
+          FigureBox(L.same('Dalí'), kicker: L('Impossible', tr: 'İmkânsız'),
+              detail: L('586 + 300 from below = 886, abstract only', tr: '586 + alttan 300 = 886, yalnız soyut'), dark: true),
+        ],
+      ),
+    ]),
+    FigureCell(7, 6, [
+      MapFigure(
+        L('Fig. 3 — Scoring', tr: 'Şekil 3 — Puanlama'),
+        L('Per word', tr: 'Kelime başına'),
+        null,
+        header: (L('Press', tr: 'Basılan'), L('Points', tr: 'Puan')),
+        rows: [
+          (L('Bildi — guessed', tr: 'Bildi'), L.same('+1')),
+          (L('Pas — while free passes last', tr: 'Pas — bedava pas varken'), L.same('0')),
+          (L('Pas — after that', tr: 'Pas — sonrasında'), L.same('−1')),
+          (L('Same top score', tr: 'En yüksekte eşitlik'), L('shared win', tr: 'ortak galibiyet')),
+        ],
+      ),
+    ]),
+  ],
+], tables: {
+  3: NumbersTable(
+    numbers: [
+      (L('Hand-picked words', tr: 'Elle seçilmiş kelime'), L.same('2,607')),
+      (L('Levels', tr: 'Seviye'), L.same('4')),
+      (L('Cut in review', tr: 'İncelemede elenen'), L.same('127')),
+      (L('Repeats in a game', tr: 'Bir oyunda tekrar'), L.same('0')),
+    ],
+    footnote: L(
+      'Every level above Çöp Adam mixes in 300 words from the level below.',
+      tr: 'Çöp Adam’ın üstündeki her seviye, bir alttaki seviyeden 300 kelime katıyor.',
+    ),
+  ),
+});

@@ -153,6 +153,7 @@ Page projectPage(Project p, AppLanguage l) {
         for (final (group, tools) in p.technology) '<dt>${esc(group.of(l))}</dt><dd>${esc(tools)}</dd>',
       ].join()}</dl>',
       if (repo != null) '<p><a href="${esc(repo)}">${esc(repo.replaceFirst('https://', ''))}</a></p>',
+      for (final (label, url) in p.links) '<p><a href="${esc(url)}">${esc(label.of(l))}</a></p>',
       '<p>${link(l, nextProject(p).path, '${Copy.nextProject.of(l)}: ${nextProject(p).name}')}</p>',
     ].join('\n'),
   );
@@ -237,6 +238,8 @@ String sitemap(List<Page> pages) {
         '    <xhtml:link rel="alternate" hreflang="x-default" href="${page.urlIn(AppLanguage.en)}"/>',
         '  </url>',
       ],
+    // Static pages outside the app, e.g. an app's privacy policy.
+    for (final path in ['/tahtaya-kalk/privacy', '/tahtaya-kalk/support']) '  <url><loc>$site$path</loc></url>',
     '</urlset>',
     '',
   ].join('\n');
