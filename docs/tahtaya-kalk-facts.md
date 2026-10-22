@@ -1,10 +1,12 @@
-# Tahtaya Kalk: project facts
+# Chalko: project facts
+
+Chalko was called Tahtaya Kalk until October 2026. The page addresses (`/tahtaya-kalk/privacy`, `/tahtaya-kalk/support`) and the file names keep the old name.
 
 Source material for the portfolio project page. Everything here is true of the app as of 17 October 2026.
 
 ## One line
 
-Tahtaya Kalk ("Up to the board!") is a Turkish pass-and-play party game for iPhone and iPad. One player draws a word on a real whiteboard or paper while their team guesses; the app only deals the words, runs the timer and keeps score.
+Chalko is a Turkish pass-and-play party game for iPhone and iPad. One player draws a word on a real whiteboard or paper while their team guesses; the app only deals the words, runs the timer and keeps score.
 
 ## How it is played
 
@@ -41,7 +43,7 @@ Tahtaya Kalk ("Up to the board!") is a Turkish pass-and-play party game for iPho
 - A chunky, cartoonish 3D style inspired by mobile party games: thick dark-ink outlines (#1A1240), hard drop shadows, and SF Rounded in its Black weight.
 - Palette: board blue #3B7BFF, yellow #FFC93C, lime #7CF03A, danger red #E5243B. The team colors are red #FF5A5F, blue #3B7BFF, green #12B886 and yellow #FFC93C.
 - The whole background takes the active team's color. Badges and rows on top use white with a colored dot, or lime when the team itself is yellow, so they stay readable on every team color.
-- App icon: a full blue square with a white, ink-outlined "Tahtaya Kalk" wordmark, a tilted 3D yellow loop and a yellow pencil. No transparency; checked at sizes from 40 to 240 px.
+- App icon: redesigned for the Chalko name; the files are in Marketing/Logo in the app repository. The earlier icon showed a white, ink-outlined "Tahtaya Kalk" wordmark on blue.
 - Playful Turkish copy throughout, for example "Süre bitti, kalemler yere!" ("Time's up, pens down!").
 
 ## Hardest engineering problem
