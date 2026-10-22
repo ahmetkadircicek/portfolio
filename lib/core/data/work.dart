@@ -101,11 +101,11 @@ const _design = L('Design', tr: 'Tasarım');
 
 /// Every project, in home page order. The last one's "next project" leads
 /// back to the first.
-const work = [tahtayaKalk, tunes, vilsa, sevkiyatvar, peasy];
+const work = [chalko, tunes, vilsa, sevkiyatvar, peasy];
 
-const tahtayaKalk = Project(
+const chalko = Project(
   slug: 'tahtaya-kalk',
-  name: 'Tahtaya Kalk',
+  name: 'Chalko',
   descriptor: L('Drawing Party Game', tr: 'Çizerek Anlatma Oyunu'),
   lede: L(
     'A Turkish party game for iPhone and iPad: one player draws a word on a real board while their team guesses, and the app deals the words, runs the timer and keeps score.',
