@@ -104,7 +104,7 @@ const _design = L('Design', tr: 'Tasarım');
 const work = [chalko, tunes, vilsa, sevkiyatvar, peasy];
 
 const chalko = Project(
-  slug: 'tahtaya-kalk',
+  slug: 'chalko',
   name: 'Chalko',
   descriptor: L('Drawing Party Game', tr: 'Çizerek Anlatma Oyunu'),
   lede: L(
