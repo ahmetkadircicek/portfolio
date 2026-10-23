@@ -67,7 +67,7 @@ flutter:
     - assets/images/vilsa/
     - assets/images/sevkiyatvar/
     - assets/images/peasy/
-    - assets/images/tahtaya_kalk/
+    - assets/images/chalko/
     # Loaded only when a project figure needs it (project_figures.dart).
     - assets/fonts/montserrat/
 
