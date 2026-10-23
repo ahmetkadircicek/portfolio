@@ -46,31 +46,34 @@ class _Row extends StatelessWidget {
     final mobile = context.isMobile;
     final text = _Text(project: project, number: number, showLink: mobile);
 
-    final image = Pressable(
-      to: project.path,
-      semanticLabel: '${context.t(Copy.viewProject)}: ${project.name}',
-      radius: AppRadius.mdAll,
-      builder: (context, hovered, focused) {
-        final lifted = hovered || focused;
-        return Stack(
-          children: [
-            ExcludeSemantics(
-              child: ScreenStage(
-                screens: project.rowScreens,
-                aspectRatio: mobile ? 1 : 16 / 9,
-                lifted: lifted,
-                radius: BorderRadius.circular(mobile ? 12 : 14),
+    // Its own layer: the sticky text moving beside it must not repaint it.
+    final image = RepaintBoundary(
+      child: Pressable(
+        to: project.path,
+        semanticLabel: '${context.t(Copy.viewProject)}: ${project.name}',
+        radius: AppRadius.mdAll,
+        builder: (context, hovered, focused) {
+          final lifted = hovered || focused;
+          return Stack(
+            children: [
+              ExcludeSemantics(
+                child: ScreenStage(
+                  screens: project.rowScreens,
+                  aspectRatio: mobile ? 1 : 16 / 9,
+                  lifted: lifted,
+                  radius: BorderRadius.circular(mobile ? 12 : 14),
+                ),
               ),
-            ),
-            if (!mobile)
-              Positioned(
-                top: AppSpace.x5,
-                right: AppSpace.x5,
-                child: _ViewPill(visible: lifted),
-              ),
-          ],
-        );
-      },
+              if (!mobile)
+                Positioned(
+                  top: AppSpace.x5,
+                  right: AppSpace.x5,
+                  child: _ViewPill(visible: lifted),
+                ),
+            ],
+          );
+        },
+      ),
     );
 
     if (mobile) {
@@ -262,7 +265,7 @@ class _StickyTopState extends State<_StickyTop> {
         clipBehavior: Clip.none,
         children: [Positioned(left: 0, right: 0, top: shift, child: child!)],
       ),
-      child: KeyedSubtree(key: _childKey, child: widget.child),
+      child: RepaintBoundary(child: KeyedSubtree(key: _childKey, child: widget.child)),
     );
   }
 }

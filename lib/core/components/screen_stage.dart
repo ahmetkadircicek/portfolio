@@ -1,5 +1,3 @@
-import 'dart:ui' show ImageFilter;
-
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/extensions/general_extensions.dart';
 import 'package:portfolio/core/theme/app_tokens.dart';
@@ -86,7 +84,7 @@ class ScreenStage extends StatelessWidget {
                     top: h * top - lift,
                     width: widths[i],
                     height: h * size,
-                    child: _Screen(screens[i]),
+                    child: _Screen(screens[i], width: widths[i]),
                   ),
                 ));
                 x += widths[i] - overlap;
@@ -102,26 +100,45 @@ class ScreenStage extends StatelessWidget {
   }
 }
 
-/// A screen with a soft shadow that follows its rounded phone frame.
+/// A screen with a soft shadow that follows its rounded phone frame. The
+/// shadow is a plain rounded-rectangle shadow: blurring the whole screenshot
+/// again on every repaint was the most expensive thing on the home page.
 class _Screen extends StatelessWidget {
   final String path;
+  final double width;
 
-  const _Screen(this.path);
+  const _Screen(this.path, {required this.width});
 
   @override
   Widget build(BuildContext context) {
-    final image = Image.asset(path, fit: BoxFit.contain, excludeFromSemantics: true, gaplessPlayback: true);
+    // Decoded at the size it is shown, not at the screenshot's 720 px.
+    final pixels = (width * MediaQuery.devicePixelRatioOf(context)).ceil();
+    final image = Image.asset(
+      path,
+      fit: BoxFit.contain,
+      cacheWidth: pixels,
+      excludeFromSemantics: true,
+      gaplessPlayback: true,
+    );
     return Stack(
       clipBehavior: Clip.none,
       fit: StackFit.expand,
       children: [
-        Transform.translate(
-          offset: const Offset(0, 18),
-          child: ImageFiltered(
-            imageFilter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-            child: ColorFiltered(
-              colorFilter: ColorFilter.mode(context.colors.ink.withValues(alpha: 0.22), BlendMode.srcIn),
-              child: image,
+        Positioned(
+          left: width * 0.03,
+          right: width * 0.03,
+          top: width * 0.05,
+          bottom: 0,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(width * 0.13),
+              boxShadow: [
+                BoxShadow(
+                  color: context.colors.ink.withValues(alpha: 0.2),
+                  blurRadius: width * 0.1,
+                  offset: Offset(0, width * 0.08),
+                ),
+              ],
             ),
           ),
         ),
