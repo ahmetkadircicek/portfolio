@@ -93,7 +93,7 @@ const _tunes = 'assets/images/tunes/tunes_screenshots';
 const _vilsa = 'assets/images/vilsa/vilsa_screenshots';
 const _sevk = 'assets/images/sevkiyatvar/sevkiyatvar_screenshots';
 const _peasy = 'assets/images/peasy/peasy_screenshots';
-const _tahtaya = 'assets/images/tahtaya_kalk/tahtaya_kalk_screenshots';
+const _chalko = 'assets/images/chalko/chalko_screenshots';
 
 const _app = L('App', tr: 'Uygulama');
 const _backend = L('Backend', tr: 'Backend');
@@ -120,9 +120,9 @@ const chalko = Project(
   platform: L('iPhone & iPad · 2026', tr: 'iPhone ve iPad · 2026'),
   status: L('Preparing for TestFlight', tr: 'TestFlight’a hazırlanıyor'),
   stack: 'Swift · SwiftUI · Observation · AVFoundation',
-  logo: 'assets/images/tahtaya_kalk/tahtaya_kalk_logo.webp',
+  logo: 'assets/images/chalko/chalko_logo.webp',
   color: Color(0xFF3B7BFF),
-  cover: ['${_tahtaya}_3.webp', '${_tahtaya}_1.webp', '${_tahtaya}_4.webp', '${_tahtaya}_6.webp', '${_tahtaya}_7.webp'],
+  cover: ['${_chalko}_3.webp', '${_chalko}_1.webp', '${_chalko}_4.webp', '${_chalko}_6.webp', '${_chalko}_7.webp'],
   chapters: [
     Chapter(
       label: L('The idea', tr: 'Fikir'),
@@ -196,34 +196,34 @@ const chalko = Project(
     ),
   ],
   screens: [
-    Screen('${_tahtaya}_1.webp',
+    Screen('${_chalko}_1.webp',
         title: L('Play', tr: 'Oyna'),
         caption: L('The home screen: Play, a quick start with its settings underneath, and buttons for sound, haptics, settings and help.',
             tr: 'Ana ekran: Oyna, ayarları altında yazan hızlı başlat ve ses, titreşim, ayarlar ve yardım düğmeleri.')),
-    Screen('${_tahtaya}_2.webp',
+    Screen('${_chalko}_2.webp',
         title: L('Choose how hard', tr: 'Zorluğu seç'),
         caption: L('The four levels with their word counts, and the game’s settings above the start button.',
             tr: 'Kelime sayılarıyla dört seviye ve başlat düğmesinin üstünde oyunun ayarları.')),
-    Screen('${_tahtaya}_3.webp',
+    Screen('${_chalko}_3.webp',
         title: L('Whose turn is it?', tr: 'Sıra kimde?'),
         caption: L('After the opening draw: the starting team, a reminder to hide the phone and the scoreboard.',
             tr: 'Açılış kurasından sonra: başlayan takım, telefonu saklama hatırlatması ve puan tablosu.')),
-    Screen('${_tahtaya}_4.webp',
+    Screen('${_chalko}_4.webp',
         title: L('Draw it, don’t say it', tr: 'Çiz, söyleme'),
         caption: L('The secret word, the countdown, the turn score, undo, and Pas and Bildi.',
             tr: 'Gizli kelime, geri sayım, tur puanı, geri al ve Pas ile Bildi.')),
-    Screen('${_tahtaya}_5.webp',
+    Screen('${_chalko}_5.webp',
         title: L('Pens down', tr: 'Kalemler yere'),
         caption: L('Time is up, and the team says whether the last word was guessed in time.',
             tr: 'Süre bitti; takım son kelimenin zamanında bilinip bilinmediğini söylüyor.')),
-    Screen('${_tahtaya}_6.webp',
+    Screen('${_chalko}_6.webp',
         title: L('Fix a mis-tap', tr: 'Yanlış dokunuşu düzelt'),
         caption: L('Every word of the turn; a tap flips Bildi and Pas and the score follows.',
             tr: 'Turun her kelimesi; bir dokunuş Bildi ile Pas’ı değiştirir, puan da takip eder.')),
-    Screen('${_tahtaya}_7.webp',
+    Screen('${_chalko}_7.webp',
         title: L('And the winner is', tr: 'Ve kazanan'),
         caption: L('The final scores with a rematch button.', tr: 'Rövanş düğmesiyle final skorları.')),
-    Screen('${_tahtaya}_8.webp',
+    Screen('${_chalko}_8.webp',
         title: L('The rules in one card', tr: 'Tek kartta kurallar'),
         caption: L('How to play, shown on first launch.', tr: 'Nasıl oynanır; ilk açılışta gösterilir.')),
   ],
@@ -234,8 +234,8 @@ const chalko = Project(
     (L('Tooling', tr: 'Araçlar'), 'XcodeGen, Xcode UI tests, Claude Code, Google Antigravity'),
   ],
   links: [
-    (L('Privacy policy', tr: 'Gizlilik politikası'), 'https://ahmetkadircicek.com.tr/tahtaya-kalk/privacy'),
-    (L('Support', tr: 'Destek'), 'https://ahmetkadircicek.com.tr/tahtaya-kalk/support'),
+    (L('Privacy policy', tr: 'Gizlilik politikası'), 'https://ahmetkadircicek.com.tr/chalko/privacy'),
+    (L('Support', tr: 'Destek'), 'https://ahmetkadircicek.com.tr/chalko/support'),
   ],
 );
 

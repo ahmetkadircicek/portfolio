@@ -239,7 +239,7 @@ String sitemap(List<Page> pages) {
         '  </url>',
       ],
     // Static pages outside the app, e.g. an app's privacy policy.
-    for (final path in ['/tahtaya-kalk/privacy', '/tahtaya-kalk/support']) '  <url><loc>$site$path</loc></url>',
+    for (final path in ['/chalko/privacy', '/chalko/support']) '  <url><loc>$site$path</loc></url>',
     '</urlset>',
     '',
   ].join('\n');

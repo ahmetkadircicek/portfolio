@@ -8,6 +8,10 @@
     ],
     "cleanUrls": true,
     "trailingSlash": false,
+    "redirects": [
+      { "source": "/tahtaya-kalk/:page", "destination": "/chalko/:page", "type": 301 },
+      { "source": "/projects/tahtaya-kalk", "destination": "/projects/chalko", "type": 301 }
+    ],
     "rewrites": [
       {
         "source": "**",

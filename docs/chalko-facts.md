@@ -1,6 +1,6 @@
 # Chalko: project facts
 
-Chalko was called Tahtaya Kalk until October 2026. The project page is `/projects/chalko`. The privacy and support addresses (`/tahtaya-kalk/privacy`, `/tahtaya-kalk/support`) and the file names keep the old name.
+The project page is `/projects/chalko`. The privacy and support pages are `/chalko/privacy` and `/chalko/support`.
 
 Source material for the portfolio project page. Everything here is true of the app as of 17 October 2026.
 
@@ -66,7 +66,7 @@ A close second was keeping the word secret. The drawer holds the phone while tea
 
 ## Screenshots
 
-All are real iPhone 17 Pro Max Simulator captures (1320 × 2868). The site uses them framed like the other projects as `assets/images/tahtaya_kalk/tahtaya_kalk_screenshots_<n>.webp`, in this order.
+All are real iPhone 17 Pro Max Simulator captures (1320 × 2868). The site uses them framed like the other projects as `assets/images/chalko/chalko_screenshots_<n>.webp`, in this order.
 
 | File | Title | Caption |
 |---|---|---|
