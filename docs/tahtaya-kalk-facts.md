@@ -70,8 +70,8 @@ All are real iPhone 17 Pro Max Simulator captures (1320 × 2868). The site uses 
 
 | File | Title | Caption |
 |---|---|---|
-| 1_home.png | Pick the rules | The home screen: teams, turn length, free passes, rounds, and sound and haptics toggles under the logo. |
-| 2_setup.png | Choose how hard | The four difficulty levels with their word counts, the start button and the estimated game length. |
+| 1_home.png | Play | The home screen: Play, a quick start with its settings underneath, and buttons for sound, haptics, settings and help. |
+| 2_setup.png | Choose how hard | The four difficulty levels with their word counts, and the game's settings above the start button. |
 | 3_turn.png | Whose turn is it? | The handoff screen after the opening draw: the starting team, a reminder to hide the phone and the live scoreboard. |
 | 4_play.png | Draw it, don't say it | The play screen: the secret word, the countdown, the turn score, undo, and the Pas and Bildi buttons. |
 | 5_time_up.png | Pens down | Time is up, and the team says whether the last word was guessed in time. |
