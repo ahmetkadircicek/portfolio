@@ -1,6 +1,6 @@
 # Chalko: project facts
 
-Chalko was called Tahtaya Kalk until October 2026. The page addresses (`/tahtaya-kalk/privacy`, `/tahtaya-kalk/support`) and the file names keep the old name.
+Chalko was called Tahtaya Kalk until October 2026. The project page is `/projects/chalko`. The privacy and support addresses (`/tahtaya-kalk/privacy`, `/tahtaya-kalk/support`) and the file names keep the old name.
 
 Source material for the portfolio project page. Everything here is true of the app as of 17 October 2026.
 
