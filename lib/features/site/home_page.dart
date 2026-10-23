@@ -106,28 +106,9 @@ class _Hero extends StatelessWidget {
       child: PageColumn(
         child: Stack(
           children: [
-            // The shape drifts a little slower than the page.
-            Positioned.fill(
-              child: AnimatedBuilder(
-                animation: controller,
-                builder: (context, child) {
-                  final offset = controller.hasClients && !context.reduceMotion ? controller.offset * 0.3 : 0.0;
-                  return Transform.translate(offset: Offset(0, offset), child: child);
-                },
-                child: Align(
-                  alignment: const Alignment(0, -0.25),
-                  child: ExcludeSemantics(
-                    child: Image.asset(
-                      'assets/images/common/shape.webp',
-                      width: shape,
-                      height: shape,
-                      opacity: const AlwaysStoppedAnimation(0.35),
-                      gaplessPlayback: true,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // The shape drifts a little slower than the page, and stands still
+            // once the hero is out of sight.
+            Positioned.fill(child: _Shape(controller: controller, size: shape, heroHeight: height)),
             Positioned.fill(
               bottom: mobile ? 170 : 120,
               child: const Center(child: _Quote()),
@@ -153,6 +134,88 @@ class _Hero extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// The 3D shape behind the quote. Its animation (120 frames) is decoded and
+/// painted only while the hero is on screen; below it, it is paused. The
+/// drift is a layer offset, so scrolling does not repaint the shape.
+class _Shape extends StatefulWidget {
+  final ScrollController controller;
+  final double size;
+  final double heroHeight;
+
+  const _Shape({required this.controller, required this.size, required this.heroHeight});
+
+  @override
+  State<_Shape> createState() => _ShapeState();
+}
+
+class _ShapeState extends State<_Shape> {
+  final _visible = ValueNotifier(true);
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_update);
+  }
+
+  @override
+  void didUpdateWidget(_Shape old) {
+    super.didUpdateWidget(old);
+    if (old.controller != widget.controller) {
+      old.controller.removeListener(_update);
+      widget.controller.addListener(_update);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_update);
+    _visible.dispose();
+    super.dispose();
+  }
+
+  void _update() {
+    final c = widget.controller;
+    if (!c.hasClients) return;
+    // The shape sits in the hero's upper half, drifting down by 0.3 × offset.
+    _visible.value = c.offset < widget.heroHeight;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final reduce = context.reduceMotion;
+    return ValueListenableBuilder(
+      valueListenable: _visible,
+      builder: (context, visible, _) => TickerMode(
+        enabled: visible && !reduce,
+        child: AnimatedBuilder(
+          animation: widget.controller,
+          builder: (context, child) {
+            final c = widget.controller;
+            final offset = c.hasClients && !reduce ? c.offset * 0.3 : 0.0;
+            return Transform.translate(offset: Offset(0, offset), child: child);
+          },
+          child: RepaintBoundary(
+            child: Align(
+              alignment: const Alignment(0, -0.25),
+              child: ExcludeSemantics(
+                child: Image.asset(
+                  'assets/images/common/shape.webp',
+                  width: widget.size,
+                  height: widget.size,
+                  // Decoded at the size it is shown, not at the file's 720 px.
+                  cacheWidth: (widget.size * MediaQuery.devicePixelRatioOf(context)).ceil(),
+                  opacity: const AlwaysStoppedAnimation(0.35),
+                  gaplessPlayback: true,
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
