@@ -184,7 +184,7 @@ Notebook? notebookOf(Project project) => switch (project.slug) {
       'vilsa' => _vilsa,
       'sevkiyatvar' => _sevkiyatvar,
       'peasy' => _peasy,
-      'tahtaya-kalk' => _tahtaya,
+      'chalko' => _chalko,
       _ => null,
     };
 
@@ -519,7 +519,7 @@ const _peasy = Notebook(rows: [
   ],
 ]);
 
-const _tahtaya = Notebook(rows: [
+const _chalko = Notebook(rows: [
   [
     FigureCell(1, 12, [
       FlowFigure(
