@@ -115,13 +115,13 @@ const chalko = Project(
     'Draw the word, your team guesses; the app keeps the time and the score.',
     tr: 'Kelimeyi çiz, takımın bilsin; süreyi ve puanı uygulama tutsun.',
   ),
-  label: L('Personal · preparing for TestFlight', tr: 'Kişisel · TestFlight’a hazırlanıyor'),
+  label: L('Personal · in TestFlight testing', tr: 'Kişisel · TestFlight testinde'),
   role: L('Solo — idea, design, code', tr: 'Tek başıma — fikir, tasarım, kod'),
   platform: L('iPhone & iPad · 2026', tr: 'iPhone ve iPad · 2026'),
-  status: L('Preparing for TestFlight', tr: 'TestFlight’a hazırlanıyor'),
+  status: L('Internal TestFlight builds', tr: 'Dahili TestFlight sürümleri'),
   stack: 'Swift · SwiftUI · Observation · AVFoundation',
   logo: 'assets/images/chalko/chalko_logo.webp',
-  color: Color(0xFF3B7BFF),
+  color: Color(0xFF2E6F5E),
   cover: ['${_chalko}_3.webp', '${_chalko}_1.webp', '${_chalko}_4.webp', '${_chalko}_6.webp', '${_chalko}_7.webp'],
   chapters: [
     Chapter(
@@ -140,13 +140,13 @@ const chalko = Project(
     Chapter(
       label: L('Design', tr: 'Tasarım'),
       lead: L(
-        'Loud, chunky and readable on every team’s color.',
-        tr: 'Gürültülü, tombul ve her takımın renginde okunur.',
+        'A chalkboard: green board, cream paper and a pastel for every team.',
+        tr: 'Bir yazı tahtası: yeşil tahta, krem kâğıt ve her takım için bir pastel.',
       ),
       body: [
         L(
-          'A cartoonish 3D style borrowed from mobile party games: thick dark ink outlines, hard drop shadows and SF Rounded in its Black weight. The whole background takes the color of the team that is playing, so badges and rows sit on white with a colored dot, or on lime when the team itself is yellow, and stay readable on all four colors. The copy is playful Turkish, like “Süre bitti, kalemler yere!”, time’s up, pens down.',
-          tr: 'Mobil parti oyunlarından ödünç alınmış çizgi filmsi bir 3D stil: kalın koyu mürekkep konturları, sert gölgeler ve Black ağırlığında SF Rounded. Arka planın tamamı oynayan takımın rengini alıyor; rozetler ve satırlar bu yüzden renkli noktalı beyaz zeminde, takım sarıysa limon yeşilinde duruyor ve dört rengin hepsinde okunuyor. Metinler esprili bir Türkçe: “Süre bitti, kalemler yere!” gibi.',
+          'The first version was a loud blue, yellow and lime cartoon. A little over a week in, I redrew it as a chalkboard, first in a Claude Design canvas and then in SwiftUI: cream paper, a deep green board, warm ink, chunky outlines with hard drop shadows and Baloo 2 for all text. The mark is a green board in a chalk-colored frame with a tray and two pieces of chalk. The whole background takes the active team’s pastel, with a stronger dot as its marker, so every screen tells you whose turn it is. Each difficulty level has its own tint and icon. The copy is playful Turkish, like “Süre bitti, kalemler yere!”, time’s up, pens down.',
+          tr: 'İlk sürüm gürültülü bir mavi, sarı ve limon yeşili çizgi filmdi. Bir süre sonra onu bir yazı tahtası olarak yeniden çizdim; önce bir Claude Design tuvalinde, sonra SwiftUI’da: krem kâğıt, koyu yeşil tahta, sıcak mürekkep, sert gölgeli tombul konturlar ve tüm metinlerde Baloo 2. İşaret, tebeşir renkli bir çerçevede yeşil bir tahta; altında bir oluk ve iki parça tebeşir var. Arka planın tamamı oynayan takımın pastelini alıyor, işaretçisi daha koyu bir nokta; böylece her ekran sıranın kimde olduğunu söylüyor. Her zorluk seviyesinin kendi tonu ve ikonu var. Metinler esprili bir Türkçe: “Süre bitti, kalemler yere!” gibi.',
         ),
       ],
     ),
@@ -158,12 +158,12 @@ const chalko = Project(
       ),
       body: [
         L(
-          'Swift and SwiftUI with the Observation framework. One state machine drives every screen, from setup to the final scores. The timer is worked out from an end date checked every 200 ms rather than from counted ticks, so pausing is exact, and the game pauses itself when the app goes to the background. Sound plays on an ambient audio session, so it respects the silent switch and mixes with music already playing, and sound and haptics have their own switches.',
-          tr: 'Observation framework ile Swift ve SwiftUI. Tek bir durum makinesi kurulumdan final skorlarına kadar her ekranı yönetiyor. Sayaç, sayılan tiklerden değil her 200 ms’de kontrol edilen bir bitiş zamanından hesaplanıyor; bu yüzden duraklatma tam isabetli ve uygulama arka plana geçince oyun kendini duraklatıyor. Ses, ambient bir ses oturumunda çalıyor; sessiz moda uyuyor ve çalan müziğe karışıyor. Ses ve titreşimin ayrı anahtarları var.',
+          'Swift and SwiftUI with the Observation framework. One state machine drives every screen, from setup to the final scores. The timer is worked out from an end date checked every 200 ms rather than from counted ticks, so pausing is exact, and the game pauses itself when the app goes to the background. In the last ten seconds the timer turns red and pulses while a tick and a tock alternate and get louder, and the answer buttons ignore taps for 0.8 seconds so a double tap cannot skip a word. Sound plays on an ambient audio session, so it respects the silent switch and mixes with music already playing, and sound and haptics have their own switches.',
+          tr: 'Observation framework ile Swift ve SwiftUI. Tek bir durum makinesi kurulumdan final skorlarına kadar her ekranı yönetiyor. Sayaç, sayılan tiklerden değil her 200 ms’de kontrol edilen bir bitiş zamanından hesaplanıyor; bu yüzden duraklatma tam isabetli ve uygulama arka plana geçince oyun kendini duraklatıyor. Ses, ambient bir ses oturumunda çalıyor; sessiz moda uyuyor ve çalan müziğe karışıyor. Son on saniyede sayaç kırmızıya dönüp atıyor, tik ve tak sesleri dönüşümlü ve giderek yükselerek çalıyor; cevap düğmeleri her cevaptan sonra 0,8 saniye dokunuşları yok sayıyor, böylece çift dokunuş bir kelimeyi atlatamıyor. Ses ve titreşimin ayrı anahtarları var.',
         ),
         L(
-          'Nothing leaves the phone: no account, no ads, no analytics. Settings and the history of seen words live in UserDefaults, and the App Store privacy answer is “Data Not Collected”. There are no unit tests yet; a UI test target takes the App Store screenshots, and I play-tested the game on an iPhone SE, an iPhone 17 Pro Max and an iPad Pro in the Simulator.',
-          tr: 'Telefondan hiçbir şey çıkmıyor: hesap yok, reklam yok, analitik yok. Ayarlar ve görülen kelimelerin geçmişi UserDefaults’ta duruyor; App Store gizlilik cevabı “Veri Toplanmıyor”. Henüz birim testi yok; bir UI test hedefi App Store ekran görüntülerini çekiyor ve oyunu Simülatör’de iPhone SE, iPhone 17 Pro Max ve iPad Pro üzerinde oynayarak test ettim.',
+          'Nothing leaves the phone: no account, no ads, no analytics. Settings and the history of seen words live in UserDefaults, and the App Store privacy answer is “Data Not Collected”. The sounds are 24 original marimba-style tones, generated by a Python script, each with a natural decay instead of a hard cut. The home screen has a faint rain of the game’s own words with a hand-drawn green ring circling one of them, drawn with Canvas and a single still frame under Reduce Motion. There are no unit tests yet; five UI tests cover the whole flow, a rematch, the game over screen, the answer cooldown and the App Store screenshots, and I play-tested the game on an iPhone SE, an iPhone 17 Pro Max and an iPad Pro in the Simulator.',
+          tr: 'Telefondan hiçbir şey çıkmıyor: hesap yok, reklam yok, analitik yok. Ayarlar ve görülen kelimelerin geçmişi UserDefaults’ta duruyor; App Store gizlilik cevabı “Veri Toplanmıyor”. Sesler, bir Python betiğiyle üretilmiş 24 özgün marimba tonu; hiçbiri sert kesilmiyor, hepsinin doğal bir sönümü var. Ana ekranda, oyunun kendi kelimelerinden hafif bir yağmur düşüyor ve elle çizilmiş yeşil bir halka onlardan birini çevreliyor; Canvas ile çiziliyor ve Hareketi Azalt açıkken tek bir duran kare gösteriyor. Henüz birim testi yok; beş UI testi tüm akışı, rövanşı, oyun sonu ekranını, cevap beklemesini ve App Store ekran görüntülerini kapsıyor; oyunu ayrıca Simülatör’de iPhone SE, iPhone 17 Pro Max ve iPad Pro üzerinde oynayarak test ettim.',
         ),
       ],
     ),
@@ -189,8 +189,8 @@ const chalko = Project(
       lead: L('Curating beats volume.', tr: 'Seçmek, çoğaltmaktan iyidir.'),
       body: [
         L(
-          'A quality pass flagged 127 words that were hard to draw or wrong for their level, and the lists went from 2,700 words to 2,607; keeping abstract words for the hardest level made the levels feel distinct. Real-time timers should come from end dates, not counted ticks. Party games need big targets, sound and haptic feedback, and corrections that forgive a wrong tap. And AI agents do mechanical work best when it comes as written tasks, with a separate build and review step afterwards.',
-          tr: 'Bir kalite taraması çizmesi zor ya da seviyesine uymayan 127 kelime buldu; listeler 2.700 kelimeden 2.607’ye indi. Soyut kelimeleri en zor seviyeye ayırmak seviyeleri birbirinden belirgin şekilde ayırdı. Gerçek zamanlı sayaçlar sayılan tiklerden değil bitiş zamanlarından gelmeli. Parti oyunları büyük dokunma alanları, ses ve titreşim geri bildirimi ve yanlış dokunuşu affeden düzeltmeler ister. Yapay zekâ ajanları da mekanik işi en iyi yazılı görevler olarak aldıklarında yapıyor; ardından ayrı bir build ve inceleme adımıyla.',
+          'A quality pass flagged 127 words that were hard to draw or wrong for their level, and the lists went from 2,700 words to 2,607; keeping abstract words for the hardest level made the levels feel distinct. Real-time timers should come from end dates, not counted ticks. Party games need big targets, sound and haptic feedback, and corrections that forgive a wrong tap, plus a short lock against double taps. A sound needs a natural decay: a cut-off tail reads as cheap, even when the sample itself is good. And AI agents do mechanical work best when it comes as written tasks, with a separate build and review step afterwards.',
+          tr: 'Bir kalite taraması çizmesi zor ya da seviyesine uymayan 127 kelime buldu; listeler 2.700 kelimeden 2.607’ye indi. Soyut kelimeleri en zor seviyeye ayırmak seviyeleri birbirinden belirgin şekilde ayırdı. Gerçek zamanlı sayaçlar sayılan tiklerden değil bitiş zamanlarından gelmeli. Parti oyunları büyük dokunma alanları, ses ve titreşim geri bildirimi, yanlış dokunuşu affeden düzeltmeler ve çift dokunuşa karşı kısa bir kilit ister. Bir sesin doğal bir sönümü olmalı: sert kesilen kuyruk, örnek ne kadar iyi olsa da ucuz duyuluyor. Yapay zekâ ajanları da mekanik işi en iyi yazılı görevler olarak aldıklarında yapıyor; ardından ayrı bir build ve inceleme adımıyla.',
         ),
       ],
     ),
@@ -198,12 +198,10 @@ const chalko = Project(
   screens: [
     Screen('${_chalko}_1.webp',
         title: L('Play', tr: 'Oyna'),
-        caption: L('The home screen: Play, a quick start with its settings underneath, and buttons for sound, haptics, settings and help.',
-            tr: 'Ana ekran: Oyna, ayarları altında yazan hızlı başlat ve ses, titreşim, ayarlar ve yardım düğmeleri.')),
+        caption: L('The home screen: the chalkboard mark, Play, a quick start with its settings underneath, and buttons for sound, haptics, help and settings.', tr: 'Ana ekran: tahta işareti, Oyna, ayarları altında yazan hızlı başlat ve ses, titreşim, yardım ve ayarlar düğmeleri.')),
     Screen('${_chalko}_2.webp',
         title: L('Choose how hard', tr: 'Zorluğu seç'),
-        caption: L('The four levels with their word counts, and the game’s settings above the start button.',
-            tr: 'Kelime sayılarıyla dört seviye ve başlat düğmesinin üstünde oyunun ayarları.')),
+        caption: L('The four levels with their word counts, each with its own tint and icon, and the game’s settings under them.', tr: 'Her birinin kendi ton ve ikonuyla, kelime sayılarıyla dört seviye ve altında oyunun ayarları.')),
     Screen('${_chalko}_3.webp',
         title: L('Whose turn is it?', tr: 'Sıra kimde?'),
         caption: L('After the opening draw: the starting team, a reminder to hide the phone and the scoreboard.',
@@ -230,7 +228,8 @@ const chalko = Project(
   technology: [
     (_app, 'Swift, SwiftUI, Observation'),
     (L('Data', tr: 'Veri'), 'UserDefaults, bundled word lists'),
-    (L('Sound', tr: 'Ses'), 'AVAudioPlayer, UIFeedbackGenerator, CC0 sounds from Kenney.nl'),
+    (L('Sound', tr: 'Ses'), 'AVAudioPlayer, UIFeedbackGenerator, 24 original sounds made with a Python script'),
+    (L('Design', tr: 'Tasarım'), 'Claude Design canvas, Baloo 2'),
     (L('Tooling', tr: 'Araçlar'), 'XcodeGen, Xcode UI tests, Claude Code, Google Antigravity'),
   ],
   links: [
