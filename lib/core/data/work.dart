@@ -145,8 +145,8 @@ const chalko = Project(
       ),
       body: [
         L(
-          'The first version was a loud blue, yellow and lime cartoon. A little over a week in, I redrew it as a chalkboard, first in a Claude Design canvas and then in SwiftUI: cream paper, a deep green board, warm ink, chunky outlines with hard drop shadows and Baloo 2 for all text. The mark is a green board in a chalk-colored frame with a tray and two pieces of chalk. The whole background takes the active team’s pastel, with a stronger dot as its marker, so every screen tells you whose turn it is. Each difficulty level has its own tint and icon. The copy is playful Turkish, like “Süre bitti, kalemler yere!”, time’s up, pens down.',
-          tr: 'İlk sürüm gürültülü bir mavi, sarı ve limon yeşili çizgi filmdi. Bir süre sonra onu bir yazı tahtası olarak yeniden çizdim; önce bir Claude Design tuvalinde, sonra SwiftUI’da: krem kâğıt, koyu yeşil tahta, sıcak mürekkep, sert gölgeli tombul konturlar ve tüm metinlerde Baloo 2. İşaret, tebeşir renkli bir çerçevede yeşil bir tahta; altında bir oluk ve iki parça tebeşir var. Arka planın tamamı oynayan takımın pastelini alıyor, işaretçisi daha koyu bir nokta; böylece her ekran sıranın kimde olduğunu söylüyor. Her zorluk seviyesinin kendi tonu ve ikonu var. Metinler esprili bir Türkçe: “Süre bitti, kalemler yere!” gibi.',
+          'The first version was a loud blue, yellow and lime cartoon. A little over a week in, I redrew it as a chalkboard, first in a design canvas and then in SwiftUI: cream paper, a deep green board, warm ink, chunky outlines with hard drop shadows and Baloo 2 for all text. The mark is a green board in a chalk-colored frame with a tray and two pieces of chalk. The whole background takes the active team’s pastel, with a stronger dot as its marker, so every screen tells you whose turn it is. Each difficulty level has its own tint and icon. The copy is playful Turkish, like “Süre bitti, kalemler yere!”, time’s up, pens down.',
+          tr: 'İlk sürüm gürültülü bir mavi, sarı ve limon yeşili çizgi filmdi. Bir süre sonra onu bir yazı tahtası olarak yeniden çizdim; önce bir tasarım tuvalinde, sonra SwiftUI’da: krem kâğıt, koyu yeşil tahta, sıcak mürekkep, sert gölgeli tombul konturlar ve tüm metinlerde Baloo 2. İşaret, tebeşir renkli bir çerçevede yeşil bir tahta; altında bir oluk ve iki parça tebeşir var. Arka planın tamamı oynayan takımın pastelini alıyor, işaretçisi daha koyu bir nokta; böylece her ekran sıranın kimde olduğunu söylüyor. Her zorluk seviyesinin kendi tonu ve ikonu var. Metinler esprili bir Türkçe: “Süre bitti, kalemler yere!” gibi.',
         ),
       ],
     ),
@@ -229,8 +229,8 @@ const chalko = Project(
     (_app, 'Swift, SwiftUI, Observation'),
     (L('Data', tr: 'Veri'), 'UserDefaults, bundled word lists'),
     (L('Sound', tr: 'Ses'), 'AVAudioPlayer, UIFeedbackGenerator, 24 original sounds made with a Python script'),
-    (L('Design', tr: 'Tasarım'), 'Claude Design canvas, Baloo 2'),
-    (L('Tooling', tr: 'Araçlar'), 'XcodeGen, Xcode UI tests, Claude Code, Google Antigravity'),
+    (L('Design', tr: 'Tasarım'), 'Design canvas, Baloo 2'),
+    (L('Tooling', tr: 'Araçlar'), 'XcodeGen, Xcode UI tests, AI coding assistants'),
   ],
   links: [
     (L('Privacy policy', tr: 'Gizlilik politikası'), 'https://ahmetkadircicek.com.tr/chalko/privacy'),
