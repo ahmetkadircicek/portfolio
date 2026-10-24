@@ -49,7 +49,7 @@ Pages are in English at `/` and in Turkish under `/tr`; the address decides the 
 
 ## Content
 
-Every text is in English and Turkish (`L` in `lib/core/l10n/l10n.dart`); a text without both does not compile. The design is the Claude Design canvas "Portfolyo yenileme".
+Every text is in English and Turkish (`L` in `lib/core/l10n/l10n.dart`); a text without both does not compile. The design is the "Portfolyo yenileme" canvas.
 
 | What | Where |
 | --- | --- |
