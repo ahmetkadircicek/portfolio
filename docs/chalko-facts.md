@@ -24,7 +24,7 @@ Chalko is a Turkish pass-and-play party game for iPhone and iPad. One player dra
 
 ## Role, platform, dates, status
 
-- Solo project: idea, product decisions, design and development by Ahmet Kadir Çiçek, built with AI coding assistants (Claude Code and Google Antigravity).
+- Solo project: idea, product decisions, design and development by Ahmet Kadir Çiçek, built with AI coding assistants (Google Antigravity).
 - iOS 17+, iPhone and iPad, portrait only. On iPad the content sits in a centered column up to 600 pt wide. Turkish only. Free, offline, no ads, no accounts, no in-app purchases.
 - Bundle identifier `com.ahmetkadircicek.chalko`.
 - Started 16 October 2026.
@@ -44,7 +44,7 @@ Chalko is a Turkish pass-and-play party game for iPhone and iPad. One player dra
 
 ## Design decisions
 
-- A chalkboard look, drawn first in a Claude Design canvas and then ported to SwiftUI: cream paper (#FFF3DC), a deep green board (#2E6F5E), warm ink (#2F2A24), chunky outlines with hard drop shadows, and Baloo 2 (bundled, SIL OFL) for all text.
+- A chalkboard look, drawn first in a design canvas and then ported to SwiftUI: cream paper (#FFF3DC), a deep green board (#2E6F5E), warm ink (#2F2A24), chunky outlines with hard drop shadows, and Baloo 2 (bundled, SIL OFL) for all text.
 - The Chalko mark is a green chalkboard in a chalk-colored frame (#F2C98B) with a tray and two pieces of chalk. The app icon is the green board with the white wordmark and the tray; the launch screen is the same green with the white wordmark.
 - The whole background takes the active team's pastel: red #FFC9D1, blue #BFE0FF, green #C3EBD6, yellow #FFEDB0. Small markers use stronger dots (#F0647A, #5BA8F0, #3DB383, #F5C242). Danger red is #C9372F.
 - Each level has its own tint and icon on the level screen: Çöp Adam, Karalamacı, Ressam and Dalí.

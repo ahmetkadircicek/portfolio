@@ -231,7 +231,7 @@ const chalko = Project(
     (_app, 'Swift, SwiftUI, Observation'),
     (L('Data', tr: 'Veri'), 'UserDefaults, bundled word lists'),
     (L('Sound', tr: 'Ses'), 'AVAudioPlayer, UIFeedbackGenerator, CC0 sounds from Kenney.nl'),
-    (L('Tooling', tr: 'Araçlar'), 'XcodeGen, Xcode UI tests, Claude Code, Google Antigravity'),
+    (L('Tooling', tr: 'Araçlar'), 'XcodeGen, Xcode UI tests, Google Antigravity'),
   ],
   links: [
     (L('Privacy policy', tr: 'Gizlilik politikası'), 'https://ahmetkadircicek.com.tr/chalko/privacy'),
